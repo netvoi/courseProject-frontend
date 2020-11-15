@@ -1,0 +1,37 @@
+/* Materialize new select styles */
+.select-wrapper input.select-dropdown {
+    border-color: $primary;
+    color: $primary;
+
+    font-size: 1.6rem;
+    font-family: "Inter", sans-serif;
+    font-weight: normal;
+
+    &:focus,
+    &:hover {
+      border-color: $secondary;
+    }
+}
+
+.dropdown-content li>span {
+    color: $primary;
+}
+
+input[type=search]:not(.browser-default):focus:not([readonly]) {
+    border-bottom: 1px solid $secondary;
+    box-shadow: 0 1px 0 0 $secondary;
+}
+
+input[type=search]:not(.browser-default) {
+  border-bottom: 1px solid $primary;
+  box-shadow: none;
+}
+
+.dropdown-content li > a {
+  position: relative;
+  color: $primary;
+
+  &:hover {
+    text-decoration: none;
+  }
+}

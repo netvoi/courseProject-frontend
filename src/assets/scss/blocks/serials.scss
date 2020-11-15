@@ -1,0 +1,31 @@
+.serials {
+    padding: 1rem 0 9rem;
+}
+
+.serials__header {
+    width: 30%;
+    margin: 0 auto;
+
+    text-align: center;
+}
+
+.serials__title {
+    display: inline-block;
+    position: relative;
+
+    margin-bottom: 2rem;
+    
+    &:before {
+        content: '';
+        
+        position: absolute;
+        left: -3.5rem;
+
+        width: 24px;
+        height: 24px;
+
+        background: url('../img/menu.svg') no-repeat center;
+        background-size: 24px;
+    }
+}
+

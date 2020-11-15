@@ -1,0 +1,87 @@
+.info {
+  padding: .5rem;
+  font-family: 'Inter', sans-serif;
+  color: $primary;
+
+  max-height: 500px;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+    background-color: rgba($primary, .3);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $primary;
+  }
+}
+
+.info__header {
+  margin-bottom: 2rem;
+}
+
+.info__title {
+  position: relative;
+  label {
+    cursor: pointer;
+
+    display: inline-block;
+    margin-left: 1rem;
+
+    width: 31px;
+    height: 31px;
+
+    position: absolute;
+    top: 0;
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 31px;
+  }
+
+  input {
+    display: none;
+  }
+
+  input:checked + label {
+    background-image: url('../img/watched.svg');
+  }
+
+  input:not(:checked) + label {
+    background-image: url('../img/notWatched.svg');
+  }
+}
+
+
+.info__subtitle,
+.info__content-item {
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  font-weight: 400;
+}
+
+.info__subtitle {
+  color: rgba($primary, .8);
+}
+
+.info__content-item{
+  margin-bottom: 0.6rem;
+
+  display: flex;
+
+  span {
+    min-width: 150px;
+    max-width: 150px;
+  }
+
+  &--description {
+    position: relative;
+    margin-top: 2rem;
+  }
+}
+
+.info__description-text {
+  & + & {
+    margin-top: 1rem;
+  }
+}

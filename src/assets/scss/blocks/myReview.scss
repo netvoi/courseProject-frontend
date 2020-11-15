@@ -1,0 +1,87 @@
+.myReview {
+  padding: 3rem 0;
+
+  color: #4F4F4F;
+}
+
+.myReview__title {
+  color: $primary;
+}
+
+.myReview__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.myReview__text {
+  flex-basis: 95%;
+
+  font-size: 1.4rem;
+  line-height: 2.2rem;
+
+  p {
+    word-break: break-all;
+    max-height: 250px;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+      background-color: rgba($primary, .3);
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      background-color: $primary;
+    }
+  }
+}
+
+.myReview__options {
+  padding: .5rem;
+
+  flex-basis: 5%;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-end;
+
+  &-item {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 18px 18px;
+    border: none;
+    width: 18px;
+    height: 18px;
+
+    cursor: pointer;
+
+    transition: transform .5s linear;
+
+    &--edit {
+      background-image: url('../img/edit.svg');
+    }
+
+    &--delete {
+      background-image: url('../img/delete.svg');
+    }
+
+    &:hover,
+    &:focus {
+      outline: none;
+    }
+
+    &:focus {
+      background-color: transparent;
+    }
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    & + & {
+      margin-top: 1.5rem;
+    }
+  }
+}

@@ -1,0 +1,41 @@
+.separator {
+  &:after {
+    content: '';
+    display: block;
+
+    margin: 0 auto;
+
+    width: 97%;
+    height: 1px;
+
+    position: relative;
+    top: 2.9rem;
+
+    background-color: $primary;
+  }
+}
+
+.underline {
+  &:after {
+    content: '';
+    width: 0;
+    height: 1.5px;
+
+    position: absolute;
+    left: 0;
+    bottom: -.2rem;
+
+    background-color:$primary;
+    transition: width .2s linear,color .2s linear, background-color .2s linear;
+}
+
+  &:hover {
+    &:after {
+        width: 100%;
+    }
+  }
+}
+
+.width--sm {
+  width: 33.333%;
+}

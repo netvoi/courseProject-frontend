@@ -1,0 +1,116 @@
+.btn {
+  display: block;
+
+  padding: .4rem 1.8rem .4rem 1rem;
+
+  text-align: center;
+
+  font-size: 1.6rem;
+  line-height: 2.2rem;
+  font-weight: 400;
+
+  color: #fff;
+  cursor: pointer;
+
+  border: 2px solid transparent;
+  border-radius: .8rem;
+  background-color: $primary;
+
+  transition: background .2s ease;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), #092C4C;
+  }
+
+  &:active {
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), #092C4C;
+  }
+
+  &:disabled {
+    background: #E0E0E0;
+  }
+
+  &:after {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+
+    position: relative;
+    left: 1rem;
+    top: -.1rem;
+
+    width: 16px;
+    height: 16px;
+
+    background-repeat: no-repeat;
+    background-size: 16px;
+    background-position: center;
+  }
+
+  & + & {
+    margin-left: 1.5rem;
+  }
+
+  &--add {
+    &::after {
+      background-image: url('../img/add-friend-icon.svg');
+    }
+  }
+
+  &--message {
+    &::after {
+      background-image: url('../img/message-icon.svg');
+    }
+  }
+
+  &--delete {
+    &::after {
+      background-image: url('../img/remove-friend-icon.svg');
+    }
+  }
+
+  &--light {
+    padding: .4rem 1rem;
+    box-shadow: none;
+
+    background-color: #fff;
+    color: $primary;
+
+    &:after {
+      display: none;
+    }
+
+    &:hover {
+      background-color: $secondary;
+      color: #fff;
+    }
+}
+
+  &--modal {
+    padding: .4rem 1rem;
+    box-shadow: none;
+
+    width: 40%;
+
+    margin: 0 auto!important;
+
+    &::after {
+      display: none;
+    }
+  }
+
+  &--form {
+    padding: .4rem 1rem;
+    box-shadow: none;
+
+    width: 140px;
+
+    &::after {
+      display: none;
+    }
+  }
+}

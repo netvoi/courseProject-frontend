@@ -1,0 +1,108 @@
+/* Bootstrap grid & materialize components */
+@import '~materialize-css/sass/materialize.scss';
+
+/* Переменные и хелперы */
+@import 'vars.scss';
+@import 'helpers.scss';
+
+/* Измененные стили materialize */
+@import "@/assets/scss/_materialize-styles.scss";
+
+/* Blocks________________________________ */
+@import '@/assets/scss/blocks/title.scss';
+@import '@/assets/scss/blocks/modal.scss';
+@import '@/assets/scss/blocks/btn.scss';
+@import '@/assets/scss/blocks/datetime.scss';
+
+/* About */
+@import '@/assets/scss/blocks/about.scss';
+
+/* Footer */
+@import '@/assets/scss/blocks/footer.scss';
+
+/* Friends */
+@import '@/assets/scss/blocks/friends.scss';
+
+/* Header */
+@import '@/assets/scss/blocks/header.scss';
+@import '@/assets/scss/blocks/logo.scss';
+@import '@/assets/scss/blocks/menu.scss';
+
+/* My review */
+@import '@/assets/scss/blocks/myReview.scss';
+@import '@/assets/scss/blocks/review-form.scss';
+
+/* Other review */
+@import '@/assets/scss/blocks/otherReview.scss';
+
+/* User serials */
+@import '@/assets/scss/blocks/serials.scss';
+@import '@/assets/scss/blocks/card.scss';
+
+/* Rating */
+@import '@/assets/scss/blocks/rating.scss';
+@import '@/assets/scss/blocks/checkbox.scss';
+
+/* Series info */
+@import '@/assets/scss/blocks/info.scss';
+
+/* Tabs */
+@import '@/assets/scss/blocks/tabs.scss';
+
+/* User info */
+@import '@/assets/scss/blocks/user.scss';
+
+/* Filter */
+@import '@/assets/scss/blocks/filter-series.scss';
+
+/* Alphabet */
+@import '@/assets/scss/blocks/alphabet.scss';
+
+/* Filter selects */
+@import '@/assets/scss/blocks/filter-selects.scss';
+/* ______________________________________ */
+
+html {
+  font-size: 10px;
+}
+
+body {
+  font-size: 1.6rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+
+  color: $primary;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+p, ul, li {
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+h1, h2, h3, h4, h5, h6, label, p, ul, li, body {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+.main-layout {
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.page {
+  background-color: $light-gray;
+}

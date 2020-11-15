@@ -1,0 +1,48 @@
+.review-form__label {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+
+  font-size: 1.65rem;
+  font-weight: 700;
+  line-height: 2.2rem;
+
+  color: $dark-gray;
+}
+
+.review-form__textarea {
+  padding: .5rem;
+
+  height: 150px;
+  resize: none;
+
+  border: 1px solid $dark-gray;
+  border-radius: 0.8rem;
+
+  &:hover {
+    border-color: rgba($primary, .3);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $secondary;
+  }
+
+  color: $dark-gray;
+  font-family: inherit;
+  font-size: 1.4rem;
+  font-weight: 400;
+  line-height: 2.2rem;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+    background-color: rgba($primary, .3);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $primary;
+  }
+}
+
+.review-form__btn {
+  margin-top: 1rem;
+}

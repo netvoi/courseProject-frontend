@@ -1,0 +1,39 @@
+.footer {
+    margin-top: auto;
+    padding: 1.5rem 0;
+
+    background-color: #fff;
+
+    font-size: 1.4rem;
+    color: $primary;
+}
+
+.footer__link {
+    position: relative;
+
+    color: inherit;
+
+    & + & {
+        margin-left: 2rem;
+    }
+
+    &:after {
+        content: '';
+        width: 0;
+        height: 1px;
+
+        position: absolute;
+        left: 0;
+        bottom: -.2rem;
+
+        background-color:$primary;
+        transition: width .2s linear,color .2s linear, background-color .2s linear;
+    }
+
+    &:hover {
+        text-decoration: none;
+        &:after {
+            width: 100%;
+        }
+    }
+}
