@@ -34,8 +34,8 @@
 
 <script>
 import { mapActions } from 'vuex'
-import Login from '@/components/Login.vue'
-import Register from '@/components/Register.vue'
+import Login from '@/components/Auth/Login.vue'
+import Register from '@/components/Auth/Register.vue'
 
 export default {
   name: 'auth',

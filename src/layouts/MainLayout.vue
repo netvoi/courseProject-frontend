@@ -19,6 +19,7 @@
 
     <!-- Modal windows -->
     <About />
+    <Settings />
 
     <!-- Views -->
     <router-view/>
@@ -33,6 +34,7 @@
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
 import About from '@/components/About.vue'
+import Settings from '@/components/Settings.vue'
 import Search from '@/components/Search.vue'
 
 import { mapActions, mapGetters } from 'vuex'
@@ -46,6 +48,7 @@ export default {
     Header,
     Footer,
     About,
+    Settings,
     Search,
   },
   methods: {

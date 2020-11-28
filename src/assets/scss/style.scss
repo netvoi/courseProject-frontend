@@ -3,74 +3,64 @@
 
 /* Переменные и хелперы */
 @import 'vars.scss';
-// @import 'helpers.scss';
+@import 'helpers.scss';
+
+/* Анимации */
+@import 'animation.scss';
 
 /* Измененные стили materialize */
 @import "@/assets/scss/_materialize-styles.scss";
 
-/* Blocks________________________________ */
-@import '@/assets/scss/blocks/title.scss';
-@import '@/assets/scss/blocks/modal.scss';
-@import '@/assets/scss/blocks/btn.scss';
-@import '@/assets/scss/blocks/datetime.scss';
-
-/* About */
+/* Blocks */
 @import '@/assets/scss/blocks/about.scss';
-
-/* Footer */
 @import '@/assets/scss/blocks/footer.scss';
-
-/* Friends */
-@import '@/assets/scss/blocks/friends.scss';
-
-/* Header */
 @import '@/assets/scss/blocks/header.scss';
-@import '@/assets/scss/blocks/logo.scss';
-@import '@/assets/scss/blocks/menu.scss';
-
-/* My review */
-@import '@/assets/scss/blocks/myReview.scss';
-@import '@/assets/scss/blocks/review-form.scss';
-
-/* Other review */
-@import '@/assets/scss/blocks/otherReview.scss';
-
-/* User serials */
-@import '@/assets/scss/blocks/serials.scss';
-@import '@/assets/scss/blocks/card.scss';
-
-/* Rating */
-@import '@/assets/scss/blocks/rating.scss';
-@import '@/assets/scss/blocks/checkbox.scss';
-
-/* Series info */
-@import '@/assets/scss/blocks/info.scss';
-
-/* Tabs */
-@import '@/assets/scss/blocks/tabs.scss';
-
-/* User info */
-@import '@/assets/scss/blocks/user.scss';
-
-/* Filter */
-@import '@/assets/scss/blocks/filter-series.scss';
-
-/* Alphabet */
-@import '@/assets/scss/blocks/alphabet.scss';
-
-/* Filter selects */
-@import '@/assets/scss/blocks/filter-selects.scss';
-
-@import '@/assets/scss/blocks/inset.scss';
-@import '@/assets/scss/blocks/auth.scss';
-@import '@/assets/scss/blocks/form.scss';
+@import '@/assets/scss/blocks/settings.scss';
 @import '@/assets/scss/blocks/sidebar.scss';
-@import '@/assets/scss/blocks/chat.scss';
-@import '@/assets/scss/blocks/dialog.scss';
-@import '@/assets/scss/blocks/messages.scss';
-/* ______________________________________ */
 
-@import 'helpers.scss';
+/* Elements */
+@import '@/assets/scss/blocks/Elements/btn.scss';
+@import '@/assets/scss/blocks/Elements/card.scss';
+@import '@/assets/scss/blocks/Elements/checkbox.scss';
+@import '@/assets/scss/blocks/Elements/logo.scss';
+@import '@/assets/scss/blocks/Elements/menu.scss';
+@import '@/assets/scss/blocks/Elements/modal.scss';
+@import '@/assets/scss/blocks/Elements/rating.scss';
+@import '@/assets/scss/blocks/Elements/search.scss';
+@import '@/assets/scss/blocks/Elements/title.scss';
+@import '@/assets/scss/blocks/Elements/upload.scss';
+
+/* Auth view */
+@import '@/assets/scss/blocks/Auth/auth.scss';
+@import '@/assets/scss/blocks/Auth/form.scss';
+
+/* Dialog view */
+@import '@/assets/scss/blocks/Dialog/dialog.scss';
+@import '@/assets/scss/blocks/Dialog/messages.scss';
+
+/* Inbox */
+@import '@/assets/scss/blocks/Inbox/chat.scss';
+
+/* ListSerials */
+@import '@/assets/scss/blocks/ListSerials/alphabet.scss';
+@import '@/assets/scss/blocks/ListSerials/filter-series.scss';
+@import '@/assets/scss/blocks/ListSerials/select.scss';
+
+/* TvSeries */
+@import '@/assets/scss/blocks/TvSeries/datetime.scss';
+@import '@/assets/scss/blocks/TvSeries/info.scss';
+@import '@/assets/scss/blocks/TvSeries/myReview.scss';
+@import '@/assets/scss/blocks/TvSeries/otherReview.scss';
+@import '@/assets/scss/blocks/TvSeries/review-form.scss';
+@import '@/assets/scss/blocks/TvSeries/tabs.scss';
+
+/* User */
+@import '@/assets/scss/blocks/User/friends.scss';
+@import '@/assets/scss/blocks/User/inset.scss';
+@import '@/assets/scss/blocks/User/serials.scss';
+@import '@/assets/scss/blocks/User/seriesStatistic.scss';
+@import '@/assets/scss/blocks/User/user.scss';
+
 
 html {
   font-size: 10px;

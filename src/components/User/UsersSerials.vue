@@ -55,10 +55,10 @@
                   ></star-rating>
                 </div>
                 <div class="card__mask-item" v-if="item.is_favourite">
-                  <img src="@/assets/img/heart-icon.svg" alt="">
+                  <img src="@/assets/img/rating-icons/favourite.svg" alt="favourite">
                 </div>
                 <div class="card__mask-item" v-if="item.is_recommendation">
-                  <img src="@/assets/img/bookmark-checked.svg" alt="">
+                  <img src="@/assets/img/rating-icons/bookmark.svg" alt="bookmark">
                 </div>
                 <router-link
                   class="btn btn--light"

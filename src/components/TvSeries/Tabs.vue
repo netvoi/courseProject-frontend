@@ -32,8 +32,8 @@
 </template>
 
 <script>
-import MyReview from '@/components/MyReview.vue';
-import OtherReview from '@/components/OtherReview.vue';
+import MyReview from '@/components/TvSeries/MyReview.vue';
+import OtherReview from '@/components/TvSeries/OtherReview.vue';
 
 export default {
   name: 'tabs',

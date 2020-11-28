@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import SelectorField from '@/components/SelectorField.vue'
+import SelectorField from '@/components/ListSerials/SelectorField.vue'
 
 export default {
   name: 'filter-series',

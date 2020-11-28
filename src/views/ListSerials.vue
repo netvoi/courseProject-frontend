@@ -25,8 +25,8 @@
 </template>
 
 <script>
-import FilterSeries from '@/components/FilterSeries.vue';
-import Alphabet  from '@/components/Alphabet.vue';
+import FilterSeries from '@/components/ListSerials/FilterSeries.vue';
+import Alphabet  from '@/components/ListSerials/Alphabet.vue';
 
 import {  mapActions, mapGetters } from 'vuex'
 

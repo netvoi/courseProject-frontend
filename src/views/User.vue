@@ -48,9 +48,9 @@
 </template>
 
 <script>
-import UserInfo from '@/components/UserInfo.vue';
-import UsersSerials from '@/components/UsersSerials.vue';
-import Friends from '@/components/Friends.vue';
+import UserInfo from '@/components/User/UserInfo.vue';
+import UsersSerials from '@/components/User/UsersSerials.vue';
+import Friends from '@/components/User/Friends.vue';
 
 import { mapActions, mapGetters } from 'vuex'
 

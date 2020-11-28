@@ -44,7 +44,6 @@
             ><span></span>
             </router-link>
 
-            <!-- Dropdown Trigger -->
             <div class="dropdown menu__avatar">
               <a
                 class='dropdown-trigger'
@@ -59,12 +58,32 @@
                 </div>
               </a>
 
-              <!-- Dropdown Structure -->
               <ul id='dropdown1' class='dropdown-content'>
-                <li><a :href="`/user/${ ME.userId }`">Профиль</a></li>
-                <li><router-link tag="a" to="#seting">Настройки</router-link></li>
-                <hr>
-                <li @click.prevent="logout"><router-link tag="a" to="#logout">Выход</router-link></li>
+                <li>
+                  <router-link
+                    tag="a" 
+                    :to="`/user/${ ME.userId }`"
+                  >Профиль</router-link>
+                </li>
+                <li>
+                  <!-- <router-link
+                    tag="a"
+                    to="#seting"
+                  >Настройки</router-link> -->
+                  <!-- <a
+                    class="waves-effect modal-trigger"
+                    href="#modalSettings"
+                  >Настройки</a> -->
+                  <a class="waves-effect modal-trigger" href="#modal3">Настройки</a>
+
+
+                </li>
+                <li @click.prevent="logout">
+                  <router-link
+                    tag="a"
+                    to="#logout"
+                  >Выход</router-link>
+                </li>
               </ul>
             </div>
           </div>

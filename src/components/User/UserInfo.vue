@@ -151,43 +151,4 @@ export default {
 </script>
 
 <style lang="scss">
-  .series-statisctic {
-    margin: 0 auto;
-    display: none;
-    flex-direction: column;
-
-    position: absolute;
-    bottom: -5.5rem;
-    left: 0;
-    right: 0;
-    
-    text-align: center;
-  }
-
-  .showTtip {
-    display: flex;
-  }
-
-  .series-fav,
-  .series-rec {
-    font-size: 1.2rem;
-    color:#092C4C;
-
-    span {
-      display: inline-block;
-      padding: 0 1rem;
-    }
-  }
-
-  .series-fav {
-    span {
-      color: #EB5757;
-    }
-  }
-
-  .series-rec {
-    span {
-      color: #27AE60;
-    }
-  }
 </style>

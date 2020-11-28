@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import FriendListTemplate from '@/components/FriendListTemplate.vue'
+import FriendListTemplate from '@/components/User/FriendListTemplate.vue'
 import statusFriendship from '@/utils/statusFriendship'
 
 export default {

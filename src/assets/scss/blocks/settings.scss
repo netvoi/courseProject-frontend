@@ -1,0 +1,49 @@
+.settings {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+
+  color: $primary;
+}
+
+.settings__header {
+  text-align: center;
+}
+
+.settings__content {
+  display: flex;
+  align-items: center;
+}
+
+.settings__image,
+.settings__data {
+  padding: 2rem;
+  width: 50%;
+}
+
+.settings__image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.settings__image-wrapper {
+  width: 250px;
+  height: 250px;
+}
+
+.settings__form {
+  margin: 0 auto;
+  width: 60%;
+}
+
+.settings__form-item {
+  label {
+    user-select: none;
+
+    font-family: inherit;
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: inherit;
+  }
+}

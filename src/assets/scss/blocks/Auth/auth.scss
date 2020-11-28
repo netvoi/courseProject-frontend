@@ -85,22 +85,3 @@
     }
   }
 }
-
-.fade-title-enter-active, .fade-title-leave-active,
-.fade-subtitle-enter-active, .fade-subtitle-leave-active {
-  animation-name: test;
-  animation-duration: 3.2s;
-  animation-direction: alternate;
-}
-
-.fade-title-enter-active, .fade-title-leave-active {
-  animation-delay: 1s;
-}
-
-.fade-subtitle-enter-active, .fade-subtitle-leave-active {
-  animation-delay: 4s;
-}
-
-@keyframes test {
-  from { opacity: 0; } to { opacity: 1; }
-}

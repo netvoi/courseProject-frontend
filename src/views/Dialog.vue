@@ -43,7 +43,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import Message from '@/components/Message.vue'
+import Message from '@/components/Dialog/Message.vue'
 
 export default {
   name: 'chat-dialog',
