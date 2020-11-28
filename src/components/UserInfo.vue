@@ -6,8 +6,11 @@
           class="user__photo ml-auto mr-auto"
           v-if="user.id"
         >
-          <img
+          <!-- <img
             :src="require(`@/assets/img/${pathUserAvatar[user.id].url}`)"
+            alt="avatar"> -->
+            <img
+            src="@/assets/img/avatar.svg"
             alt="avatar">
         </div>
       </div>
@@ -17,38 +20,71 @@
         <div class="user__info">
           <div class="user__header">
             <h1 class="title--h1">{{ user.first_name }} {{ user.last_name }}</h1>
-            <p class="user__status">Таков путь<span id="status"></span></p>
+            <!-- <p class="user__status">Таков путь<span id="status"></span></p> -->
           </div>
-
           <div class="user__links">
             <a href="#modal1" class="user__link modal-trigger">
-                Друзей: <span id="friendCount">0</span>
+                Друзей: <span id="friendCount">{{ countFriends }}</span>
             </a>
-            <router-link tag="a" to="#" class="user__link">
-              Сериалов просмотренно: <span>{{ statistic.count_watched }}</span>
-            </router-link>
-            <router-link tag="a" to="#" class="user__link">
-              Избранное: <span>{{ statistic.count_favourite }}</span>
-            </router-link>
+            <a
+              href="#serials"
+              class="user__link"
+              @mouseover="isActive = true"
+              @mouseleave="isActive = false"
+            >
+              Сериалов просмотренно: <span>{{ statistic.countSeries }}</span>
+              <div class="series-statisctic" :class="{ showTtip: isActive }">
+                <small class="series-fav">Избранное:<span>{{ statistic.countFav }}</span></small>
+                <small class="series-rec">Рекомендуемое:<span>{{ statistic.countRec }}</span></small>
+              </div>
+            </a>
           </div>
-
-          <div class="user__buttons" v-if="myId !== Number(userId)">
-            <button class="btn btn--add" type="button">Добавить<span></span></button>
-            <button class="btn btn--message" type="button">Отправить сообщение</button>
+          <div class="user__buttons" v-if="myId !== userId">
+            <button
+              class="btn btn--delete"
+              v-if="myFriendList.includes(user.id)"
+              @click.prevent="cancel(user.id)"
+            >Удалить<span></span></button>
+            <div
+              class="btn__block"
+              v-else-if="requestToMeList.includes(user.id)"
+            >
+              <button
+                class="btn btn--add"
+                @click.prevent="confirm(user.id)"
+              >Принять<span></span></button>
+              <button
+                class="btn btn--delete"
+                @click.prevent="cancel(user.id)"
+              >Отклонить<span></span></button>
+            </div>
+            <button
+              class="btn btn--delete"
+              v-else-if="requestFromMeList.includes(user.id)"
+              @click.prevent="cancel(user.id)"
+            >Отменить заявку<span></span></button>
+            <button
+              class="btn btn--add"
+              v-else
+              @click.prevent="request(user.id)"
+            >Добавить<span></span></button>
+            <button
+              class="btn btn--message"
+            >Отправить сообщение</button>
           </div>
         </div>
       </div>
-      <!-- /.col -->
     </div>
-    <!-- /.row -->
   </div>
-  <!-- /.user -->
 </template>
 
 <script>
 
 export default {
   name: 'UserInfo',
+  data: () => ({
+    isActive: false
+  }),
   props: {
     user: {
       type: Object,
@@ -67,33 +103,91 @@ export default {
       default: null
     },
     userId: {
-      type: String,
+      type: Number,
       default: null
+    },
+    countFriends: {
+      type: Number,
+      default: null
+    },
+
+    myFriendList: {
+      type: Array,
+      default() {
+        return []
+      }
+    },
+    requestFromMeList: {
+      type: Array,
+      default() {
+        return []
+      }
+    },
+    requestToMeList: {
+      type: Array,
+      default() {
+        return []
+      }
+    },
+  },
+  methods: {
+    confirm(id) {
+      this.$emit('confirm', id)
+    },
+    cancel(id) {
+      this.$emit('cancel', id)
+    },
+    request(id) {
+      this.$emit('request', id)
+    },
+    favourite() {
+      this.$emit('favourite')
+    },
+    mouseOver() {
+      this.isActive = !this.isActive
     }
   },
-  data: () => ({
-    pathUserAvatar: [
-      { url: 'avatar0.jpg' },
-      { url: 'avatar1.jpg' },
-      { url: 'avatar2.jpg' },
-      { url: 'avatar3.jpg' },
-      { url: 'avatar4.jpg' },
-      { url: 'avatar5.jpg' },
-      { url: 'avatar0.jpg' },
-      { url: 'avatar0.jpg' },
-      { url: 'avatar0.jpg' },
-      { url: 'avatar0.jpg' },
-      { url: 'avatar0.jpg' },
-      { url: 'avatar0.jpg' },
-      { url: 'avatar0.jpg' },
-      { url: 'avatar0.jpg' },
-      { url: 'avatar0.jpg' },
-      { url: 'avatar0.jpg' },
-      { url: 'avatar0.jpg' },
-    ],
-  }),
 };
 </script>
 
 <style lang="scss">
+  .series-statisctic {
+    margin: 0 auto;
+    display: none;
+    flex-direction: column;
+
+    position: absolute;
+    bottom: -5.5rem;
+    left: 0;
+    right: 0;
+    
+    text-align: center;
+  }
+
+  .showTtip {
+    display: flex;
+  }
+
+  .series-fav,
+  .series-rec {
+    font-size: 1.2rem;
+    color:#092C4C;
+
+    span {
+      display: inline-block;
+      padding: 0 1rem;
+    }
+  }
+
+  .series-fav {
+    span {
+      color: #EB5757;
+    }
+  }
+
+  .series-rec {
+    span {
+      color: #27AE60;
+    }
+  }
 </style>

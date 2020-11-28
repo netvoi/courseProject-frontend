@@ -2,7 +2,7 @@
   <div class="filter-series">
     <h2 class="filter-series__header">Фильтры</h2>
 
-    <form class="filter-series__form">
+    <form class="filter-series__form" @click.stop="">
       <SelectorField
         @selectedOption="selectedOption"
         v-for="(field, name, index) in filterFields"
@@ -11,7 +11,6 @@
         :nameKey="name"
         :nameOption="selected[name]"
       />
-
       
       <div class="filter-series__buttons">
         <button @click.prevent="findWithFilter">Найти</button>

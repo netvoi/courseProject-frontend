@@ -16,11 +16,15 @@
         <div class="col-4">
           <form class="" action="/">
             <input
-            class=""
-            id="search-serial"
-            type="search"
-            name="search-serial"
-            placeholder="Search">
+              class=""
+              id="search-serial"
+              type="search"
+              name="search-serial"
+              placeholder="Search"
+              v-model="search"
+              @input="foundSeries"
+              autocomplete="off"
+            >
           </form>
         </div>
 
@@ -42,17 +46,22 @@
 
             <!-- Dropdown Trigger -->
             <div class="dropdown menu__avatar">
-              <a class='dropdown-trigger' href='#' data-target='dropdown1' ref="dropdown">
+              <a
+                class='dropdown-trigger'
+                href='#'
+                data-target='dropdown1'
+                ref="dropdown"
+              >
                 <div class="menu__btn">
                   <img
-                    src="@/assets/img/avatar0.jpg"
+                    src="@/assets/img/avatar.svg"
                     alt="avatar">
                 </div>
               </a>
 
               <!-- Dropdown Structure -->
               <ul id='dropdown1' class='dropdown-content'>
-                <li><router-link tag="a" :to="`/user/${ ME.userId }`">Профиль</router-link></li>
+                <li><a :href="`/user/${ ME.userId }`">Профиль</a></li>
                 <li><router-link tag="a" to="#seting">Настройки</router-link></li>
                 <hr>
                 <li @click.prevent="logout"><router-link tag="a" to="#logout">Выход</router-link></li>
@@ -73,7 +82,12 @@
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
-  name: 'Header',
+  name: 'main-header',
+  data: () => ({
+    search: ''
+  }),
+  props: {
+  },
   methods: {
     ...mapActions([
       'LOGOUT',
@@ -82,20 +96,32 @@ export default {
     logout() {
       this.LOGOUT()
         .then(() => {
-          this.$router.push('/login')
+          this.$router.push('/auth')
         })
     },
+    foundSeries() {
+      this.search.length >= 3
+      ? this.$emit('searchStatus', true, this.search)
+      : this.$emit('searchStatus', false)
+    }
   },
   mounted() {
     this.dropdown = M.Dropdown.init(this.$refs.dropdown, {
       constrainWidth: false,
-    });
+    })
     this.GET_ME()
   },
   computed: {
     ...mapGetters([
       'ME'
     ])
+  },
+  watch: {
+    $route (to, from) {
+      if(to.path !== from.path) {
+        this.search = ''
+      }
+    }
   }
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div class="page">
+  <div @click="closeFilter">
     <div class="container">
       <div class="row">
         <div class="col-3">
@@ -42,7 +42,8 @@ export default {
       'GET_FILTERED_ALPHABET',
       'STATUS_LIST',
       'GET_DROP_FILTERED_ALPHABET',
-      'GET_FILTER_FIELDS'
+      'GET_FILTER_FIELDS',
+      'FIELD_NOT_VISIBLE'
     ]),
     filterOption(item, nameKey) {
       // this.GET_FILTERED_ALPHABET({item, nameKey})
@@ -55,6 +56,9 @@ export default {
     },
     dropFilters() {
       this.GET_DROP_FILTERED_ALPHABET()
+    },
+    closeFilter() {
+      this.FIELD_NOT_VISIBLE()
     }
   },
   mounted() {

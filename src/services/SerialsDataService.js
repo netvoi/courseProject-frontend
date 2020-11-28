@@ -2,23 +2,23 @@ import http from '../http-common'
 
 class SerialsDataService {
   getAll() {
-    return http.get('/serial')
+    return http.request().get('/serial')
   }
 
   get(id) {
-    return http.get(`/serial/id${id}`)
+    return http.request().get(`/serial/id${id}`)
   }
 
   findFirstLetter() {
-    return http.get(`/serial/firstLetter/letter`)
+    return http.request().get(`/serial/firstLetter/letter`)
   }
 
   findWithFirstLetter(symbol) {
-    return http.get(`/serial/letter/${symbol}`)
+    return http.request().get(`/serial/letter/${symbol}`)
   }
 
   filters() {
-    return http.get('serial/filters')
+    return http.request().get('serial/filters')
   }
 }
 

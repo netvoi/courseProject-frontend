@@ -1,10 +1,15 @@
 .otherReview {
-  padding: 3rem 0;
+  padding: 2rem 0;
 
   font-family: 'Inter', sans-serif;
   font-weight: 400;
 
   color: #4F4F4F;
+
+  min-height: 250px;
+  max-height: 600px;
+
+  overflow: auto;
 }
 
 .otherReview__subtitle {

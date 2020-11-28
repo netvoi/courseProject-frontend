@@ -41,7 +41,7 @@
       >
         <div class="myReview__text">
           <p>{{ review }}</p>
-          <div class="datetime"><span>{{ dateTime }}</span></div>
+          <div class="datetime"><span>{{ date }}</span></div>
         </div>
   
         <div class="myReview__options">
@@ -101,6 +101,10 @@ export default {
     review: {
       type: String,
       default: ''
+    },
+    date: {
+      type: String,
+      default: ''
     }
   },
   components: { Rating },
@@ -115,22 +119,21 @@ export default {
       this.$emit('setRating', rating)
     },
     setReview(review) {
-      this.$emit('setReview', review)
+      this.dateTime = this.getDateTime()
+
+      this.$emit('setReviewAndDate', review, this.dateTime)
+
       this.changedTextReview = null
       this.textReview = ''
-
-      this.dateTime = this.getDateTime()
     },
     change() {
       this.changedTextReview = this.review
     },
     getDateTime() {
       function zero_first_format(value) {
-          if (value < 10) value = '0' + value
-          return value;
-        }
-
-      /* zero_first_format: value => value < 10 ? value = '0' + value : value */
+        if (value < 10) value = '0' + value
+        return value;
+      }
 
       const current_datetime = new Date()
       const day = zero_first_format(current_datetime.getDate())

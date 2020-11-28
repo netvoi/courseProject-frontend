@@ -4,25 +4,35 @@ export default {
   state: {
     requestFromMeList: [],
     requestToMeList: [],
-    friends: []
+    myFriends: [],
+    friendList: []
   },
   actions: {
-    async GET_FRIENDS({commit}) {
-      const res = await FriendsDataService.friends()
-        .then(response => {
-          return response
-        })
-        .catch(error => {
-          return error
-        })
-        commit('SET_FRIENDS', res.data)
-    }
+    async GET_MY_FRIENDS({commit}) {
+      const res = await FriendsDataService.myFriendLists()
+        .then(response => response)
+        .catch(error => error.response)
+
+      commit('SET_MY_FRIENDS', res.data)
+      return res
+    },
+    async GET_FRIEND_LIST({commit}, id) {
+      const res = await FriendsDataService.friendList(id)
+        .then(response => response)
+        .catch(error => error.response)
+
+      commit('SET_FRIEND_LIST', res.data.friends)
+      return res
+    },
   },
   mutations: {
-    SET_FRIENDS: (state, lists) => {
-      state.friends = lists.friends
+    SET_MY_FRIENDS: (state, lists) => {
+      state.myFriends = lists.friends
       state.requestFromMeList = lists.requestFromMeList
       state.requestToMeList = lists.requestToMeList
+    },
+    SET_FRIEND_LIST: (state, friendList) => {
+      state.friendList = friendList
     }
   },
   getters: {
@@ -32,8 +42,11 @@ export default {
     REQUEST_TO_ME_LIST(state) {
       return state.requestToMeList
     },
-    FRIENDS(state) {
-      return state.friends
+    MY_FRIENDS(state) {
+      return state.myFriends
+    },
+    FRIEND_LIST(state) {
+      return state.friendList
     }
   }
 }

@@ -3,130 +3,155 @@ import UsersSerialsDataService from '@/services/UsersSerialsDataService'
 export default {
   state: {
     info: [],
-    statistic: [[]],
+    statistic: {},
     isExist: null,
     isFavourite: null,
     isRecommendation: null,
     rating: 0,
     review: '',
+    date: '',
+    userSeries: []
   },
   actions: {
-    GET_INFO_USER_SERIALS({commit}, id) {
-      return UsersSerialsDataService.getFields(id)
-        .then((item) => {
-          commit('SET_FIELDS', item.data)
-          return item
-        })
-        .catch((error) => {
-          console.log(error);
-          return error
-        })
+    async GET_INFO_USER_SERIALS({commit}, id) {
+      const res = await UsersSerialsDataService.getFields(id)
+        .then(response => response)
+        .catch(error => error.response)
+
+      res.data.series.sort((a, b) => a.created < b.created ? 1 : -1)
+      commit('SET_FIELDS', res.data.series)
+
+      const statistic = {
+        countSeries: 0,
+        countFav: 0,
+        countRec: 0,
+      }
+      res.data.series.map(s => {
+        statistic.countSeries++
+        if(s.is_favourite === true) statistic.countFav++
+        if(s.is_recommendation === true) statistic.countRec++
+      })
+      commit('SET_STATISTIC', statistic)
+
+      return res
     },
-    GET_STATISTIC({commit}, id) {
-      return UsersSerialsDataService.getStatistic(id)
-        .then((item) => {
-          commit('SET_STATISTIC', item.data)
-          return item
-        })
-        .catch((error) => {
-          console.log(error)
-          return error
-        })
-    },
-    CHANGED_WATCHED_STATUS({commit}, params) {
+    async CHANGED_WATCHED_STATUS({commit}, params) {
       const serialsId = params.id
       const isWatched = params.isWatched
-      const userId = localStorage.getItem('sub')
 
       if(isWatched) {
-        UsersSerialsDataService.addToUserSeries({
-          users_id: userId,
+        const res = await UsersSerialsDataService.addToUserSeries({
           serials_id: serialsId
         })
-          .then(res => {
-            commit('EXIST', res.data.isExist)
-          })
+          .then(resposne => resposne)
+          .catch(error => error.response)
+        
+        commit('EXIST', res.data.isExist)
+        return res
       } else {
-        UsersSerialsDataService.deleteSeriesFromUser({
-          users_id: userId,
+        const res = await UsersSerialsDataService.deleteSeriesFromUser({
           serials_id: serialsId
         })
-          .then(res => {
-            commit('EXIST', res.data.isExist)
-          })
+          .then(response => response)
+          .catch(error => error.response)
+
+          commit('EXIST', res.data.isExist)
+          return res
       }
     },
-    CHANGED_FAVOURITE_STATUS({commit} , params) {
-      console.log('CHANGED_FAVOURITE_STATUS');
+    async CHANGED_FAVOURITE_STATUS({commit} , params) {
       const seriesId = params.seriesId
       const isFavourite = params.isFavourite
-      const userId = localStorage.getItem('sub')
 
-      UsersSerialsDataService.updateFavouriteField({
-        users_id: userId,
+      const res = await UsersSerialsDataService.updateFavouriteField({
         serials_id: seriesId,
         is_favourite: isFavourite
       })
-        .then(res => {
-          commit('SET_FAVOURITE', res.data.isFavourite)
-        })
+        .then(response => response)
+        .catch(error => error.response)
+      
+      commit('SET_FAVOURITE', res.data.isFavourite)
+      return res
     },
-    CHANGED_RECOMMENDATION_STATUS({commit} , params) {
-      console.log('CHANGED_RECOMMENDATION_STATUS');
+    async CHANGED_RECOMMENDATION_STATUS({commit} , params) {
       const seriesId = params.seriesId
       const isRecommendation = params.isRecommendation
-      const userId = localStorage.getItem('sub')
 
-      UsersSerialsDataService.updateRecommendationField({
-        users_id: userId,
+      const res = await UsersSerialsDataService.updateRecommendationField({
         serials_id: seriesId,
-        is_recomendation: isRecommendation
+        is_recommendation: isRecommendation
       })
-        .then(res => {
-          commit('SET_RECOMMENDATION', res.data.isRecommendation)
-        })
+        .then(response => response)
+        .catch(error => error.response)
+
+      commit('SET_RECOMMENDATION', res.data.isRecommendation)
+      return res
     },
-    CHANGED_RATING({commit}, params) {
-      console.log('CHANGED_RATING');
+    async CHANGED_RATING({commit}, params) {
       const seriesId = params.seriesId
       const rating = params.rating
-      const userId = localStorage.getItem('sub')
 
-      UsersSerialsDataService.updateRatingField({
-        users_id: userId,
+      const res = await UsersSerialsDataService.updateRatingField({
         serials_id: seriesId,
         rating: rating
       })
-        .then(res => {
-          commit('SET_RATING', res.data.rating)
-        })
+        .then(response => response)
+        .catch(error => error.response)
+      
+      commit('SET_RATING', res.data.rating)
+      return res
     },
-    CHANGED_REVIEW({commit}, params) {
-      console.log('CHANGED_REVIEW');
+    async CHANGED_REVIEW({commit}, params) {
       const seriesId = params.seriesId
       const review = params.review
-      const userId = localStorage.getItem('sub')
 
-      UsersSerialsDataService.updateReviewField({
-        users_id: userId,
+      const res = await UsersSerialsDataService.updateReviewField({
         serials_id: seriesId,
         review: review
       })
-        .then(res => {
-          commit('SET_REVIEW', res.data.review)
-        })
+        .then(response => response)
+        .catch(error => error.response)
+
+      commit('SET_REVIEW', res.data.review)
+      return res
     },
-    GET_MARK_FIELDS({commit}, keys) {
-      UsersSerialsDataService.getMarkFields(keys)
-        .then(res => {
-          commit('SET_MARK_FIELDS', res.data)
-        })
+    async CHANGED_DATE({commit}, params) {
+      const seriesId = params.seriesId
+      const date = params.date
+      
+      const res = await UsersSerialsDataService.updateDateField({
+        serials_id: seriesId,
+        date: date
+      })
+        .then(response => response)
+        .catch(error => error.response)
+
+      commit('SET_DATE', res.data.date)
+      return res
     },
-    IS_EXIST_SERIES({commit}, keys) {
-      UsersSerialsDataService.isUserExistsSeries(keys)
-        .then(res => {
-          commit('EXIST', res.data.isExist)
-        })
+    async GET_MARK_FIELDS({commit}, keys) {
+      const res = await UsersSerialsDataService.getMarkFields(keys)
+        .then(response => response)
+        .catch(error => error.response)
+        
+      commit('SET_MARK_FIELDS', res.data)
+      return res
+    },
+    async IS_EXIST_SERIES({commit}, keys) {
+      const res = await UsersSerialsDataService.isUserExistsSeries(keys)
+        .then(response => response)
+        .catch(error => error.response)
+
+      commit('EXIST', res.data.isExist)
+      return res
+    },
+    async GET_USER_BY_SERIES({commit}, id) {
+      const res = await UsersSerialsDataService.getUserBySeries(id)
+        .then(response => response)
+        .catch(error => error.response)
+
+      commit('SET_USER_BY_SERIES', res.data.user)
+      return res
     }
   },
   mutations: {
@@ -138,9 +163,10 @@ export default {
     },
     SET_MARK_FIELDS: (state, fields) => {
       state.isFavourite = fields.is_favourite
-      state.isRecommendation = fields.is_recomendation
+      state.isRecommendation = fields.is_recommendation
       state.review = fields.review
       state.rating = fields.rating
+      state.date = fields.date_comment
     },
     EXIST: (state, isExist) => {
       state.isExist = isExist
@@ -162,14 +188,20 @@ export default {
     },
     SET_REVIEW: (state, review) => {
       state.review = review
+    },
+    SET_DATE: (state, date) => {
+      state.date = date
+    },
+    SET_USER_BY_SERIES: (state, userSeries) => {
+      state.userSeries = userSeries
     }
   },
   getters: {
     INFO(state) {
-      return state.info[0]
+      return state.info
     },
     STATISTIC(state) {
-      return state.statistic[0][0]
+      return state.statistic
     },
     IS_EXIST(state) {
       if(state.isExist !== null) {
@@ -187,6 +219,12 @@ export default {
     },
     REVIEW(state) {
       return state.review
+    },
+    DATE(state) {
+      return state.date
+    },
+    USER_SERIES(state) {
+      return state.userSeries
     }
   }
 }

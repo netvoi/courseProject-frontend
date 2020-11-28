@@ -3,7 +3,7 @@
 
 /* Переменные и хелперы */
 @import 'vars.scss';
-@import 'helpers.scss';
+// @import 'helpers.scss';
 
 /* Измененные стили materialize */
 @import "@/assets/scss/_materialize-styles.scss";
@@ -60,15 +60,25 @@
 
 /* Filter selects */
 @import '@/assets/scss/blocks/filter-selects.scss';
+
+@import '@/assets/scss/blocks/inset.scss';
+@import '@/assets/scss/blocks/login.scss';
+@import '@/assets/scss/blocks/form.scss';
+@import '@/assets/scss/blocks/sidebar.scss';
+@import '@/assets/scss/blocks/chat.scss';
+@import '@/assets/scss/blocks/dialog.scss';
+@import '@/assets/scss/blocks/messages.scss';
 /* ______________________________________ */
+
+@import 'helpers.scss';
 
 html {
   font-size: 10px;
 }
 
 body {
-  font-size: 1.6rem;
   font-family: 'Inter', sans-serif;
+  font-size: 1.6rem;
   font-weight: 400;
 
   color: $primary;
@@ -96,6 +106,10 @@ a {
   text-decoration: none;
 }
 
+#app {
+  background-color: $light-gray;
+}
+
 .main-layout {
   min-height: 100vh;
 
@@ -104,5 +118,5 @@ a {
 }
 
 .page {
-  background-color: $light-gray;
+  padding-top: 7rem;
 }

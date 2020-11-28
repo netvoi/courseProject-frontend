@@ -7,34 +7,26 @@ export default {
     someUsers: []
   },
   actions: {
-    GET_USER_FROM_DB({commit}, id) {
-      return UsersDataService.get(id)
-        .then((item) => {
-          commit('SET_USER', item.data)
-          return item
-        })
-        .catch((error) => {
-          return error
-        })
+    async GET_USER_FROM_DB({commit}, id) {
+      const user = await UsersDataService.get(id)
+        .then(response => response)
+        .catch(error => error.response)
+
+      commit('SET_USER', user.data)
     },
-    GET_ME({commit}) {
-      return UsersDataService.authUser()
-        .then(user => {
-          commit('SET_ME', user.data)
-        })
-        .catch((error) => {
-          return error
-        })
+    async GET_ME({commit}) {
+      const user = await UsersDataService.authUser()
+        .then(response => response)
+        .catch(error => error.response)
+
+      commit('SET_ME', user.data)
     },
     async GET_SOME_USERS({commit}, users) {
       const someUsers = await UsersDataService.someUsers(users)
-        .then(res => {
-          return res.data.users
-        })
-        .catch((error) => {
-          return error
-        })
-        commit('SET_SOME_USERS', someUsers)
+        .then(response => response)
+        .catch(error => error.response)
+      
+      commit('SET_SOME_USERS', someUsers.data.users)
     }
   },
   mutations: {

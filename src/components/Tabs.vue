@@ -5,15 +5,19 @@
         @changeFavouriteStatus="changeFavouriteStatus"
         @changeRecommendationStatus="changeRecommendationStatus"
         @setRating="setRating"
-        @setReview="setReview"
+        @setReviewAndDate="setReviewAndDate"
         :isFavourite="isFavourite"
         :isRecommendation="isRecommendation"
         :rating="rating"
         :review="review"
+        :date="date"
       />
     </div>
     <div id="other-review">
-      <OtherReview />
+      <OtherReview
+         :userSeries="userSeries"
+         :friendsList="friendsList"
+      />
     </div>
 
     <ul id="tabs-swipe-demo" class="tabs tabs-review" ref="tabs">
@@ -32,6 +36,7 @@ import MyReview from '@/components/MyReview.vue';
 import OtherReview from '@/components/OtherReview.vue';
 
 export default {
+  name: 'tabs',
   props: {
     isWatched: {
       type: Boolean,
@@ -52,6 +57,22 @@ export default {
     review: {
       type: String,
       default: ''
+    },
+    date: {
+      type: String,
+      default: ''
+    },
+    userSeries: {
+      type: Array,
+      default() {
+        return []
+      }
+    },
+    friendsList: {
+      type: Array,
+      default() {
+        return []
+      }
     }
   },
   components: { MyReview, OtherReview },
@@ -65,8 +86,8 @@ export default {
     setRating(rating) {
       this.$emit('setRating', rating)
     },
-    setReview(review) {
-      this.$emit('setReview', review)
+    setReviewAndDate(review, date) {
+      this.$emit('setReviewAndDate', review, date)
     },
   },
   mounted() {

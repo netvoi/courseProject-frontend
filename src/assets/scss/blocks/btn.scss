@@ -19,6 +19,7 @@
   transition: background .2s ease;
 
   &:focus {
+    background-color: $primary;
     outline: none;
   }
 
@@ -55,6 +56,7 @@
     margin-left: 1.5rem;
   }
 
+  &--accept,
   &--add {
     &::after {
       background-image: url('../img/add-friend-icon.svg');
@@ -67,9 +69,35 @@
     }
   }
 
+  &--decline,
   &--delete {
     &::after {
       background-image: url('../img/remove-friend-icon.svg');
+    }
+  }
+
+  &--accept,
+  &--decline {
+    background-color: #fff;
+    color: $primary;
+
+    &:hover {
+      border-color: transparent;
+      color: #fff;
+    }
+  }
+
+  &--accept {
+    border-color: $success;
+    &:hover {
+      background-color: $success;
+    }
+  }
+
+  &--decline {
+    border-color: $error;
+    &:hover {
+      background-color: $error;
     }
   }
 
@@ -103,6 +131,7 @@
     }
   }
 
+  &--auth,
   &--form {
     padding: .4rem 1rem;
     box-shadow: none;
@@ -113,4 +142,16 @@
       display: none;
     }
   }
+
+  &--auth {
+    margin-top: 1rem;
+    width: max-content;
+  }
+}
+
+.btn__block {
+  margin-right: 1.5rem;
+
+  display: flex;
+  align-items: center;
 }

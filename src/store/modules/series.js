@@ -8,29 +8,24 @@ export default {
     filteredAlphabetList: [],
     filterFields: {},
     isFiltered: false,
+    foundSeries: [],
   },
   actions: {
-    GET_INFO_FROM_DB({commit}, id) {
-      return SerialsDataService.get(id)
-        .then((item) => {
-          commit('SET_INFO', item.data)
-          return item
-        })
-        .catch((error) => {
-          console.log(error)
-          return error
-        })
+    async GET_INFO_FROM_DB({commit}, id) {
+      const res = await SerialsDataService.get(id)
+        .then(response => response)
+        .catch((error) => error.response)
+
+      commit('SET_INFO', res.data)
+      return res
     },
-    GET_ALL_SERIES({commit}) {
-      return SerialsDataService.getAll()
-        .then((item) => {
-          commit('SET_SERIES', item.data)
-          return item
-        })
-        .catch((error) => {
-          console.log(error)
-          return error
-        })
+    async GET_ALL_SERIES({commit}) {
+      const res = await SerialsDataService.getAll()
+        .then(response => response)
+        .catch((error) => error.response)
+
+      commit('SET_SERIES', res.data)
+      return res
     },
     GET_SERIALS_ORDER_ALPHABET({commit}) {
       let letters = []
@@ -53,7 +48,7 @@ export default {
           alphabetList.map(item => {
             SerialsDataService.findWithFirstLetter(item.letter)
               .then(res => {
-                item.series = res.data
+                item.series = res.data.series
               })
           })
         })
@@ -64,17 +59,20 @@ export default {
     STATUS_LIST({commit}, index) {
       commit('STATUS', index)
     },
-    GET_FILTER_FIELDS({commit}) {
-      SerialsDataService.filters()
-        .then(response => {
-          commit('SET_FILTER_FIELDS', response.data.filterFields)
-        })
-        .catch(error => {
-          return error
-        })
+    async GET_FILTER_FIELDS({commit}) {
+      const res = await SerialsDataService.filters()
+        .then(response => response)
+        .catch(error => error.response)
+
+
+      commit('SET_FILTER_FIELDS', res.data.filterFields)
+      return res
     },
     FIELD_VISIBLE({commit}, nameKey) {
       commit('VISIBLE', nameKey)
+    },
+    FIELD_NOT_VISIBLE({commit}) {
+      commit('NOT_VISIBLE')
     },
     GET_FILTERED_ALPHABET({commit, state}, params) {
       let filteredList = []
@@ -109,6 +107,10 @@ export default {
     GET_DROP_FILTERED_ALPHABET({commit}) {
       commit('DROP_FILTERED_ALPHABET')
     },
+    GET_FOUND_SERIES({commit, state}, search) {
+      let foundSeries = state.allSeries.filter(s => s.seriesName.toLowerCase().indexOf(search.toLowerCase()) + 1)
+      commit('SET_FOUND_SERIES', foundSeries)
+    }
   },
   mutations: {
     SET_INFO: (state, series) => {
@@ -118,7 +120,6 @@ export default {
       state.allSeries = allSeries
     },
     SET_SERIES_ORDER_ALPHABET: (state, alphabetList) => {
-      console.log(alphabetList);
       state.alphabetList = alphabetList
     },
     STATUS: (state, index) => {
@@ -137,7 +138,17 @@ export default {
       state.filterFields = temp
     },
     VISIBLE: (state, nameKey) => {
+      for(let ob in state.filterFields) {
+        if(ob !== nameKey) {
+          state.filterFields[ob].visible = false
+        }
+      }
       state.filterFields[nameKey].visible = !(state.filterFields[nameKey].visible)
+    },
+    NOT_VISIBLE: state => {
+      for(let ob in state.filterFields) {
+        state.filterFields[ob].visible = false
+      }
     },
     SET_FILTERED_ALPHABET: (state, filteredList) => {
       state.filteredAlphabetList = filteredList
@@ -147,6 +158,9 @@ export default {
       state.filteredAlphabetList = {}
       state.isFiltered = false
     },
+    SET_FOUND_SERIES: (state, foundSeries) => {
+      state.foundSeries = foundSeries
+    }
   },
   getters: {
     /* Получить сериал по ID */
@@ -174,5 +188,8 @@ export default {
     IS_FILTERED(state) {
       return state.isFiltered
     },
+    FOUND_SERIES(state) {
+      return state.foundSeries
+    }
   }
 }

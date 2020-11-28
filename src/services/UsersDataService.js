@@ -2,19 +2,19 @@ import http from '../http-common'
 
 class UsersDataService {
   getAll() {
-    return http.get('/user')
+    return http.request().get('/user')
   }
 
   get(id) {
-    return http.get(`/user/id${id}`)
+    return http.request().get(`/user/id${id}`)
   }
 
   authUser() {
-    return http.get('user/me')
+    return http.request().get('user/me')
   }
 
   someUsers(users) {
-    return http.post('/user/someUsers', users)
+    return http.request().post('/user/someUsers', users)
   }
 }
 

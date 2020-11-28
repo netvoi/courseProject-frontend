@@ -11,42 +11,51 @@ const routes = [
     name: 'user',
     meta: {
       requireAuth: true,
+      layout: 'main'
     },
     component: () => import('../views/User.vue'),
   },
   {
     path: '/series/:id',
     name: 'tvSeries',
+    meta: {
+      layout: 'main'
+    },
     component: () => import('../views/TvSeries.vue'),
   },
   {
     path: '/inbox',
     name: 'inbox',
+    meta: {
+      layout: 'chat'
+    },
     component: () => import('../views/Inbox.vue'),
+  },
+  {
+    path: '/inbox/im:id',
+    name: 'dialog',
+    meta: {
+      layout: 'chat'
+    },
+    component: () => import('../views/Dialog.vue'),
   },
   {
     path: '/',
     name: 'listSerials',
+    meta: {
+      layout: 'main'
+    },
     component: () => import('../views/ListSerials.vue'),
     
   },
   {
-    path: '/login',
-    name: 'login',
+    path: '/auth',
+    name: 'auth',
     meta: { 
       guest: true,
       layout: 'auth'
     },
-    component: () => import('../views/Login.vue')
-  },
-  {
-    path: '/register',
-    name: 'register',
-    meta: { 
-      guest: true,
-      layout: 'auth'
-    },
-    component: () => import('../views/Register.vue')
+    component: () => import('../views/Auth.vue')
   }
 ];
 

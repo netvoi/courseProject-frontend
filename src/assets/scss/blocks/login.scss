@@ -1,0 +1,110 @@
+.login {
+  background: url('../img/bg-auth.jpg') no-repeat center;
+  background-size: cover;
+
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  color: #fff;
+}
+
+.login__wrapper {
+  width: 500px;
+  display: none;
+
+  &--greet {
+    width: 700px;
+  }
+}
+
+.login__wrapper-item {
+  display: none;
+}
+
+.login__subtitle,
+.login__title {
+  font-size: 4rem;
+  text-align: center;
+
+  opacity: 0;
+}
+
+.login__subtitle {
+  margin-bottom: 4rem;
+  position: relative;
+
+  &:after {
+    content: '';
+    display: inline-block;
+    margin: auto 0;
+    margin-left: 1rem;
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
+
+    width: 40px;
+    height: 40px;
+
+    background-color: transparent;
+    background-image: url('../img/logo.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 40px;
+  }
+
+  &--opacity {
+    opacity: 1;
+  }
+}
+
+.login__footer {
+  margin-top: 4rem;
+
+  display: flex;
+  font-display: column;
+  justify-content: center;
+
+  span {
+    display: inline-block;
+    margin-right: 0.5rem;
+  }
+
+  a {
+    font-weight: 700;
+    color: inherit;
+    transition: color .2s linear, text-decoration .2s linear;
+
+    &:hover {
+      color: $secondary;
+      text-decoration: none;
+    }
+  }
+}
+
+.fade-title-enter-active, .fade-title-leave-active,
+.fade-subtitle-enter-active, .fade-subtitle-leave-active {
+  animation-name: test;
+  animation-duration: 3.2s;
+  animation-direction: alternate;
+}
+
+.fade-title-enter-active, .fade-title-leave-active {
+  animation-delay: 1s;
+}
+
+.fade-subtitle-enter-active, .fade-subtitle-leave-active {
+  animation-delay: 4s;
+}
+
+@keyframes test {
+  from { opacity: 0; } to { opacity: 1; }
+}
+
+/* .fade-enter, .fade-leave-to {
+  opacity: 0;
+} */

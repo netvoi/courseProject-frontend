@@ -1,62 +1,56 @@
-import AuthDataService from '../../services/AuthDataService'
-import axios from 'axios'
+import AuthDataService from '@/services/AuthDataService'
 
 export default {
   state: {
     jwt: localStorage.getItem('jwt') || '',
-    isAuth: localStorage.getItem('status') || false,
-    userDetected: localStorage.getItem('sub') || null
   },
   actions: {
-    LOGIN({commit}, user) {
-      AuthDataService.login(user)
-        .then(res => {
-          const jwt = res.data.token
-          const sub = res.data.user.id
-          const status = res.data.success
+    async REGISTER({commit}, user) {
+      const res = await AuthDataService.register(user)
+        .then(response => response)
+        .catch(error => error.response)
 
-          axios.defaults.headers.common['Authorization'] = jwt
+      if(res.status === 200) {
+        const jwt = res.data.token
+        localStorage.setItem('jwt', jwt)
+        commit('REGISTER_SUCCESS', jwt)
+      }
+      return res
+    },
+    async LOGIN({commit}, user) {
+      const res = await AuthDataService.login(user)
+        .then(response => response)
+        .catch(error => error.response)
 
-          localStorage.setItem('jwt', jwt)
-          localStorage.setItem('sub', sub)
-          localStorage.setItem('status', status)
-
-          commit('LOGIN_SUCCESS', { jwt, sub, status })
-        })
-        .catch(err => {
-          console.log('LOGIN_FAIL');
-          commit('LOGIN_FAIL', err)
-        })
+      if(res.status === 200) {
+        const jwt = res.data.token
+        localStorage.setItem('jwt', jwt)
+        commit('LOGIN_SUCCESS', jwt)
+      }
+      return res
     },
     LOGOUT({commit}) {
+      localStorage.removeItem('jwt')
       commit('EXEC_LOGOUT')
     }
   },
   mutations: {
-    LOGIN_SUCCESS: (state, res) => {
-      state.jwt = res.jwt
-      state.isAuth = res.status
-      state.userDetected = res.sub
+    REGISTER_SUCCESS: (state, response) => {
+      state.jwt = response.jwt
     },
-    LOGIN_FAIL: state => {
-      console.log('error');
+    LOGIN_SUCCESS: (state, response) => {
+      state.jwt = response.jwt
     },
     EXEC_LOGOUT: state => {
       state.jwt = ''
-      state.isAuth = ''
-      state.userDetected = ''
-
-      localStorage.removeItem('jwt')
-      localStorage.removeItem('sub')
-      localStorage.removeItem('status')
-    }
+    },
   },
   getters: {
     SUB(state) {
       return state.userDetected
     },
     IS_LOGGED_IN(state) {
-      return state.isAuth
+      return !!state.jwt
     }
   }
 }

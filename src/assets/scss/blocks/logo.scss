@@ -1,15 +1,15 @@
 .logo {
-    display: flex;
-    align-items: center;
-
-    &__icon {
-        margin-right: 1rem;
-    }
-
-    &__name {
-        font-weight: 700;
-        color: $dark-gray;
-
-        cursor: pointer;
-    }
+	display: flex;
+	align-items: center;
+	
+	&__icon {
+		margin-right: 1rem;
+	}
+	
+	&__name {
+		font-weight: 700;
+		color: $dark-gray;
+		
+		cursor: pointer;
+	}
 }

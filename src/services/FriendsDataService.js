@@ -1,16 +1,24 @@
 import http from '../http-common'
 
 class FriendsDataService {
-  requestList() {
-    return http.get('/friends/requestList')
+  myFriendLists() {
+    return http.request().get(`/friends`)
   }
 
-  friendList() {
-    return http.get('/friends/friendList')
+  friendList(id) {
+    return http.request().get(`/friends/id${ id }`)
   }
 
-  friends() {
-    return http.get('/friends')
+  sendRequest(id) {
+    return http.request().post(`/friends/requestList/sendRequest`, id)
+  }
+
+  confirmRequest(id) {
+    return http.request().post(`/friends/requestList/confirm`, id)
+  }
+
+  cancelRequest(id) {
+    return http.request().post(`/friends/requestList/cancel`, id)
   }
 }
 

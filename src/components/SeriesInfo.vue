@@ -6,7 +6,7 @@
           <img
           class="card__photo"
           :src="`${require(`@/assets/img/seriesPreview/libertad${this.SERIES.id - 1}.jpg`)}`"
-          alt=""
+          :alt="SERIES.seriesName"
           >
         </div>
       </div>

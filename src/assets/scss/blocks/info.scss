@@ -22,6 +22,8 @@
 
 .info__title {
   position: relative;
+  max-width: 95%;
+
   label {
     cursor: pointer;
 
@@ -33,6 +35,7 @@
 
     position: absolute;
     top: 0;
+    right: -2rem;
 
     background-repeat: no-repeat;
     background-position: center;

@@ -30,8 +30,8 @@
 
 <script>
 export default {
+  name: 'main-about',
   mounted() {
-    // eslint-disable-next-line no-undef
     this.about = M.Modal.init(this.$refs.about);
   },
 };
