@@ -1,157 +1,89 @@
 <template>
-  <div class="login">
-    <div class="login__wrapper login__wrapper--greet" :class="{ show: isShow }">
+  <div class="auth">
+    <div class="auth__wrapper auth__wrapper--greet" :class="{ show: isShow }">
       <transition name="fade-title">
-        <h1 v-if="showTitle" class="login__title">Привет!</h1>
+        <h1 v-if="showTitle" class="auth__title">Привет!</h1>
       </transition>
     
       <transition name="fade-subtitle">
-        <h2 v-if="showTitle" class="login__subtitle">Добро пожаловать в Libertad</h2>  
+        <h2 v-if="showTitle" class="auth__subtitle">Добро пожаловать в Libertad</h2>  
       </transition>
     </div>
 
-    <div class="login__wrapper" :class="{ show: !isShow }">
-      <div id="login" class="login__wrapper-item" :class="{ active: isActive('login') }">
-        <h2 class="login__subtitle login__subtitle--opacity">Вход в систему</h2>
-        <form class="form" @submit.prevent="eventLogin">
-          <div class="form__item">
-            <label class="form__label" for="emailLogin">Эл. почта</label>
-            <input
-              id="emailLogin"
-              name="emailLogin"
-              type="text"
-              v-model="userLogin.email"
-            >
-          </div>
-          <div class="form__item">
-            <label class="form__label" for="passwordLogin">Пароль</label>
-            <input
-              id="passwordLogin"
-              name="passwordLogin"
-              type="password"
-              v-model="userLogin.password"
-            >
-          </div>
-          <button
-            class="btn btn--auth"
-            type="submit"
-          >Войти</button>
-        </form>
-        <div class="login__footer">
-          <span>Не участник?</span>
-          <a
-            class="form__link" 
-            href="#register"
-            @click="setActive('register')"
-          >Зарегистрироваться</a>
-        </div>
-      </div>
+    <div class="auth__wrapper" :class="{ show: !isShow }">
+      <Login
+        @eventLogin="eventLogin"
 
-      <div id="register" class="login__wrapper-item" :class="{ active: isActive('register') }">
-        <h2 class="login__subtitle login__subtitle--opacity">Регистрация в системе</h2>
-        <form class="form" @submit.prevent="eventRegister">
-          <div class="form__item">
-            <label class="form__label" for="name">Имя</label>
-            <input
-              id="name"
-              name="name"
-              type="text"
-              v-model="userRegister.username"
-            >
-          </div>
-          <div class="form__item">
-            <label class="form__label" for="surname">Фамилия</label>
-            <input
-              id="surname"
-              name="surname"
-              type="text"
-              v-model="userRegister.surname"
-            >
-          </div>
-          <div class="form__item">
-            <label class="form__label" for="email">Эл. почта</label>
-            <input
-              id="email"
-              name="email"
-              type="text"
-              v-model="userRegister.email"
-            >
-          </div>
-          <div class="form__item">
-            <label class="form__label" for="password">Пароль</label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              v-model="userRegister.password"
-            >
-          </div>
-          <button
-            class="btn btn--auth"
-            type="submit"
-          >Зарегистрироваться</button>
-        </form>
-        <div class="login__footer">
-          <span>Уже участник?</span>
-          <a
-            class="form__link" 
-            href="#login"
-            @click="setActive('login')"
-          >Войти</a>
-        </div>
-      </div>
-      
+        :isActive="isActive"
+        :setActive="setActive"
+        :isIncorrectData="isIncorrectData"
+        :error="error"
+      />
+
+      <Register
+        @eventRegister="eventRegister"
+
+        :isActive="isActive"
+        :setActive="setActive"
+        :isExist="isExist"
+        :error="error"
+      />
     </div>
-
-
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
+import Login from '@/components/Login.vue'
+import Register from '@/components/Register.vue'
 
 export default {
-  name: 'login',
+  name: 'auth',
   data: () => ({
-    userLogin: {
-      email: '',
-      password: '',
-    },
-    userRegister: {
-      username: '',
-      surname: '',
-      email: '',
-      password: ''
-    },
     showTitle: false,
     isShow: true,
 
     activeTab: 'login',
+
+    isIncorrectData: false,
+    isExist: false,
+    error: false,
   }),
+  components: {
+    Login,
+    Register
+  },
   methods: {
     ...mapActions([
       'LOGIN',
       'REGISTER',
     ]),
-    eventLogin() {
-      this.LOGIN(this.userLogin)
+    eventLogin(user) {
+      console.log(user);
+      this.LOGIN(user)
         .then(response => {
           if(response.status === 200) {
-            // console.log(response);
+            this.isIncorrectData = false
             this.$router.push('/')
+          } else if(response.status === 403) {
+            this.isIncorrectData = true
           } else {
-            console.log(response);
+            this.error = true
+            console.log('Что-то пошло не так');
           }
         })
     },
-    eventRegister() {
-      this.REGISTER(this.userRegister)
+    eventRegister(user) {
+      this.REGISTER(user)
         .then(response => {
           if(response.status === 200) {
-            // console.log(response);
+            this.isExist = false
             this.$router.push('/')
+          } else if(response.status === 403) {
+            this.isExist = true
           } else {
-            console.log(response);
+            this.error = true
+            console.log('Что-то пошло не так');
           }
         })
     },
@@ -172,12 +104,5 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-  .show {
-    display: block;
-  }
-
-  .active {
-    display: block;
-  }
+<style lang="scss">
 </style> 

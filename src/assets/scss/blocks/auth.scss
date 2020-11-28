@@ -1,4 +1,4 @@
-.login {
+.auth {
   background: url('../img/bg-auth.jpg') no-repeat center;
   background-size: cover;
 
@@ -12,7 +12,7 @@
   color: #fff;
 }
 
-.login__wrapper {
+.auth__wrapper {
   width: 500px;
   display: none;
 
@@ -21,19 +21,19 @@
   }
 }
 
-.login__wrapper-item {
+.auth__wrapper-item {
   display: none;
 }
 
-.login__subtitle,
-.login__title {
+.auth__subtitle,
+.auth__title {
   font-size: 4rem;
   text-align: center;
 
   opacity: 0;
 }
 
-.login__subtitle {
+.auth__subtitle {
   margin-bottom: 4rem;
   position: relative;
 
@@ -62,7 +62,7 @@
   }
 }
 
-.login__footer {
+.auth__footer {
   margin-top: 4rem;
 
   display: flex;
@@ -104,7 +104,3 @@
 @keyframes test {
   from { opacity: 0; } to { opacity: 1; }
 }
-
-/* .fade-enter, .fade-leave-to {
-  opacity: 0;
-} */
