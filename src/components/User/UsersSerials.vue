@@ -7,7 +7,7 @@
     <div>
       <div class="row mb-5">
         <div class="col-4 mr-auto">
-          <form class="input-field" action="/">
+          <form class="input-field">
             <select
               v-model="selected"
               @change="filtered"

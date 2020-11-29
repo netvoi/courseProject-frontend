@@ -75,7 +75,7 @@
         <small 
           class="form__invalid"
           v-else-if="$v.userRegister.password.$dirty && !$v.userRegister.password.minLength"
-        >Пароль должен содержать в себе от 8 символов до 20</small>
+        >Пароль должен содержать в себе от 8 символов до 30</small>
         <small 
           class="form__invalid"
           v-else-if="$v.userRegister.password.$dirty && !$v.userRegister.password.maxLength"

@@ -1,9 +1,8 @@
 /* Bootstrap grid & materialize components */
 @import '~materialize-css/sass/materialize.scss';
 
-/* Переменные и хелперы */
+/* Переменные */
 @import 'vars.scss';
-@import 'helpers.scss';
 
 /* Анимации */
 @import 'animation.scss';
@@ -61,6 +60,8 @@
 @import '@/assets/scss/blocks/User/seriesStatistic.scss';
 @import '@/assets/scss/blocks/User/user.scss';
 
+/* Хелперы */
+@import 'helpers.scss';
 
 html {
   font-size: 10px;

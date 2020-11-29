@@ -62,21 +62,14 @@
                 <li>
                   <router-link
                     tag="a" 
-                    :to="`/user/${ ME.userId }`"
+                    :to="`/user/${ authUser.userId }`"
                   >Профиль</router-link>
                 </li>
                 <li>
-                  <!-- <router-link
-                    tag="a"
-                    to="#seting"
-                  >Настройки</router-link> -->
-                  <!-- <a
+                  <a
                     class="waves-effect modal-trigger"
-                    href="#modalSettings"
-                  >Настройки</a> -->
-                  <a class="waves-effect modal-trigger" href="#modal3">Настройки</a>
-
-
+                    href="#modal3"
+                  >Настройки</a>
                 </li>
                 <li @click.prevent="logout">
                   <router-link
@@ -88,17 +81,13 @@
             </div>
           </div>
         </div>
-        <!-- /.col -->
       </div>
-      <!-- /.row -->
     </div>
-    <!-- /.container -->
   </header>
-  <!-- /.header -->
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'main-header',
@@ -106,11 +95,16 @@ export default {
     search: ''
   }),
   props: {
+    authUser: {
+      type: Object,
+      default() {
+        return {}
+      }
+    }
   },
   methods: {
     ...mapActions([
       'LOGOUT',
-      'GET_ME'
     ]),
     logout() {
       this.LOGOUT()
@@ -128,12 +122,6 @@ export default {
     this.dropdown = M.Dropdown.init(this.$refs.dropdown, {
       constrainWidth: false,
     })
-    this.GET_ME()
-  },
-  computed: {
-    ...mapGetters([
-      'ME'
-    ])
   },
   watch: {
     $route (to, from) {

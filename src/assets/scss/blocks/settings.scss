@@ -13,6 +13,7 @@
 .settings__content {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .settings__image,
@@ -25,11 +26,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+  position: relative;
 }
 
 .settings__image-wrapper {
   width: 250px;
   height: 250px;
+
+  margin-right: 2rem;
 }
 
 .settings__form {
@@ -38,6 +43,8 @@
 }
 
 .settings__form-item {
+  margin-bottom: 1.5rem;
+
   label {
     user-select: none;
 
@@ -46,4 +53,32 @@
     font-weight: 300;
     color: inherit;
   }
+
+  input {
+    margin: 0!important;
+
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+
+    color: inherit;
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+      -webkit-box-shadow: 0 0 0 30px $light-gray inset !important;
+    }
+
+    &:-webkit-autofill {
+      -webkit-text-fill-color: $primary !important;
+    }
+  }
+}
+
+.settings__tabs {
+  margin: 0 auto;
+  padding-bottom: 3rem;
+
+  width: max-content;
 }

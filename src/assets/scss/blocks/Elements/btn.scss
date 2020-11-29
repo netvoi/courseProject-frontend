@@ -131,6 +131,7 @@
     }
   }
 
+  &--setting,
   &--auth,
   &--form {
     padding: .4rem 1rem;
@@ -143,9 +144,28 @@
     }
   }
 
+  &--setting,
   &--auth {
     margin-top: 1rem;
     width: max-content;
+  }
+
+  &--setting {
+    background-color: transparent;
+    color: $secondary;
+
+    border-color: $secondary;
+
+    &:hover {
+      background: $secondary;
+      color: #fff;
+    }
+
+    &:focus {
+      color: #fff;
+      background-color: $secondary;
+      outline: none;
+    }
   }
 }
 

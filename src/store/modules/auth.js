@@ -35,11 +35,11 @@ export default {
     }
   },
   mutations: {
-    REGISTER_SUCCESS: (state, response) => {
-      state.jwt = response.jwt
+    REGISTER_SUCCESS: (state, jwt) => {
+      state.jwt = jwt
     },
-    LOGIN_SUCCESS: (state, response) => {
-      state.jwt = response.jwt
+    LOGIN_SUCCESS: (state, jwt) => {
+      state.jwt = jwt
     },
     EXEC_LOGOUT: state => {
       state.jwt = ''

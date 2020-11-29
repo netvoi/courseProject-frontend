@@ -20,11 +20,11 @@
       />
     </div>
 
-    <ul id="tabs-swipe-demo" class="tabs tabs-review" ref="tabs">
-      <li class="tab tabs-review__item">
+    <ul class="tabs tabs-review" ref="tabs">
+      <li class="tab">
         <a class="active" href="#my-review">Мои отзывы</a>
       </li>
-      <li class="tab tabs-review__item">
+      <li class="tab">
         <a href="#other-review">Отзывы друзей</a>
       </li>
     </ul>

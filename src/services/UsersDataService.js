@@ -16,6 +16,14 @@ class UsersDataService {
   someUsers(users) {
     return http.request().post('/user/someUsers', users)
   }
+
+  updateData(data) {
+    return http.request().put('/user/updData', data)
+  }
+
+  updatePassword(password) {
+    return http.request().put('/user/updPassword', password)
+  }
 }
 
 export default new UsersDataService()

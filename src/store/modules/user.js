@@ -27,6 +27,18 @@ export default {
         .catch(error => error.response)
       
       commit('SET_SOME_USERS', someUsers.data.users)
+    },
+    async UPDATE_USER_DATA({commit}, data) {
+      const res = await UsersDataService.updateData(data)
+        .then(response => response)
+        .catch(error => error.response)
+    },
+    async UPDATE_USER_PASSWORD({commit}, password) {
+      const res = await UsersDataService.updatePassword(password)
+        .then(response => response)
+        .catch(error => error.response)
+
+      console.log(res);
     }
   },
   mutations: {

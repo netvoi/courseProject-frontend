@@ -6,6 +6,7 @@
     <!-- Header -->
     <Header
       @searchStatus="searchStatus"
+      :authUser="ME"
     />
 
     <!-- Search field -->
@@ -19,7 +20,12 @@
 
     <!-- Modal windows -->
     <About />
-    <Settings />
+    <Settings
+      @eventUpdateData="eventUpdateData"
+      @eventUpdatePassword="eventUpdatePassword"
+
+      :authUser="ME"
+    />
 
     <!-- Views -->
     <router-view/>
@@ -34,7 +40,7 @@
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
 import About from '@/components/About.vue'
-import Settings from '@/components/Settings.vue'
+import Settings from '@/components/Settings/Settings.vue'
 import Search from '@/components/Search.vue'
 
 import { mapActions, mapGetters } from 'vuex'
@@ -43,6 +49,7 @@ export default {
   name: 'main-layout',
   data: () => ({
     showSearch: false,
+    tabs: null
   }),
   components: {
     Header,
@@ -55,6 +62,9 @@ export default {
     ...mapActions([
       'GET_ALL_SERIES',
       'GET_FOUND_SERIES',
+      'GET_ME',
+      'UPDATE_USER_DATA',
+      'UPDATE_USER_PASSWORD',
     ]),
     searchStatus(status, search) {
       if(status) {
@@ -66,14 +76,23 @@ export default {
     },
     closeSearch() {
       this.showSearch = false
+    },
+    eventUpdateData(user) {
+      this.UPDATE_USER_DATA(user)
+        .then(() => this.GET_ME())
+    },
+    eventUpdatePassword(password) {
+      this.UPDATE_USER_PASSWORD(password)
     }
   },
   mounted() {
     this.GET_ALL_SERIES()
+    this.GET_ME()
   },
   computed: {
     ...mapGetters([
-      'FOUND_SERIES'
+      'FOUND_SERIES',
+      'ME'
     ])
   }
 }
