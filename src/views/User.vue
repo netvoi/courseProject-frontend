@@ -8,6 +8,7 @@
           @favourite="favourite"
 
           :user="USER"
+          :src="SRC"
           :statistic="STATISTIC"
           :myId="ME.userId"
           :userId="userId"
@@ -157,6 +158,7 @@ export default {
   computed: {
     ...mapGetters([
       'USER',
+      'SRC',
       'INFO',
       'STATISTIC',
       'ME',

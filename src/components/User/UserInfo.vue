@@ -6,12 +6,16 @@
           class="user__photo ml-auto mr-auto"
           v-if="user.id"
         >
-          <!-- <img
-            :src="require(`@/assets/img/${pathUserAvatar[user.id].url}`)"
-            alt="avatar"> -->
             <img
-            src="@/assets/img/avatar.svg"
-            alt="avatar">
+              v-if="!!src && src.length"
+              :src="src"
+              alt="avatar"
+            >
+            <img
+              v-else
+              src="@/assets/img/avatar.svg"
+              alt="avatar"
+            >
         </div>
       </div>
       <!-- /.col -->
@@ -91,6 +95,10 @@ export default {
       default() {
         return {}
       },
+    },
+    src: {
+      type: String,
+      default: ''
     },
     statistic: {
       type: Object,
