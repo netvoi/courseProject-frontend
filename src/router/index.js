@@ -7,6 +7,15 @@ Vue.use(VueRouter);
 
 const routes = [
   {
+    path: '/auth',
+    name: 'auth',
+    meta: { 
+      guest: true,
+      layout: 'auth'
+    },
+    component: () => import('../views/Auth.vue')
+  },
+  {
     path: '/user/:id',
     name: 'user',
     meta: {
@@ -18,44 +27,25 @@ const routes = [
   {
     path: '/series/:id',
     name: 'tvSeries',
-    meta: {
-      layout: 'main'
-    },
+    meta: { layout: 'main' },
     component: () => import('../views/TvSeries.vue'),
   },
   {
     path: '/inbox',
     name: 'inbox',
-    meta: {
-      layout: 'chat'
-    },
-    component: () => import('../views/Inbox.vue'),
-  },
-  {
-    path: '/inbox/im:id',
-    name: 'dialog',
-    meta: {
-      layout: 'chat'
-    },
-    component: () => import('../views/Dialog.vue'),
+    meta: { layout: 'main' },
+    component: () => import('@/views/Inbox.vue'),
+    children: [
+      { path: 'im:id', name: 'dialog', meta: { layout: 'main' }, component: () =>  import('@/views/Dialog.vue') },
+      { path: '/', name: 'empty-chat', meta: { layout: 'main' }, component: () =>  import('@/views/EmptyChat.vue') },
+    ],
   },
   {
     path: '/',
     name: 'listSerials',
-    meta: {
-      layout: 'main'
-    },
+    meta: { layout: 'main' },
     component: () => import('../views/ListSerials.vue'),
     
-  },
-  {
-    path: '/auth',
-    name: 'auth',
-    meta: { 
-      guest: true,
-      layout: 'auth'
-    },
-    component: () => import('../views/Auth.vue')
   }
 ];
 
@@ -87,6 +77,6 @@ router.beforeEach((to, from, next) => {
   } else {
     next()
   }
-})
+});
 
 export default router;

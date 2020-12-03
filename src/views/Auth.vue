@@ -59,7 +59,6 @@ export default {
       'REGISTER',
     ]),
     eventLogin(user) {
-      console.log(user);
       this.LOGIN(user)
         .then(response => {
           if(response.status === 200) {

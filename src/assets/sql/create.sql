@@ -83,3 +83,11 @@ CREATE TABLE msg (
 	text_msg TEXT NOT NULL,
 	created DATE NOT NULL
 );
+
+CREATE TABLE sessions(
+	socket_id INTEGER PRIMARY KEY NOT NULL,
+	users_id INTEGER NOT NULL
+		REFERENCES users(id)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE
+);

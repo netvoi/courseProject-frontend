@@ -14,10 +14,6 @@
 
     <div class="dialog__content">
       <Message
-        v-for="(item, index) in MESSAGES"
-        :key="index"
-        :text="item.text"
-        :owner="item.socketId === SOCKET"
       />
     </div>
 
@@ -27,15 +23,16 @@
         type="text"
         placeholder="Написать сообщение..."
         v-model="msg"
-        @keydown.enter="sendMsg"
       >
+      <!-- @keydown.enter="sendMsg" -->
 
       <div class="dialog__footer-btns">
         <button class="dialog__footer-btn dialog__footer-btn--smile"></button>
         <button
           class="dialog__footer-btn dialog__footer-btn--send"
-          @click.prevent="sendMsg"
         ></button>
+        <!-- @click.prevent="sendMsg" -->
+
       </div>
     </footer>
   </div>
@@ -55,28 +52,22 @@ export default {
   },
   methods: {
     ...mapActions([
-      'GET_SOCKET',
-      'SOCKET_GET_DATA'
     ]),
-    sendMsg() {
-      this.$socket.emit('createMsg', {
-        text: this.msg,
-        socketId: this.SOCKET
-      }, cb => {
-        if(typeof cb === 'string') {
-          console.error(cb)
-        } else {
-          this.SOCKET_GET_DATA(cb)
-          this.msg = ''
-        }
+    sendMsg(id) {
+      this.$socket.emit('sendMsg', { id }, cb => {
+        // console.log(cb.id);
       })
-      
-    }
+    },
+  },
+  mounted() {
+    this.sendMsg(this.$route.params.id)
+    this.$socket.on('customEmit', (response, cb) => {
+      console.log('message:', response.msg)
+      cb({ id: this.$route.params.id })
+    })
   },
   computed: {
     ...mapGetters([
-      'SOCKET',
-      'MESSAGES',
     ])
   }
 }

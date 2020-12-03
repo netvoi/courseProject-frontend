@@ -3,13 +3,12 @@
     class="main-layout"
     @click="closeSearch"
   >
-    <!-- Header -->
+
     <Header
       @searchStatus="searchStatus"
       :authUser="ME"
     />
 
-    <!-- Search field -->
     <div @click.stop="">
       <Search
         @closeSearch="closeSearch"
@@ -18,8 +17,6 @@
       />
     </div>
 
-    <!-- Modal windows -->
-    <About />
     <Settings
       @eventUpdateData="eventUpdateData"
       @eventUpdatePassword="eventUpdatePassword"
@@ -27,12 +24,9 @@
       :authUser="ME"
     />
 
-    <!-- Views -->
-    <router-view/>
+    <router-view />
 
-    <!-- Footer -->
-    <Footer
-    />
+    <!-- <Footer/> -->
   </div>
 </template>
 
@@ -86,8 +80,11 @@ export default {
     }
   },
   mounted() {
+    console.log('Main layout');
+
     this.GET_ALL_SERIES()
     this.GET_ME()
+      .then(() => this.$socket.emit('userJoin', { id: this.ME.userId }))
   },
   computed: {
     ...mapGetters([

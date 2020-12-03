@@ -2,13 +2,26 @@
   padding: 7rem 0 2rem;
   height: 100vh;
 
-  background-color: rgba(#000, .05);
-
   font-family: 'Inter', sans-serif;
   font-size: 1.4rem;
   font-weight: 400;
 
   color: $primary;
+
+  position: relative;
+
+  &:after {
+    content: '';
+
+    width: 1px;
+    height: 100%;
+
+    background-color: rgba(112, 124, 151, 0.1);
+
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
 }
 
 .sidebar__searh {

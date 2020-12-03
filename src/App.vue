@@ -11,14 +11,12 @@
 <script>
 import AuthLayout from '@/layouts/AuthLayout'
 import MainLayout from '@/layouts/MainLayout'
-import ChatLayout from '@/layouts/ChatLayout'
 
 export default {
   name: 'app',
   components: {
     AuthLayout,
     MainLayout,
-    ChatLayout
   },
   computed: {
     layout() {

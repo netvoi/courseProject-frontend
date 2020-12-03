@@ -7,7 +7,7 @@
             <h2 class="otherReview__title title--h2"><span>{{ user.user.first_name }} {{ user.user.last_name }}</span> оценил данный сериал</h2>
             <div class="rating">
 
-              <div class="rating__item rating__item--rec" v-if="user.is_recomendation">
+              <div class="rating__item rating__item--rec" v-if="user.is_recommendation">
                 <img src="@/assets/img/rating-icons/bookmark.svg" alt="">
               </div>
               <div class="rating__item rating__item--rec" v-else>
