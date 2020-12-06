@@ -8,6 +8,10 @@ import friends from './modules/friends'
 import socket from './modules/socket'
 import filter from './modules/filter'
 
+import dialogs from './modules/dialogs'
+import msg from './modules/msg'
+import userDialogs from './modules/userDialogs'
+
 
 Vue.use(Vuex);
 
@@ -19,6 +23,10 @@ export default new Vuex.Store({
     auth,
     friends,
     socket,
-    filter
+    filter,
+
+    dialogs,
+    msg,
+    userDialogs,
   }
 });

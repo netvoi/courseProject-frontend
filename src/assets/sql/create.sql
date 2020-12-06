@@ -70,7 +70,7 @@ CREATE TABLE users_dialogs (
 	created DATE NOT NULL
 );
 
-CREATE TABLE msg (
+CREATE TABLE messages (
 	id SERIAL PRIMARY KEY NOT NULL,
 	users_id INTEGER NOT NULL
 		REFERENCES users(id)
