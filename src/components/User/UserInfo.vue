@@ -6,16 +6,16 @@
           class="user__photo ml-auto mr-auto"
           v-if="user.id"
         >
-            <img
-              v-if="!!src && src.length"
-              :src="src"
-              alt="avatar"
-            >
-            <img
-              v-else
-              src="@/assets/img/avatar.svg"
-              alt="avatar"
-            >
+          <img
+            v-if="user.avatar !== null"
+            :src="`${root}${user.avatar}`"
+            alt="avatar"
+          >
+          <img
+            v-else
+            :src="`${root}static/uploads/default-avatar.svg`"
+            alt="avatar"
+          >
         </div>
       </div>
       <!-- /.col -->
@@ -74,6 +74,7 @@
             >Добавить<span></span></button>
             <button
               class="btn btn--message"
+              @click="() => { this.$router.push(`/inbox/im${user.id}`) }"
             >Отправить сообщение</button>
           </div>
         </div>
@@ -83,11 +84,13 @@
 </template>
 
 <script>
+import r from '@/utils/root'
 
 export default {
   name: 'UserInfo',
   data: () => ({
-    isActive: false
+    isActive: false,
+    root: ''
   }),
   props: {
     user: {
@@ -155,6 +158,9 @@ export default {
       this.isActive = !this.isActive
     }
   },
+  mounted() {
+    this.root = r
+  }
 };
 </script>
 

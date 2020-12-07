@@ -1,4 +1,5 @@
 import UsersDialogsDataService from '@/services/UsersDialogsDataService'
+import UsersDataService from '@/services/UsersDataService'
 
 export default {
   state: {
@@ -29,8 +30,15 @@ export default {
         .then(response => response)
         .catch(error => error.response)
 
-      commit('SET_ALL_DIALOGS', res.data.dialogs)
-      console.log(res);
+      const dialogsId = res.data.dialogs.map(item => item.users_id)
+      console.log(dialogsId);
+
+      const users = await UsersDataService.getAllById({ id: dialogsId })
+        .then(response => response)
+        .catch(error => error.response)
+
+      console.log('users', users.data);
+      commit('SET_ALL_DIALOGS', users.data)
       return res
     }
   },

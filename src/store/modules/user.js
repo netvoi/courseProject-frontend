@@ -14,7 +14,7 @@ export default {
         .then(response => response)
         .catch(error => error.response)
 
-      const avatar = await axios.get(`http://localhost:8081/api/upload/id${id}`, {
+      /* await axios.get(`http://localhost:8081/api/upload/id${id}`, {
         responseType: 'arraybuffer',
         headers: { 'Authorization': localStorage.getItem('jwt')}
       })
@@ -29,7 +29,7 @@ export default {
             commit('SET_AVATAR', e.target.result)
           })
         })
-        .catch(error => error.response)
+        .catch(error => error.response) */
 
       commit('SET_USER', user.data)
     },

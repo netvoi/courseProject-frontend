@@ -4,19 +4,28 @@
       <input type="search" placeholder="Поиск">
     </div>
     <router-link 
-      tag="a" 
-      :to="`/inbox/im${dialog.assignee.id}`"
       class="sidebar__item"
       v-for="(dialog, index) in dialogs"
       :key="index"
+      tag="a" 
+      :to="`/inbox/im${dialog.id}`"
     >
       <div class="sidebar__item-left">
         <div class="sidebar__item-img">
-          <img src="@/assets/img/avatar.svg" alt="avatar">
+          <img
+            v-if="dialog.avatar !== null"
+            :src="`${root}${dialog.avatar}`"
+            alt="avatar"
+          >
+          <img
+            v-else
+            src="@/assets/img/avatar.svg"
+            alt="avatar"
+          >
         </div>
       </div>
       <div class="sidebar__item-right">
-        <span class="sidebar__item-name">{{ dialog.assignee.first_name }} {{ dialog.assignee.last_name }}</span>
+        <span class="sidebar__item-name">{{ dialog.first_name }} {{ dialog.last_name }}</span>
         <span class="sidebar__item-msg">Message</span>
       </div>
     </router-link>
@@ -24,9 +33,13 @@
 </template>
 
 <script>
+import r from '@/utils/root'
 
 export default {
   name: 'chat-sidebar',
+  data: () => ({
+    root: ''
+  }),
   props: {
     dialogs: {
       type: Array,
@@ -34,7 +47,10 @@ export default {
         return []
       }
     }
-  }
+  },
+  mounted() {
+    this.root = r
+  },
 }
 </script>
 

@@ -9,6 +9,10 @@ class UsersDataService {
     return http.request().get(`/user/id${id}`)
   }
 
+  getAllById(id) {
+    return http.request().post('/user/allById', id)
+  }
+
   authUser() {
     return http.request().get('user/me')
   }

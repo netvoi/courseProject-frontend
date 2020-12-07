@@ -3,9 +3,22 @@
     <header class="dialog__header">
       <div class="dialog__user">
         <div class="dialog__user-img image">
-          <img src="@/assets/img/avatar3.jpg" alt="avatar">
+          <img
+              v-if="USER.avatar !== null"
+              :src="`${root}${USER.avatar}`"
+              alt="avatar"
+            >
+          <img
+            v-else
+            src="@/assets/img/avatar.svg"
+            alt="avatar"
+          >
         </div>
-        <router-link tag="a" to="#" class="dialog__user-name">Джон Сноу</router-link>
+        <router-link
+          tag="a"
+          :to="`/user/${USER.id}`"
+          class="dialog__user-name"
+        >{{USER.first_name}} {{USER.last_name}}</router-link>
       </div>
       <div class="dialog__options">
         <button class="dialog__btn dialog__btn--more"></button>
@@ -41,11 +54,13 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import Message from '@/components/Dialog/Message.vue'
+import r from '@/utils/root'
 
 export default {
   name: 'chat-dialog',
   data: () => ({
     msg: '',
+    root: ''
   }),
   components: {
     Message,
@@ -55,7 +70,8 @@ export default {
       'IS_DIALOG_EXIST',
       'CREATE_DIALOG',
       'CREATE_MESSAGE',
-      'CREATE_DIALOG_BETWEEN_USERS'
+      'CREATE_DIALOG_BETWEEN_USERS',
+      'GET_USER_FROM_DB'
     ]),
     async sendMsg() {
       if(!this.msg.length) return
@@ -78,7 +94,7 @@ export default {
 
         const dialog = await this.CREATE_DIALOG()
 
-        const data = { id: 9, dialogsId: dialog.data.id }
+        const data = { id: this.$route.params.id, dialogsId: dialog.data.id }
         const usersDialog = await this.CREATE_DIALOG_BETWEEN_USERS(data)
 
         const message = await this.CREATE_MESSAGE({
@@ -87,26 +103,31 @@ export default {
         })
         if(message.status === 200) {
           this.msg = ''
-          this.IS_DIALOG_EXIST({ assigneeId: 9 })
+          this.IS_DIALOG_EXIST({ assigneeId: this.$route.params.id })
         } else {
           console.log('Что-то пошло не так!')
         } 
       }
     },
+    __mounted(id) {
+      this.GET_USER_FROM_DB(id)
+      this.IS_DIALOG_EXIST({ assigneeId: id })
+      this.root = r
+    }
   },
   mounted() {
-    this.$socket.on('customEmit', (response, cb) => {
-      console.log('message:', response.msg)
-      cb({ id: this.$route.params.id })
-    })
-
-    this.IS_DIALOG_EXIST({ assigneeId: 9 })
+    this.__mounted(this.$route.params.id)
   },
   computed: {
     ...mapGetters([
       'DIALOG_EXIST',
-      'DIALOG_ID'
+      'DIALOG_ID',
+      'USER',
     ])
+  },
+  beforeRouteUpdate(to, from, next) {
+    this.__mounted(to.params.id)
+    next()
   }
 }
 </script>
