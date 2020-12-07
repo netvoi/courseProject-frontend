@@ -1,16 +1,16 @@
 <template>
-  <div class="dialog">
+  <div class="dialog" v-if="!!USER && Object.keys(USER).length">
     <header class="dialog__header">
       <div class="dialog__user">
         <div class="dialog__user-img image">
           <img
-              v-if="USER.avatar !== null"
-              :src="`${root}${USER.avatar}`"
-              alt="avatar"
+            v-if="USER.avatar !== null"
+            :src="`${root}${USER.avatar}`"
+            alt="avatar"
             >
           <img
             v-else
-            src="@/assets/img/avatar.svg"
+            :src="`${root}default-avatar.svg`"
             alt="avatar"
           >
         </div>
@@ -25,8 +25,10 @@
       </div>
     </header>
 
-    <div class="dialog__content">
+    <div class="dialog__content" ref="block">
       <Message
+        :messages="MESSAGES"
+        :owner="ME.userId"
       />
     </div>
 
@@ -71,9 +73,22 @@ export default {
       'CREATE_DIALOG',
       'CREATE_MESSAGE',
       'CREATE_DIALOG_BETWEEN_USERS',
-      'GET_USER_FROM_DB'
+      'GET_USER_FROM_DB',
+      'GET_ME',
+      'GET_MESSAGES'
     ]),
     async sendMsg() {
+
+      this.$socket.emit('sendMessage', {
+        message: this.msg,
+        to: Number(this.$route.params.id),
+        from: this.ME.userId,
+        created: new Date()
+      }, cb => {
+        if(cb) this.msg = ''
+        else console.log('Что-то пошло не так!')
+      })
+
       if(!this.msg.length) return
 
       console.log('!!!!!!!!!!!!!!!!!!!', this.DIALOG_EXIST);
@@ -111,7 +126,8 @@ export default {
     },
     __mounted(id) {
       this.GET_USER_FROM_DB(id)
-      this.IS_DIALOG_EXIST({ assigneeId: id })
+      this.IS_DIALOG_EXIST({ assigneeId: id }).then(() => { this.GET_MESSAGES({ id: this.DIALOG_ID }) })
+      this.GET_ME()
       this.root = r
     }
   },
@@ -123,11 +139,20 @@ export default {
       'DIALOG_EXIST',
       'DIALOG_ID',
       'USER',
+      'ME',
+      'MESSAGES'
     ])
   },
   beforeRouteUpdate(to, from, next) {
     this.__mounted(to.params.id)
     next()
+  },
+  watch: {
+    MESSAGES() {
+      setTimeout(() => {
+        this.$refs.block.scrollTop = this.$refs.block.scrollHeight;
+      });
+    }
   }
 }
 </script>

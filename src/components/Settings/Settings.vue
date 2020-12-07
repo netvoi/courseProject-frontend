@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="modal3" class="modal bottom-sheet" ref="setting">
-      <div class="modal-content">
+      <div class="modal-content" v-if="!!authUser && Object.keys(authUser).length">
         <div class="settings">
           <div class="settings__header">
             <h3 class="settings__title title--h3">Настройки</h3>
@@ -9,7 +9,21 @@
           <div class="settings__content">
             <div class="settings__image">
               <div class="settings__image-wrapper image">
-                <img :src="photo" alt="avatar">
+                <img
+                  v-if="photo.length"
+                  :src="photo"
+                  alt="avatar"
+                >
+                <img
+                  v-else-if="authUser.avatar !== null"
+                  :src="`${root}${authUser.avatar}`"
+                  alt="avatar"
+                >
+                <img
+                  v-else
+                  :src="`${root}default-avatar.svg`"
+                  alt="avatar"
+                >
               </div>
               <form class="upload" @submit.prevent="eventUpdatePhoto">
                 <input
@@ -50,9 +64,6 @@
           </div>
         </div>
       </div>
-      <!-- <div class="modal-footer">
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
-      </div> -->
     </div>
   </div>
 </template>
@@ -64,12 +75,11 @@ import EditPassword from '@/components/Settings/EditPassword.vue'
 
 import axios from 'axios'
 
-
 export default {
   name: 'settings',
   data: () => ({
-    photo: 'https://placehold.it/300',
-    formData: null
+    photo: '',
+    formData: null,
   }),
   props: {
     authUser: {
@@ -77,6 +87,10 @@ export default {
       default() {
         return {}
       }
+    },
+    root: {
+      type: String,
+      default: ''
     }
   },
   components: {
@@ -86,10 +100,15 @@ export default {
   methods: {
     uploadImage(e) {
       const files = this.$refs.uploadBtn.files
+      const reader = new FileReader()
+      const $vue = this
       let formData = new FormData()
 
       formData.append('attachment', files[0])
       this.formData = formData
+      
+      reader.onload = function(e) { $vue.photo = e.target.result }
+      reader.readAsDataURL(files[0])
     },
     eventUpdateData(user) {
       this.$emit('eventUpdateData', user)
@@ -99,31 +118,13 @@ export default {
     },
     eventUpdatePhoto() {
       axios.put('http://localhost:8081/api/upload', this.formData, {
-        headers: {
-            'Authorization': localStorage.getItem('jwt')
-          },
+        headers: { 'Authorization': localStorage.getItem('jwt') },
       })
-        .then(response => {
-          this.photo = response.data.file
-          console.log(response.data.file);
+        .then(() => {
+          this.$emit('eventUpdatePhoto')
+          this.photo = ''
         })
     },
-    /* async test() {
-      const response = await axios.get('http://localhost:8081/api/upload', {
-        responseType: 'arraybuffer',
-        headers: {
-            'Authorization': localStorage.getItem('jwt')
-          },
-      })
-      
-      const bytes = new Uint8Array(response.data);
-      const blob = new Blob([bytes.buffer]);
-
-      const reader = new FileReader();
-
-      reader.addEventListener('load', e => this.photo = e.target.result)
-      reader.readAsDataURL(blob);
-    } */
   },
   mounted() {
     console.log('settings');

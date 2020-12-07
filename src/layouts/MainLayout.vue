@@ -7,6 +7,7 @@
     <Header
       @searchStatus="searchStatus"
       :authUser="ME"
+      :root="root"
     />
 
     <div @click.stop="">
@@ -20,8 +21,10 @@
     <Settings
       @eventUpdateData="eventUpdateData"
       @eventUpdatePassword="eventUpdatePassword"
+      @eventUpdatePhoto="eventUpdatePhoto"
 
       :authUser="ME"
+      :root="root"
     />
 
     <router-view />
@@ -39,11 +42,14 @@ import Search from '@/components/Search.vue'
 
 import { mapActions, mapGetters } from 'vuex'
 
+import pathRoot from '@/utils/root'
+
 export default {
   name: 'main-layout',
   data: () => ({
     showSearch: false,
-    tabs: null
+    tabs: null,
+    root: ''
   }),
   components: {
     Header,
@@ -77,6 +83,9 @@ export default {
     },
     eventUpdatePassword(password) {
       this.UPDATE_USER_PASSWORD(password)
+    },
+    eventUpdatePhoto() {
+      this.GET_ME()
     }
   },
   mounted() {
@@ -85,6 +94,8 @@ export default {
     this.GET_ALL_SERIES()
     this.GET_ME()
       .then(() => this.$socket.emit('userJoin', { id: this.ME.userId }))
+
+    this.root = pathRoot
   },
   computed: {
     ...mapGetters([

@@ -7,6 +7,11 @@
 }
 
 .messages__item {
+
+  & + & {
+    margin-top: 2rem;
+  }
+
   max-width: 65%;
   width: max-content;
 

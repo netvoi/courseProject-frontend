@@ -39,7 +39,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'ALL_DIALOGS'
+      'ALL_DIALOGS',
     ])
   }
 };

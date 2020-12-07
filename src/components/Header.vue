@@ -53,8 +53,15 @@
               >
                 <div class="menu__btn">
                   <img
-                    src="@/assets/img/avatar.svg"
-                    alt="avatar">
+                    v-if="authUser.avatar !== null"
+                    :src="`${root}${authUser.avatar}`"
+                    alt="avatar"
+                  >
+                  <img
+                    v-else
+                    :src="`${root}default-avatar.svg`"
+                    alt="avatar"
+                  >
                 </div>
               </a>
 
@@ -100,6 +107,10 @@ export default {
       default() {
         return {}
       }
+    },
+    root: {
+      type: String,
+      default: ''
     }
   },
   methods: {

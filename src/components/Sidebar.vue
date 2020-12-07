@@ -19,7 +19,7 @@
           >
           <img
             v-else
-            src="@/assets/img/avatar.svg"
+            :src="`${root}default-avatar.svg`"
             alt="avatar"
           >
         </div>

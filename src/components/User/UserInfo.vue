@@ -1,5 +1,5 @@
 <template>
-  <div class="user">
+  <div class="user" v-if="!!user && Object.keys(user).length">
     <div class="row align-items-center mb-0">
       <div class="col-4">
         <div
@@ -13,7 +13,7 @@
           >
           <img
             v-else
-            :src="`${root}static/uploads/default-avatar.svg`"
+            :src="`${root}default-avatar.svg`"
             alt="avatar"
           >
         </div>

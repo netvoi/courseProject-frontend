@@ -2,8 +2,13 @@
   <div class="pt">
     <div></div>
     <div class="messages">
-      <div :class="{ 'messages__item--owner': owner }" class="messages__item">
-        <p>{{ text }}</p>
+      <div
+        v-for="(message, index) in messages"
+        :key="index"
+        :class="{ 'messages__item--owner': owner === message.from }"
+        class="messages__item"
+      >
+        <p>{{ message.message }}</p>
       </div>
     </div>
   </div>
@@ -13,13 +18,15 @@
 export default {
   name: 'messages',
   props: {
-    text: {
-      type: String,
-      default: ''
+    messages: {
+      type: Array,
+      default() {
+        return []
+      }
     },
     owner: {
-      type: Boolean,
-      default: false
+      type: Number,
+      default: null
     }
   }
 }

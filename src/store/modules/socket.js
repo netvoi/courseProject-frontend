@@ -19,7 +19,5 @@ export default {
   getters: {
     SOCKET(state) {
     },
-    MESSAGES(state) {
-    }
   }
 }
