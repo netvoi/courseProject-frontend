@@ -24,7 +24,16 @@
   }
 }
 
-.sidebar__searh {
+.sidebar__header {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+}
+
+.sidebar__search {
+  width: 90%;
+
   padding: 1rem;
 
   input {
@@ -45,6 +54,28 @@
       border: none!important;
       box-shadow: none!important;
     }
+  }
+}
+
+.sidebar__btn {
+  width: 10%;
+  height: 20px;
+
+  button {
+    padding: 0;
+
+    width: 20px;
+    height: 20px;
+
+    border: none;
+
+    background-color: transparent;
+    background-image: url('../img/pencil.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px;
+
+    cursor: pointer;
   }
 }
 
@@ -102,7 +133,7 @@
 
 .sidebar__item-msg {
   font-size: 1.3rem;
-  font-weight: 300;  
+  font-weight: 300;
 }
 
 .sidebar__item-name,

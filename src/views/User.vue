@@ -31,7 +31,7 @@
           class="serials__no-series"
         ><span>У вас пока ни одного просмотренного сериала</span>
         </div>
-        
+
 
         <Friends
           @confirm="confirm"
@@ -49,9 +49,9 @@
 </template>
 
 <script>
-import UserInfo from '@/components/User/UserInfo.vue';
-import UsersSerials from '@/components/User/UsersSerials.vue';
-import Friends from '@/components/User/Friends.vue';
+import UsersSerials from '@/components/User/UsersSerials.vue'
+import UserInfo from '@/components/User/UserInfo.vue'
+import Friends from '@/components/User/Friends.vue'
 
 import { mapActions, mapGetters } from 'vuex'
 
@@ -61,7 +61,7 @@ export default {
   name: 'user',
   data: () => ({
     userId: null,
-    
+
     friendList: [],
 
     myFriendList: [],
@@ -77,7 +77,7 @@ export default {
     ...mapActions([
       'GET_USER_FROM_DB',
       'GET_INFO_USER_SERIALS',
-      
+
       'GET_ME',
       'GET_SOME_USERS',
 
@@ -87,21 +87,21 @@ export default {
       'GET_SERIES_FILTERED',
     ]),
     async friends(id) {
-      const response = await this.GET_FRIEND_LIST(id)
+      await this.GET_FRIEND_LIST(id)
 
-      const friends = await this.GET_SOME_USERS({ id: this.FRIEND_LIST })
+      await this.GET_SOME_USERS({ id: this.FRIEND_LIST })
       this.friendList = this.SOME_USERS
     },
     async myFriends() {
-      const response = await this.GET_MY_FRIENDS()
+      await this.GET_MY_FRIENDS()
 
-      const myFriendList = await this.GET_SOME_USERS({ id: this.MY_FRIENDS })
+      await this.GET_SOME_USERS({ id: this.MY_FRIENDS })
       this.myFriendList = this.SOME_USERS
 
-      const requestFromMeList = await this.GET_SOME_USERS({ id: this.REQUEST_FROM_ME_LIST })
+      await this.GET_SOME_USERS({ id: this.REQUEST_FROM_ME_LIST })
       this.requestFromMeList = this.SOME_USERS
 
-      const requestToMeList = await this.GET_SOME_USERS({ id: this.REQUEST_TO_ME_LIST })
+      await this.GET_SOME_USERS({ id: this.REQUEST_TO_ME_LIST })
       this.requestToMeList = this.SOME_USERS
     },
     async confirm(id) {
@@ -110,8 +110,8 @@ export default {
         .catch(error => error.response)
 
       if(res.status === 200) {
-        this.friends(this.$route.params.id)
-        this.myFriends()
+        await this.friends(this.$route.params.id)
+        await this.myFriends()
       }
     },
     async cancel(id) {
@@ -120,8 +120,8 @@ export default {
         .catch(error => error.response)
 
       if(res.status === 200) {
-        this.friends(this.$route.params.id)
-        this.myFriends()
+        await this.friends(this.$route.params.id)
+        await this.myFriends()
       }
     },
     async request(id) {
@@ -130,8 +130,8 @@ export default {
         .catch(error => error.response)
 
       if(res.status === 200) {
-        this.friends(this.$route.params.id)
-        this.myFriends()
+        await this.friends(this.$route.params.id)
+        await this.myFriends()
       }
     },
     filtered(filter) {

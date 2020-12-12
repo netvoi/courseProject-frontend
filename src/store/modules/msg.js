@@ -17,6 +17,7 @@ export default {
       return res
     },
     SOCKET_GET_MESSAGE({commit}, data) {
+      console.log('socket data', data);
       commit('SET_MESSAGE', data)
     },
     async GET_MESSAGES({commit}, dialogId) {

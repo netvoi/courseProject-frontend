@@ -120,6 +120,7 @@ export default {
     logout() {
       this.LOGOUT()
         .then(() => {
+          this.$socket.emit('logout')
           this.$router.push('/auth')
         })
     },

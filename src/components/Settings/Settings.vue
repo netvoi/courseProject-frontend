@@ -69,7 +69,6 @@
 </template>
 
 <script>
-import { maxLength, minLength, required } from 'vuelidate/lib/validators'
 import EditProfile from '@/components/Settings/EditProfile.vue'
 import EditPassword from '@/components/Settings/EditPassword.vue'
 
@@ -106,7 +105,7 @@ export default {
 
       formData.append('attachment', files[0])
       this.formData = formData
-      
+
       reader.onload = function(e) { $vue.photo = e.target.result }
       reader.readAsDataURL(files[0])
     },
@@ -138,4 +137,4 @@ export default {
 </script>
 
 <style lang="scss">
-</style> 
+</style>

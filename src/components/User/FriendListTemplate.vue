@@ -1,9 +1,12 @@
 <template>
   <div>
-    <div class="friends__item" v-for="item in list" :key="item.id">
+    <div
+      class="friends__item"
+      v-for="item in list"
+      :key="item.id"
+    >
       <div class="friends__image">
-        <!-- <img :src="require(`@/assets/img/${friend.imgUrl}`)" alt="avatar"> -->
-        <img src="https://placehold.it/265x265" alt="avatar">
+        <img :src="`http://localhost:8081/static/uploads/${item.avatar}`" alt="avatar">
       </div>
       <router-link
         class="friends__link modal-close"
@@ -60,4 +63,4 @@ export default {
 </script>
 
 <style lang="scss">
-</style> 
+</style>

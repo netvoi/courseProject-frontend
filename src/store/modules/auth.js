@@ -26,6 +26,8 @@ export default {
         const jwt = res.data.token
         localStorage.setItem('jwt', jwt)
         commit('LOGIN_SUCCESS', jwt)
+
+        console.log('LOGIN', res.data);
       }
       return res
     },

@@ -44,6 +44,8 @@ import { mapActions, mapGetters } from 'vuex'
 
 import pathRoot from '@/utils/root'
 
+import axios from 'axios'
+
 export default {
   name: 'main-layout',
   data: () => ({
@@ -90,7 +92,6 @@ export default {
   },
   mounted() {
     console.log('Main layout');
-
     this.GET_ALL_SERIES()
     this.GET_ME()
       .then(() => this.$socket.emit('userJoin', { id: this.ME.userId }))

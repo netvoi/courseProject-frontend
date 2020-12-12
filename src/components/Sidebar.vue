@@ -1,13 +1,19 @@
 <template>
   <div class="sidebar">
-    <div class="sidebar__searh">
-      <input type="search" placeholder="Поиск">
+    <div class="sidebar__header">
+      <div class="sidebar__search">
+        <input type="search" placeholder="Поиск">
+      </div>
+      <div class="sidebar__btn">
+        <button data-target="modalDialogs" class="modal-trigger"></button>
+      </div>
     </div>
-    <router-link 
+
+    <router-link
       class="sidebar__item"
       v-for="(dialog, index) in dialogs"
       :key="index"
-      tag="a" 
+      tag="a"
       :to="`/inbox/im${dialog.id}`"
     >
       <div class="sidebar__item-left">
@@ -55,4 +61,4 @@ export default {
 </script>
 
 <style lang="scss">
-</style> 
+</style>

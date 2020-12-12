@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-
 import store from '../store'
 
 Vue.use(VueRouter);
@@ -9,7 +8,7 @@ const routes = [
   {
     path: '/auth',
     name: 'auth',
-    meta: { 
+    meta: {
       guest: true,
       layout: 'auth'
     },
@@ -32,7 +31,6 @@ const routes = [
   },
   {
     path: '/inbox',
-    name: 'inbox',
     meta: { layout: 'main' },
     component: () => import('@/views/Inbox.vue'),
     children: [
@@ -45,7 +43,7 @@ const routes = [
     name: 'listSerials',
     meta: { layout: 'main' },
     component: () => import('../views/ListSerials.vue'),
-    
+
   }
 ];
 
@@ -59,7 +57,7 @@ router.beforeEach((to, from, next) => {
   if(to.matched.some(record => record.meta.requireAuth)) {
     if(!store.getters.IS_LOGGED_IN) {
       next({
-        path: '/login',
+        path: '/auth',
         params: { nextUrl: to.fullPath }
       })
     } else {

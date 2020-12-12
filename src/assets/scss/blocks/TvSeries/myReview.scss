@@ -22,14 +22,17 @@
 
   p {
     word-break: break-all;
+    white-space: pre-wrap;
+
     max-height: 250px;
     overflow: auto;
+
 
     &::-webkit-scrollbar {
       width: 4px;
       background-color: rgba($primary, .3);
     }
-  
+
     &::-webkit-scrollbar-thumb {
       background-color: $primary;
     }
