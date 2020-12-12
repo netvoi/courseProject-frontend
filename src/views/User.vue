@@ -105,34 +105,31 @@ export default {
       this.requestToMeList = this.SOME_USERS
     },
     async confirm(id) {
-      const res = await FriendsDataService.confirmRequest({id})
+      this.$socket.emit('confirmRequest', {
+        to: id,
+        from: this.ME.userId
+      })
+      await FriendsDataService.confirmRequest({id})
         .then(response => response)
-        .catch(error => error.response)
-
-      if(res.status === 200) {
-        await this.friends(this.$route.params.id)
-        await this.myFriends()
-      }
+        .catch(error => console.error('Что-то пошло не так:', error))
     },
     async cancel(id) {
-      const res = await FriendsDataService.cancelRequest({id})
+      this.$socket.emit('cancelRequest', {
+        to: id,
+        from: this.ME.userId
+      })
+      await FriendsDataService.cancelRequest({id})
         .then(response => response)
-        .catch(error => error.response)
-
-      if(res.status === 200) {
-        await this.friends(this.$route.params.id)
-        await this.myFriends()
-      }
+        .catch(error => console.error('Что-то пошло не так:', error))
     },
     async request(id) {
-      const res = await FriendsDataService.sendRequest({id})
+      this.$socket.emit('sendRequest', {
+        to: id,
+        from: this.ME.userId
+      })
+      await FriendsDataService.sendRequest({id})
         .then(response => response)
-        .catch(error => error.response)
-
-      if(res.status === 200) {
-        await this.friends(this.$route.params.id)
-        await this.myFriends()
-      }
+        .catch(error => console.error('Что-то пошло не так:', error))
     },
     filtered(filter) {
       this.GET_SERIES_FILTERED({ info: this.INFO, filter: filter })
@@ -140,19 +137,39 @@ export default {
     favourite() {
       this.GET_SERIES_FILTERED({ info: this.INFO, filter: 'is_favourite' })
     },
-    __mounted(id) {
+    async __mounted(id) {
       this.userId = Number(id)
 
-      this.GET_USER_FROM_DB(id)
-      this.GET_INFO_USER_SERIALS(id)
+      await this.GET_USER_FROM_DB(id)
+      await this.GET_INFO_USER_SERIALS(id)
 
-      this.friends(id)
-      this.myFriends()
+      await this.friends(id)
+      await this.myFriends()
 
-      this.GET_ME()
+      await this.GET_ME()
+
+      this.sockets.subscribe('send-request', async () => {
+        await this.friends(this.$route.params.id)
+        await this.myFriends()
+      })
+
+      this.sockets.subscribe('cancel-request', async () => {
+        await this.friends(this.$route.params.id)
+        await this.myFriends()
+      })
+
+      this.sockets.subscribe('confirm-request', async () => {
+        await this.friends(this.$route.params.id)
+        await this.myFriends()
+      })
+
+      this.sockets.subscribe('update-series', async () => {
+        console.log('update-series');
+        await this.GET_INFO_USER_SERIALS(id)
+      })
     }
   },
-  async mounted() {
+  mounted() {
     this.__mounted(this.$route.params.id)
   },
   computed: {
@@ -179,6 +196,10 @@ export default {
         this.__mounted(to.params.id)
       }
     }
+  },
+  beforeDestroy() {
+    this.sockets.unsubscribe('update-series')
+    this.sockets.unsubscribe('confirm-request')
   }
 };
 </script>

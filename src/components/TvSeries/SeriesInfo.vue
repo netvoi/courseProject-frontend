@@ -1,8 +1,11 @@
 <template>
-  <div class="row align-items-start pt-5 pb-4 separator">
+  <div
+    class="row align-items-start separator"
+    v-if="!!SERIES && Object.keys(SERIES).length"
+  >
     <div class="col-6">
       <div class="card">
-        <div class="card__image" v-if="this.SERIES.id">
+        <div class="card__image">
           <img
           class="card__photo"
           :src="`${require(`@/assets/img/seriesPreview/libertad${this.SERIES.id - 1}.jpg`)}`"
@@ -33,32 +36,30 @@
           <span class="info__subtitle">{{ SERIES.seriesOriginalName }}</span>
         </div>
         <ul class="info__content">
-          <li class="info__content-item">
+          <li class="info__content-item" v-if="SERIES.year.length">
             <span>Год:</span> <div>{{ SERIES.year }}</div>
           </li>
-          <li class="info__content-item">
+          <li class="info__content-item" v-if="SERIES.country.length">
             <span>Страна:</span> <div>{{ SERIES.country }}</div>
           </li>
-          <li class="info__content-item">
+          <li class="info__content-item" v-if="SERIES.genre.length">
             <span>Жанр:</span> <div>{{ SERIES.genre }}</div>
           </li>
-          <li class="info__content-item">
+          <li class="info__content-item" v-if="SERIES.tvChannel.length">
             <span>Телеканал:</span> <div>{{ SERIES.tvChannel }}</div>
           </li>
           <li class="info__content-item">
             <span>Рейтинг:</span> <div>{{ SERIES.rating }}</div>
           </li>
-          <li class="info__content-item">
+          <li class="info__content-item" v-if="SERIES.director.length">
             <span>Режиссер:</span> <div>{{ SERIES.director }}</div>
           </li>
-          <li class="info__content-item">
-            <!-- eslint-disable-next-line max-len -->
+          <li class="info__content-item" v-if="SERIES.actors.length">
             <span>Актеры:</span> <div>{{ SERIES.actors }}</div>
           </li>
-          <li class="info__content-item info__content-item--description">
+          <li class="info__content-item info__content-item--description" v-if="SERIES.description.length">
             <span>Описание:</span>
             <div class="info__description">
-              <!-- eslint-disable-next-line max-len -->
               <p class="info__description-text"> {{ SERIES.description }} </p>
             </div>
           </li>

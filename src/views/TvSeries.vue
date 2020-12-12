@@ -1,14 +1,18 @@
 <template>
-  <div class="page">
-    <div class="container" v-if="IS_EXIST !== null"> 
+  <div class="series page">
+    <div class="container" v-if="IS_EXIST !== null">
       <SeriesInfo
+        class="series__info"
+
         @changeWatchedStatus="changeWatchedStatus"
         :isWatched="IS_EXIST"
-        :SERIES = 'SERIES'
+        :SERIES='SERIES'
       />
-      
+
       <div v-if="IS_EXIST">
         <Tabs
+          class="series__review"
+
           @changeFavouriteStatus="changeFavouriteStatus"
           @changeRecommendationStatus="changeRecommendationStatus"
           @setRating="setRating"
@@ -26,7 +30,7 @@
       <div v-else>
         <OtherReview
           :userSeries="USER_SERIES"
-          :friendsList="MY_FRIENDS" 
+          :friendsList="MY_FRIENDS"
         />
       </div>
     </div>
@@ -71,23 +75,33 @@ export default {
     ]),
     changeWatchedStatus(isWatched, id) {
       this.CHANGED_WATCHED_STATUS({ id, isWatched })
+
+      this.$socket.emit('updateSeries')
     },
     changeFavouriteStatus(isFavourite) {
       const seriesId = this.$route.params.id
       this.CHANGED_FAVOURITE_STATUS({ seriesId, isFavourite })
+
+      this.$socket.emit('updateSeries')
     },
     changeRecommendationStatus(isRecommendation) {
       const seriesId = this.$route.params.id
       this.CHANGED_RECOMMENDATION_STATUS({ seriesId, isRecommendation })
+
+      this.$socket.emit('updateSeries')
     },
     setRating(rating) {
       const seriesId = this.$route.params.id
       this.CHANGED_RATING({ seriesId, rating })
+
+      this.$socket.emit('updateSeries')
     },
     setReviewAndDate(review, date) {
       const seriesId = this.$route.params.id
       this.CHANGED_REVIEW({ seriesId, review })
       this.CHANGED_DATE({ seriesId, date })
+
+      this.$socket.emit('updateSeries')
     },
   },
   mounted() {
@@ -98,9 +112,16 @@ export default {
     this.GET_MARK_FIELDS({
       serials_id: this.$route.params.id
     })
-    
+
     this.GET_USER_BY_SERIES(this.$route.params.id)
     this.GET_MY_FRIENDS()
+
+    this.sockets.subscribe('update-series', async () => {
+      console.log('update-series');
+
+      await this.GET_MARK_FIELDS({ serials_id: this.$route.params.id  })
+      await this.GET_USER_BY_SERIES(this.$route.params.id)
+    })
   },
   computed: {
     ...mapGetters([
@@ -124,16 +145,16 @@ export default {
       this.GET_MARK_FIELDS({
         serials_id: to.params.id
       })
-      
+
       this.GET_USER_BY_SERIES(to.params.id)
       next()
     }
+  },
+  beforeDestroy() {
+    this.sockets.unsubscribe('update-series')
   }
 };
 </script>
 
 <style lang="scss">
-  .series {
-    padding: 2rem 0;
-  }
 </style>

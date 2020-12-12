@@ -11,7 +11,22 @@
       :rating="rating"
     />
 
-    <label for="review" class="review-form__label">Моё мнение</label>
+    <div class="myReview__options">
+      <label for="review" class="review-form__label">Моё мнение</label>
+      <span v-if="review">
+        <button
+          class="myReview__options-item myReview__options-item--edit"
+          type="button"
+          @click.prevent="change()"
+        ></button>
+        <button
+          class="myReview__options-item myReview__options-item--delete"
+          type="button"
+          @click.prevent="setReview('')"
+        ></button>
+      </span>
+    </div>
+
 
     <form
       class="review-form"
@@ -40,23 +55,8 @@
         v-if="changedTextReview === null"
       >
         <div class="myReview__text">
-          <p>{{ review }}</p>
+          <div class="myReview__text-wrapper scroll"><p>{{ review }}</p></div>
           <div class="datetime"><span>{{ date }}</span></div>
-        </div>
-  
-        <div class="myReview__options">
-          <button
-            class="myReview__options-item myReview__options-item--edit"
-            type="button"
-            @click.prevent="change()"
-          >
-          </button>
-          <button
-            class="myReview__options-item myReview__options-item--delete"
-            type="button"
-            @click.prevent="setReview('')"
-          >
-          </button>
         </div>
       </div>
       <div v-else>

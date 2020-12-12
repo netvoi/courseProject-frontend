@@ -1,12 +1,19 @@
 <template>
-  <div>
+  <div class="otherReview">
     <div v-if="userSeries.length !== 0">
-      <div v-for="user in userSeries" :key="user.id">
-        <div class="otherReview" v-if="friendsList.includes(user.users_id)" :flag="flag = true">
+      <div
+        class="otherReview__item"
+        v-for="user in userSeries"
+        :key="user.id"
+      >
+        <div v-if="friendsList.includes(user.users_id)" :flag="flag=true">
           <div class="otherReview__rating">
-            <h2 class="otherReview__title title--h2"><span>{{ user.user.first_name }} {{ user.user.last_name }}</span> оценил данный сериал</h2>
-            <div class="rating">
+            <h2 class="otherReview__title title--h2"><span>{{ user.user.first_name }} {{ user.user.last_name }}</span> уже посмотрел этот сериал</h2>
+            <div
+              v-if="!user.is_recommendation && !user.is_favourite && !user.rating && !user.rating && !user.review"
+            >Но пока не успел оценить его</div>
 
+            <div class="rating" v-else>
               <div class="rating__item rating__item--rec" v-if="user.is_recommendation">
                 <img src="@/assets/img/rating-icons/bookmark.svg" alt="">
               </div>
@@ -20,7 +27,7 @@
               <div class="rating__item rating__item--fav" v-else>
                 <img src="@/assets/img/rating-icons/unFavourite.svg" alt="">
               </div>
-              
+
               <div>
                 <star-rating
                   :rating="user.rating"
@@ -40,11 +47,11 @@
             <h3 class="otherReview__subtitle title--h3">Отзыв:</h3>
 
             <div class="otherReview__text">
-              <p>{{ user.review }}</p>
-              <div class="datetime"><span>{{ user.dateComment }}</span></div>
+              <div class="otherReview__text-wrapper"><p>{{ user.review }}</p></div>
+              <div class="datetime"><span>{{ user.date_comment }}</span></div>
             </div>
           </div>
-          
+
         </div>
       </div>
 

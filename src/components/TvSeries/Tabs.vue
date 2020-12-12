@@ -2,6 +2,8 @@
   <div>
     <div id="my-review">
       <MyReview
+        class="my-review scroll"
+
         @changeFavouriteStatus="changeFavouriteStatus"
         @changeRecommendationStatus="changeRecommendationStatus"
         @setRating="setRating"
@@ -15,8 +17,10 @@
     </div>
     <div id="other-review">
       <OtherReview
-         :userSeries="userSeries"
-         :friendsList="friendsList"
+        class="other-review scroll"
+
+       :userSeries="userSeries"
+       :friendsList="friendsList"
       />
     </div>
 
@@ -99,4 +103,13 @@ export default {
 </script>
 
 <style lang="scss">
+  .my-review,
+  .other-review {
+    max-height: 38vh;
+    overflow: auto;
+  }
+
+  .my-review {
+    overflow: unset;
+  }
 </style>

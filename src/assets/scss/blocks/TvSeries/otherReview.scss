@@ -1,15 +1,20 @@
 .otherReview {
-  padding: 2rem 0;
-
   font-family: 'Inter', sans-serif;
   font-weight: 400;
 
   color: #4F4F4F;
 
-  min-height: 250px;
-  max-height: 600px;
+  &:hover {
+    &::-webkit-scrollbar {
+      width: 4px!important;
+    }
+  }
+}
 
-  overflow: auto;
+.otherReview__item {
+  & + & {
+    margin-top: 2rem;
+  }
 }
 
 .otherReview__subtitle {
@@ -21,6 +26,13 @@
 .otherReview__text {
   font-size: 1.4rem;
   line-height: 2.2rem;
+
+  word-break: break-all;
+  white-space: pre-wrap;
+
+  p {
+    padding-right: 1rem;
+  }
 }
 
 .otherReview__title {
