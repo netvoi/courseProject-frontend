@@ -16,7 +16,6 @@ import 'materialize-css/dist/js/materialize.min'
 import './assets/scss/style.scss'
 import 'bootstrap/scss/bootstrap-grid.scss'
 
-
 const socketInstance = io('http://localhost:8081/', {
   transports: ['websocket'],
 });
@@ -32,8 +31,13 @@ Vue.use(new VueSocketIO({
   },
 }))
 
+/* Vuelidate: https://github.com/vuelidate/vuelidate */
 Vue.use(Vuelidate)
+
+/* Hotkeys: https://github.com/Dafrok/v-hotkey */
 Vue.use(VueHotkey)
+
+/* Emoji: https://github.com/DCzajkowski/vue-emoji-picker */
 Vue.use(EmojiPickerPlugin)
 
 Vue.config.productionTip = false;
