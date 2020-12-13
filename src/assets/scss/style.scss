@@ -75,6 +75,15 @@ body {
   font-weight: 400;
 
   color: $primary;
+
+  &::-webkit-scrollbar {
+    background-color: rgba($primary, .3);
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $primary;
+  }
 }
 
 *,

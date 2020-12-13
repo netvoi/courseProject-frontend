@@ -1,5 +1,5 @@
 <template>
-  <div 
+  <div
     class="main-layout"
     @click="closeSearch"
   >
@@ -41,10 +41,7 @@ import Settings from '@/components/Settings/Settings.vue'
 import Search from '@/components/Search.vue'
 
 import { mapActions, mapGetters } from 'vuex'
-
 import pathRoot from '@/utils/root'
-
-import axios from 'axios'
 
 export default {
   name: 'main-layout',
@@ -79,22 +76,26 @@ export default {
     closeSearch() {
       this.showSearch = false
     },
-    eventUpdateData(user) {
-      this.UPDATE_USER_DATA(user)
-        .then(() => this.GET_ME())
+    async eventUpdateData(user) {
+      this.$socket.emit('updateUserInfo', { id: this.ME.userId })
+
+
+      await this.UPDATE_USER_DATA(user)
+      await this.GET_ME()
     },
-    eventUpdatePassword(password) {
-      this.UPDATE_USER_PASSWORD(password)
+    async eventUpdatePassword(password) {
+      await this.UPDATE_USER_PASSWORD(password)
     },
-    eventUpdatePhoto() {
-      this.GET_ME()
+    async eventUpdatePhoto() {
+      this.$socket.emit('updateUserInfo', { id: this.ME.userId })
+
+      await this.GET_ME()
     }
   },
-  mounted() {
-    console.log('Main layout');
-    this.GET_ALL_SERIES()
-    this.GET_ME()
-      .then(() => this.$socket.emit('userJoin', { id: this.ME.userId }))
+  async mounted() {
+    await this.GET_ALL_SERIES()
+    await this.GET_ME()
+    this.$socket.emit('userJoin', { id: this.ME.userId })
 
     this.root = pathRoot
   },

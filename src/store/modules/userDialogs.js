@@ -40,7 +40,7 @@ export default {
       console.log('users', users.data);
       commit('SET_ALL_DIALOGS', users.data)
       return res
-    }
+    },
   },
   mutations: {
     STATUS_DIALOG_EXIST: (state, data) => {

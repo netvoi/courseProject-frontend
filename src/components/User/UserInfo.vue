@@ -99,10 +99,6 @@ export default {
         return {}
       },
     },
-    src: {
-      type: String,
-      default: ''
-    },
     statistic: {
       type: Object,
       default() {

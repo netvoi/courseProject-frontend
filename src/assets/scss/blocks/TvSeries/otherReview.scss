@@ -6,7 +6,11 @@
 
   &:hover {
     &::-webkit-scrollbar {
-      width: 4px!important;
+      background-color: rgba($primary, .3);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $primary;
     }
   }
 }

@@ -64,7 +64,6 @@ export default {
         .then(response => response)
         .catch(error => error.response)
 
-
       commit('SET_FILTER_FIELDS', res.data.filterFields)
       return res
     },
@@ -91,9 +90,9 @@ export default {
 
           let arr = !(typeof params[ob] == 'number')
           ? block.series.filter(series => series[ob].includes(params[ob]))
-          : block.series.filter(series => series[ob] === item)
+          : block.series.filter(series => series[ob] === params[ob])
 
-          if(arr.length != 0) {
+          if(arr.length !== 0) {
             filteredList.push({
               letter: block.letter,
               active: true,
@@ -155,7 +154,7 @@ export default {
       state.isFiltered = true
     },
     DROP_FILTERED_ALPHABET: (state) => {
-      state.filteredAlphabetList = {}
+      state.filteredAlphabetList = []
       state.isFiltered = false
     },
     SET_FOUND_SERIES: (state, foundSeries) => {

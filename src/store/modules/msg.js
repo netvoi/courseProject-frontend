@@ -16,7 +16,7 @@ export default {
       console.log('CREATE_MESSAGE', res);
       return res
     },
-    SOCKET_GET_MESSAGE({commit}, data) {
+    SOCKET_GET_MESSAGE({commit, actions}, data) {
       console.log('socket data', data);
       commit('SET_MESSAGE', data)
     },

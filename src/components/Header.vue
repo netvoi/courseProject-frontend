@@ -5,7 +5,7 @@
         <div class="col-4">
           <div class="logo">
             <img class="logo__icon" src="@/assets/img/logo.svg" alt="Libertad logo">
-            <router-link 
+            <router-link
               class="logo__name"
               tag="a"
               to="/"
@@ -14,15 +14,16 @@
         </div>
 
         <div class="col-4">
-          <form class="" action="/">
+          <form>
+            <label for="search-serial"></label>
             <input
-              class=""
+              @input="foundSeries"
+
               id="search-serial"
               type="search"
               name="search-serial"
-              placeholder="Search"
+              placeholder="Сериалы..."
               v-model="search"
-              @input="foundSeries"
               autocomplete="off"
             >
           </form>
@@ -34,15 +35,13 @@
               class="menu__link menu__link--list"
               to="/"
               tag="a"
-            >
-            </router-link>
+            ></router-link>
 
             <router-link
               class="menu__link menu__link--chat"
               to="/inbox"
               tag="a"
-            ><span></span>
-            </router-link>
+            ></router-link>
 
             <div class="dropdown menu__avatar">
               <a
@@ -68,7 +67,7 @@
               <ul id='dropdown1' class='dropdown-content'>
                 <li>
                   <router-link
-                    tag="a" 
+                    tag="a"
                     :to="`/user/${ authUser.userId }`"
                   >Профиль</router-link>
                 </li>

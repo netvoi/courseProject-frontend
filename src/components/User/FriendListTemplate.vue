@@ -17,6 +17,7 @@
       </router-link>
       <button
         class="friends__btn"
+        @click.prevent="onDialog(item.id)"
         v-if="status === 0"
       ></button>
       <div class="ml-auto" v-if="status === 1">
@@ -57,6 +58,9 @@ export default {
     },
     cancel(id) {
       this.$emit('cancel', id)
+    },
+    onDialog(id) {
+      this.$router.push(`/inbox/im${id}`)
     }
   },
 }

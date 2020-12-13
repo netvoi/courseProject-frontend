@@ -6,7 +6,7 @@
       ref="modalDialogs"
     >
       <div class="modal-dialog__header">
-        <h3>Новое сообщение</h3>
+        <h3 class="title--h3">Выберите собеседника</h3>
       </div>
 
       <router-link
@@ -67,6 +67,11 @@ export default {
     ])
   },
   async mounted() {
+    this.sockets.subscribe('new-dialog', async () => {
+      console.log('new dialog');
+      await this.GET_ALL_DIALOGS()
+    })
+
     await this.GET_ALL_DIALOGS()
     await this.GET_MY_FRIENDS()
     await this.GET_SOME_USERS({ id: this.MY_FRIENDS })

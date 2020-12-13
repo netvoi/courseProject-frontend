@@ -32,7 +32,7 @@
       </div>
       <div class="sidebar__item-right">
         <span class="sidebar__item-name">{{ dialog.first_name }} {{ dialog.last_name }}</span>
-        <span class="sidebar__item-msg">Message</span>
+        <!--<span class="sidebar__item-msg">Message</span>-->
       </div>
     </router-link>
   </div>

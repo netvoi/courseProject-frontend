@@ -34,17 +34,13 @@
         />
       </div>
     </div>
-    <!-- /.container -->
   </div>
-  <!-- /.page -->
 </template>
 
 <script>
 import SeriesInfo from '@/components/TvSeries/SeriesInfo.vue';
 import Tabs from '@/components/TvSeries/Tabs.vue';
 import OtherReview from '@/components/TvSeries/OtherReview.vue';
-
-import UsersSerialsDataService from '@/services/UsersSerialsDataService'
 
 import { mapActions, mapGetters } from 'vuex'
 

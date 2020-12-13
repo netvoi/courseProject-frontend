@@ -8,7 +8,6 @@
           @favourite="favourite"
 
           :user="USER"
-          :src="SRC"
           :statistic="STATISTIC"
           :myId="ME.userId"
           :userId="userId"
@@ -167,6 +166,13 @@ export default {
         console.log('update-series');
         await this.GET_INFO_USER_SERIALS(id)
       })
+
+      this.sockets.subscribe('update-user-info', async (data) => {
+        if(Number(this.$route.params.id) === data.id) {
+          console.log('id', this.$route.params.id);
+          await this.GET_USER_FROM_DB(id)
+        }
+      })
     }
   },
   mounted() {
@@ -200,6 +206,7 @@ export default {
   beforeDestroy() {
     this.sockets.unsubscribe('update-series')
     this.sockets.unsubscribe('confirm-request')
+    this.sockets.unsubscribe('update-user-info')
   }
 };
 </script>

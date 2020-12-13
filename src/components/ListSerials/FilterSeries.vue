@@ -11,7 +11,7 @@
         :nameKey="name"
         :nameOption="selected[name]"
       />
-      
+
       <div class="filter-series__buttons">
         <button @click.prevent="findWithFilter">Найти</button>
         <button @click.prevent="dropFilters">Сбросить</button>
@@ -49,8 +49,6 @@ export default {
   methods: {
     selectedOption(item, nameKey) {
       this.selected[nameKey] = item
-      this.$emit('filterOption', item, nameKey)
-
       this.filter[nameKey] = item
     },
     findWithFilter() {
@@ -58,6 +56,7 @@ export default {
     },
     dropFilters() {
       this.$emit('dropFilters')
+
       this.selected.genre = 'Жанр'
       this.selected.year = 'Год'
       this.selected.country = 'Страна'
@@ -68,4 +67,4 @@ export default {
 </script>
 
 <style lang="scss">
-</style> 
+</style>

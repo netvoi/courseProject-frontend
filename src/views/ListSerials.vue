@@ -5,7 +5,6 @@
         <div class="col-3">
           <FilterSeries
             @dropFilters="dropFilters"
-            @filterOption=filterOption
             @findWithFilter="findWithFilter"
             :filterFields="FILTER_FIELDS"
           />
@@ -45,9 +44,6 @@ export default {
       'GET_FILTER_FIELDS',
       'FIELD_NOT_VISIBLE'
     ]),
-    filterOption(item, nameKey) {
-      // this.GET_FILTERED_ALPHABET({item, nameKey})
-    },
     findWithFilter(params) {
       this.GET_FILTERED_ALPHABET(params)
     },
@@ -79,6 +75,10 @@ export default {
       ? this.FILTERED_ALPHABET
       : this.ALPHABET
     },
+  },
+  beforeRouteLeave(to, from, next) {
+    this.GET_DROP_FILTERED_ALPHABET()
+    next()
   }
 }
 </script>

@@ -38,6 +38,7 @@
         type="text"
         placeholder="Написать сообщение..."
         v-model="msg"
+
         @keydown.enter="sendMsg"
       >
 
@@ -78,6 +79,9 @@ export default {
       'GET_MESSAGES'
     ]),
     async sendMsg() {
+      if(this.msg === '') {
+        return
+      }
 
       this.$socket.emit('sendMessage', {
         message: this.msg,
@@ -85,13 +89,9 @@ export default {
         from: this.ME.userId,
         created: new Date()
       }, cb => {
-        if(cb) this.msg = ''
-        else console.log('Что-то пошло не так!')
+        if(cb) console.log('Успешно!')
+        else console.error('Что-то пошло не так!')
       })
-
-      if(!this.msg.length) return
-
-      console.log('!!!!!!!!!!!!!!!!!!!', this.DIALOG_EXIST);
 
       if(this.DIALOG_EXIST) {
         // Логика для записи в бд в сущ-ий диалог
@@ -101,16 +101,15 @@ export default {
           dialogsId: this.DIALOG_ID,
           text: this.msg
         })
-        message.status === 200 ? this.msg = '' : console.log('Что-то пошло не так!')
-        
+        message.status === 200 ? this.msg = '' : console.error('Что-то пошло не так!', message)
+
       } else {
         // Логика для записи данных в бд в новый диалог
         console.log('Создаю новый диалог и записываю данные')
 
         const dialog = await this.CREATE_DIALOG()
-
         const data = { id: this.$route.params.id, dialogsId: dialog.data.id }
-        const usersDialog = await this.CREATE_DIALOG_BETWEEN_USERS(data)
+        await this.CREATE_DIALOG_BETWEEN_USERS(data)
 
         const message = await this.CREATE_MESSAGE({
           dialogsId: dialog.data.id,
@@ -119,9 +118,10 @@ export default {
         if(message.status === 200) {
           this.msg = ''
           this.IS_DIALOG_EXIST({ assigneeId: this.$route.params.id })
+          this.$socket.emit('dialogCreate', {to: Number(this.$route.params.id), from: this.ME.userId,})
         } else {
-          console.log('Что-то пошло не так!')
-        } 
+          console.error('Что-то пошло не так!', message)
+        }
       }
     },
     __mounted(id) {
@@ -158,4 +158,4 @@ export default {
 </script>
 
 <style lang="scss">
-</style> 
+</style>
