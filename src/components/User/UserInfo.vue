@@ -7,13 +7,7 @@
           v-if="user.id"
         >
           <img
-            v-if="user.avatar !== null"
-            :src="`${root}${user.avatar}`"
-            alt="avatar"
-          >
-          <img
-            v-else
-            :src="`${root}default-avatar.svg`"
+            :src="root + user.avatar"
             alt="avatar"
           >
         </div>
@@ -90,7 +84,6 @@ export default {
   name: 'UserInfo',
   data: () => ({
     isActive: false,
-    root: ''
   }),
   props: {
     user: {
@@ -136,6 +129,10 @@ export default {
         return []
       }
     },
+    root: {
+      type: String,
+      default: ''
+    }
   },
   methods: {
     confirm(id) {
@@ -154,9 +151,6 @@ export default {
       this.isActive = !this.isActive
     }
   },
-  mounted() {
-    this.root = r
-  }
 };
 </script>
 

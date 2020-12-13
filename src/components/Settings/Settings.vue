@@ -15,13 +15,8 @@
                   alt="avatar"
                 >
                 <img
-                  v-else-if="authUser.avatar !== null"
-                  :src="`${root}${authUser.avatar}`"
-                  alt="avatar"
-                >
-                <img
                   v-else
-                  :src="`${root}default-avatar.svg`"
+                  :src="root + authUser.avatar"
                   alt="avatar"
                 >
               </div>

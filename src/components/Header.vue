@@ -22,7 +22,7 @@
               id="search-serial"
               type="search"
               name="search-serial"
-              placeholder="Сериалы..."
+              placeholder="Найти сериал"
               v-model="search"
               autocomplete="off"
             >
@@ -30,62 +30,11 @@
         </div>
 
         <div class="col-4">
-          <div class="menu">
-            <router-link
-              class="menu__link menu__link--list"
-              to="/"
-              tag="a"
-            ></router-link>
-
-            <router-link
-              class="menu__link menu__link--chat"
-              to="/inbox"
-              tag="a"
-            ></router-link>
-
-            <div class="dropdown menu__avatar">
-              <a
-                class='dropdown-trigger'
-                href='#'
-                data-target='dropdown1'
-                ref="dropdown"
-              >
-                <div class="menu__btn">
-                  <img
-                    v-if="authUser.avatar !== null"
-                    :src="`${root}${authUser.avatar}`"
-                    alt="avatar"
-                  >
-                  <img
-                    v-else
-                    :src="`${root}default-avatar.svg`"
-                    alt="avatar"
-                  >
-                </div>
-              </a>
-
-              <ul id='dropdown1' class='dropdown-content'>
-                <li>
-                  <router-link
-                    tag="a"
-                    :to="`/user/${ authUser.userId }`"
-                  >Профиль</router-link>
-                </li>
-                <li>
-                  <a
-                    class="waves-effect modal-trigger"
-                    href="#modal3"
-                  >Настройки</a>
-                </li>
-                <li @click.prevent="logout">
-                  <router-link
-                    tag="a"
-                    to="#logout"
-                  >Выход</router-link>
-                </li>
-              </ul>
-            </div>
-          </div>
+          <Menu
+            @logout="logout"
+            :authUser="authUser"
+            :root="root"
+          />
         </div>
       </div>
     </div>
@@ -94,6 +43,7 @@
 
 <script>
 import { mapActions } from 'vuex'
+import Menu from '@/components/Menu'
 
 export default {
   name: 'main-header',
@@ -112,6 +62,9 @@ export default {
       default: ''
     }
   },
+  components: {
+    Menu
+  },
   methods: {
     ...mapActions([
       'LOGOUT',
@@ -128,11 +81,6 @@ export default {
       ? this.$emit('searchStatus', true, this.search)
       : this.$emit('searchStatus', false)
     }
-  },
-  mounted() {
-    this.dropdown = M.Dropdown.init(this.$refs.dropdown, {
-      constrainWidth: false,
-    })
   },
   watch: {
     $route (to, from) {

@@ -5,6 +5,8 @@ import store from './store'
 import VueSocketIO from 'vue-socket.io'
 import io from 'socket.io-client'
 import Vuelidate from 'vuelidate'
+import VueHotkey from 'v-hotkey'
+import { EmojiPickerPlugin } from 'vue-emoji-picker'
 import './registerServiceWorker'
 
 /* JS */
@@ -30,8 +32,9 @@ Vue.use(new VueSocketIO({
   },
 }))
 
-/* Vuelidate */
 Vue.use(Vuelidate)
+Vue.use(VueHotkey)
+Vue.use(EmojiPickerPlugin)
 
 Vue.config.productionTip = false;
 

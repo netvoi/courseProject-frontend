@@ -1,35 +1,17 @@
 import UsersDataService from '@/services/UsersDataService'
-import axios from 'axios'
 
 export default {
   state: {
     user: {},
     me: {},
     someUsers: [],
-    src: ''
+    root: 'http://localhost:8081/static/uploads/'
   },
   actions: {
     async GET_USER_FROM_DB({commit}, id) {
       const user = await UsersDataService.get(id)
         .then(response => response)
         .catch(error => error.response)
-
-      /* await axios.get(`http://localhost:8081/api/upload/id${id}`, {
-        responseType: 'arraybuffer',
-        headers: { 'Authorization': localStorage.getItem('jwt')}
-      })
-        .then(response => {
-          const bytes = new Uint8Array(response.data)
-          const blob = new Blob([bytes.buffer])
-          const reader = new FileReader()
-
-          reader.readAsDataURL(blob)
-
-          reader.addEventListener('load', e => {
-            commit('SET_AVATAR', e.target.result)
-          })
-        })
-        .catch(error => error.response) */
 
       commit('SET_USER', user.data)
     },
@@ -44,30 +26,23 @@ export default {
       const someUsers = await UsersDataService.someUsers(users)
         .then(response => response)
         .catch(error => error.response)
-      
+
       commit('SET_SOME_USERS', someUsers.data.users)
     },
     async UPDATE_USER_DATA({commit}, data) {
-      const res = await UsersDataService.updateData(data)
+      await UsersDataService.updateData(data)
         .then(response => response)
-        .catch(error => error.response)
+        .catch(error => error.response);
     },
     async UPDATE_USER_PASSWORD({commit}, password) {
-      const res = await UsersDataService.updatePassword(password)
+      await UsersDataService.updatePassword(password)
         .then(response => response)
-        .catch(error => error.response)
-
-      console.log(res);
+        .catch(error => error.response);
     }
   },
   mutations: {
     SET_USER: (state, user) => {
       state.user = user
-    },
-    SET_AVATAR: (state, src) => {
-      src === 'data:'
-      ? state.src = ''
-      : state.src = src
     },
     SET_ME: (state, me) => {
       state.me = me
@@ -81,8 +56,8 @@ export default {
     USER(state) {
       return state.user
     },
-    SRC(state) {
-      return state.src
+    ROOT(state) {
+      return state.root
     },
     ME(state) {
       return state.me

@@ -7,7 +7,7 @@
     <Header
       @searchStatus="searchStatus"
       :authUser="ME"
-      :root="root"
+      :root="ROOT"
     />
 
     <div @click.stop="">
@@ -24,35 +24,31 @@
       @eventUpdatePhoto="eventUpdatePhoto"
 
       :authUser="ME"
-      :root="root"
+      :root="ROOT"
     />
 
-    <router-view />
+    <About />
 
-    <!-- <Footer/> -->
+    <router-view />
   </div>
 </template>
 
 <script>
 import Header from '@/components/Header.vue'
-import Footer from '@/components/Footer.vue'
 import About from '@/components/About.vue'
 import Settings from '@/components/Settings/Settings.vue'
 import Search from '@/components/Search.vue'
 
 import { mapActions, mapGetters } from 'vuex'
-import pathRoot from '@/utils/root'
 
 export default {
   name: 'main-layout',
   data: () => ({
     showSearch: false,
     tabs: null,
-    root: ''
   }),
   components: {
     Header,
-    Footer,
     About,
     Settings,
     Search,
@@ -79,7 +75,6 @@ export default {
     async eventUpdateData(user) {
       this.$socket.emit('updateUserInfo', { id: this.ME.userId })
 
-
       await this.UPDATE_USER_DATA(user)
       await this.GET_ME()
     },
@@ -95,20 +90,20 @@ export default {
   async mounted() {
     await this.GET_ALL_SERIES()
     await this.GET_ME()
-    this.$socket.emit('userJoin', { id: this.ME.userId })
 
-    this.root = pathRoot
+    this.$socket.emit('userJoin', { id: this.ME.userId })
   },
   computed: {
     ...mapGetters([
       'FOUND_SERIES',
-      'ME'
+      'ME',
+      'ROOT'
     ])
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   .main-layout {
     position: relative;
   }

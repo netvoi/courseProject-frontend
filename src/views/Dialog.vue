@@ -1,29 +1,10 @@
 <template>
   <div class="dialog" v-if="!!USER && Object.keys(USER).length">
-    <header class="dialog__header">
-      <div class="dialog__user">
-        <div class="dialog__user-img image">
-          <img
-            v-if="USER.avatar !== null"
-            :src="`${root}${USER.avatar}`"
-            alt="avatar"
-            >
-          <img
-            v-else
-            :src="`${root}default-avatar.svg`"
-            alt="avatar"
-          >
-        </div>
-        <router-link
-          tag="a"
-          :to="`/user/${USER.id}`"
-          class="dialog__user-name"
-        >{{USER.first_name}} {{USER.last_name}}</router-link>
-      </div>
-      <div class="dialog__options">
-        <button class="dialog__btn dialog__btn--more"></button>
-      </div>
-    </header>
+
+    <DialogHeader
+      :user="USER"
+      :root="ROOT"
+    />
 
     <div class="dialog__content" ref="block">
       <Message
@@ -33,17 +14,47 @@
     </div>
 
     <footer class="dialog__footer">
-      <input
+      <textarea
+        @input="auto_grow"
         class="dialog__footer-send"
-        type="text"
         placeholder="Написать сообщение..."
         v-model="msg"
-
-        @keydown.enter="sendMsg"
-      >
+        ref="area"
+        v-hotkey="keymap"
+      ></textarea>
 
       <div class="dialog__footer-btns">
-        <button class="dialog__footer-btn dialog__footer-btn--smile"></button>
+<!--        <button class="dialog__footer-btn dialog__footer-btn&#45;&#45;smile"></button>-->
+        <emoji-picker @emoji="append" :search="search">
+          <button
+              class="emoji-invoker dialog__footer-btn dialog__footer-btn--smile"
+              slot="emoji-invoker"
+              slot-scope="{ events: { click: clickEvent } }"
+              @click.stop="clickEvent"
+          >
+          </button>
+          <div slot="emoji-picker" slot-scope="{ emojis, insert, display }">
+            <div class="emoji-picker" :style="{ top: display.y + 'px', left: display.x + 'px' }">
+              <div class="emoji-picker__search">
+                <input type="text" v-model="search" v-focus>
+              </div>
+              <div>
+                <div v-for="(emojiGroup, category) in emojis" :key="category">
+                  <h5>{{ category }}</h5>
+                  <div class="emojis">
+                <span
+                    v-for="(emoji, emojiName) in emojiGroup"
+                    :key="emojiName"
+                    @click="insert(emoji)"
+                    :title="emojiName"
+                >{{ emoji }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </emoji-picker>
+
         <button
           class="dialog__footer-btn dialog__footer-btn--send"
           @click.prevent="sendMsg"
@@ -56,17 +67,26 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+
 import Message from '@/components/Dialog/Message.vue'
-import r from '@/utils/root'
+import DialogHeader from '@/components/Dialog/DialogHeader'
 
 export default {
-  name: 'chat-dialog',
+  name: 'Dialog',
   data: () => ({
     msg: '',
-    root: ''
+    search: ''
   }),
   components: {
     Message,
+    DialogHeader,
+  },
+  directives: {
+    focus: {
+      inserted(el) {
+        el.focus()
+      },
+    },
   },
   methods: {
     ...mapActions([
@@ -78,6 +98,9 @@ export default {
       'GET_ME',
       'GET_MESSAGES'
     ]),
+    append(emoji) {
+      this.msg += emoji
+    },
     async sendMsg() {
       if(this.msg === '') {
         return
@@ -102,33 +125,44 @@ export default {
           text: this.msg
         })
         message.status === 200 ? this.msg = '' : console.error('Что-то пошло не так!', message)
-
+        this.$refs.area.style.height = '30px'
       } else {
         // Логика для записи данных в бд в новый диалог
         console.log('Создаю новый диалог и записываю данные')
 
         const dialog = await this.CREATE_DIALOG()
-        const data = { id: this.$route.params.id, dialogsId: dialog.data.id }
+        const data = {
+          id: this.$route.params.id,
+          dialogsId: dialog.data.id
+        }
         await this.CREATE_DIALOG_BETWEEN_USERS(data)
 
         const message = await this.CREATE_MESSAGE({
           dialogsId: dialog.data.id,
           text: this.msg
         })
-        if(message.status === 200) {
+        if (message.status === 200) {
+          this.$socket.emit('dialogCreate', {
+            to: Number(this.$route.params.id),
+            from: this.ME.userId,
+          })
+
           this.msg = ''
-          this.IS_DIALOG_EXIST({ assigneeId: this.$route.params.id })
-          this.$socket.emit('dialogCreate', {to: Number(this.$route.params.id), from: this.ME.userId,})
+          this.$refs.area.style.height = '30px'
+          await this.IS_DIALOG_EXIST({ assigneeId: this.$route.params.id })
         } else {
           console.error('Что-то пошло не так!', message)
         }
       }
     },
+    auto_grow() {
+      this.$refs.area.style.height = '30px';
+      this.$refs.area.style.height = (this.$refs.area.scrollHeight) + 'px';
+    },
     __mounted(id) {
       this.GET_USER_FROM_DB(id)
       this.IS_DIALOG_EXIST({ assigneeId: id }).then(() => { this.GET_MESSAGES({ id: this.DIALOG_ID }) })
       this.GET_ME()
-      this.root = r
     }
   },
   mounted() {
@@ -140,8 +174,14 @@ export default {
       'DIALOG_ID',
       'USER',
       'ME',
-      'MESSAGES'
-    ])
+      'MESSAGES',
+      'ROOT'
+    ]),
+    keymap () {
+      return {
+        'enter': this.sendMsg
+      }
+    }
   },
   beforeRouteUpdate(to, from, next) {
     this.__mounted(to.params.id)

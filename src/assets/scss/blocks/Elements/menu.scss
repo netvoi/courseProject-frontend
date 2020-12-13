@@ -1,7 +1,7 @@
 .menu {
 	width: 170px;
 	margin-left: auto;
-	
+
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -10,7 +10,7 @@
 .menu__link {
 	width: 31px;
 	height: 31px;
-	
+
 	&:focus {
 		outline: none;
 	}
@@ -22,17 +22,17 @@
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 31px;
-	
+
 	transition: background .2s linear;
-	
+
 	&--list {
 		mask-image: url('../img/list-icon.svg');
 	}
-	
+
 	&--chat {
-		mask-image: url('../img/chat-icon.svg');  
+		mask-image: url('../img/chat-icon.svg');
 	}
-	
+
 	&--list,
 	&--chat {
 		&:hover {
@@ -49,21 +49,21 @@
 .menu__btn {
 	position: relative;
 	overflow: hidden;
-	
+
 	width: 100%;
 	height: 100%;
-	
+
 	img {
 		position: absolute;
 		top: 50%;
 		left: 50%;
-		
+
 		transform: translate(-50%, -50%);
 		border-radius: 50%;
-		
+
 		width: 100%;
 		height: 100%;
-		
+
 		object-fit: cover;
 	}
 }

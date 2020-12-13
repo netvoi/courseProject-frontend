@@ -19,13 +19,7 @@
       <div class="sidebar__item-left">
         <div class="sidebar__item-img">
           <img
-            v-if="dialog.avatar !== null"
-            :src="`${root}${dialog.avatar}`"
-            alt="avatar"
-          >
-          <img
-            v-else
-            :src="`${root}default-avatar.svg`"
+            :src="root + dialog.avatar"
             alt="avatar"
           >
         </div>
@@ -39,23 +33,20 @@
 </template>
 
 <script>
-import r from '@/utils/root'
 
 export default {
   name: 'chat-sidebar',
-  data: () => ({
-    root: ''
-  }),
   props: {
     dialogs: {
       type: Array,
       default() {
         return []
       }
+    },
+    root: {
+      type: String,
+      default: ''
     }
-  },
-  mounted() {
-    this.root = r
   },
 }
 </script>

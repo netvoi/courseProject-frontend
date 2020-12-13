@@ -8,6 +8,7 @@
           @favourite="favourite"
 
           :user="USER"
+          :root="ROOT"
           :statistic="STATISTIC"
           :myId="ME.userId"
           :userId="userId"
@@ -181,7 +182,6 @@ export default {
   computed: {
     ...mapGetters([
       'USER',
-      'SRC',
       'INFO',
       'STATISTIC',
       'ME',
@@ -193,7 +193,9 @@ export default {
 
       'SOME_USERS',
 
-      'SERIES_FILTERED'
+      'SERIES_FILTERED',
+
+      'ROOT'
     ]),
   },
   watch: {
