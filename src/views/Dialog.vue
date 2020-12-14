@@ -101,12 +101,13 @@ export default {
       this.msg += emoji
     },
     async sendMsg() {
-      if(this.msg === '') {
+      if(this.msg.trim() === '') {
+        console.log('message is empty in sendMsg');
         return
       }
 
       this.$socket.emit('sendMessage', {
-        message: this.msg,
+        message: this.msg.trim(),
         to: Number(this.$route.params.id),
         from: this.ME.userId,
         created: new Date()
@@ -121,7 +122,7 @@ export default {
 
         const message = await this.CREATE_MESSAGE({
           dialogsId: this.DIALOG_ID,
-          text: this.msg
+          text: this.msg.trim()
         })
         message.status === 200 ? this.msg = '' : console.error('Что-то пошло не так!', message)
 
@@ -139,7 +140,7 @@ export default {
 
         const message = await this.CREATE_MESSAGE({
           dialogsId: dialog.data.id,
-          text: this.msg
+          text: this.msg.trim()
         })
         if(message.status === 200) {
           this.$socket.emit('dialogCreate', {
@@ -162,7 +163,11 @@ export default {
     updateMessages() {
       this.sockets.subscribe('get-message', () => {
         console.log('get-message');
-        this.GET_MESSAGES({ id: this.DIALOG_ID })
+
+        setTimeout(() => {
+          this.GET_MESSAGES({ id: this.DIALOG_ID })
+        }, 500)
+
       })
     },
     async __mounted(id) {
