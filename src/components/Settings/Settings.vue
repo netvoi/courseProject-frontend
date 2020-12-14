@@ -121,7 +121,6 @@ export default {
     },
   },
   mounted() {
-    console.log('settings');
     M.Modal.init(this.$refs.setting, {
       onOpenEnd: () => {
         M.Tabs.init(this.$refs.settingTabs, {duration: 500})

@@ -16,11 +16,8 @@ export default {
       console.log('CREATE_MESSAGE', res);
       return res
     },
-    SOCKET_GET_MESSAGE({commit, actions}, data) {
-      console.log('socket data', data);
-      commit('SET_MESSAGE', data)
-    },
     async GET_MESSAGES({commit}, dialogId) {
+      console.log('dialogId', dialogId);
       const res = await MsgDataService.getMessage(dialogId)
         .then(response => response)
         .catch(error => error.response)
@@ -38,9 +35,6 @@ export default {
     }
   },
   mutations: {
-    SET_MESSAGE: (state, data) => {
-      state.messages.push(data)
-    },
     SET_MESSAGES: (state, messages) => {
       state.messages = messages
     }

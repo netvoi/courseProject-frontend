@@ -14,7 +14,6 @@ export default {
         .catch(error => error.response)
 
       commit('STATUS_DIALOG_EXIST', res.data)
-      console.log('IS_DIALOG_EXIST', res);
       return res.data
     },
     async CREATE_DIALOG_BETWEEN_USERS({commit}, data) {
@@ -22,7 +21,6 @@ export default {
         .then(response => response)
         .catch(error => error.response)
 
-      console.log('CREATE_DIALOG_BETWEEN_USERS', res);
       return res
     },
     async GET_ALL_DIALOGS({commit}) {
@@ -31,13 +29,11 @@ export default {
         .catch(error => error.response)
 
       const dialogsId = res.data.dialogs.map(item => item.users_id)
-      console.log(dialogsId);
 
       const users = await UsersDataService.getAllById({ id: dialogsId })
         .then(response => response)
         .catch(error => error.response)
 
-      console.log('users', users.data);
       commit('SET_ALL_DIALOGS', users.data)
       return res
     },

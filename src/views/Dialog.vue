@@ -24,13 +24,12 @@
       ></textarea>
 
       <div class="dialog__footer-btns">
-<!--        <button class="dialog__footer-btn dialog__footer-btn&#45;&#45;smile"></button>-->
         <emoji-picker @emoji="append" :search="search">
           <button
-              class="emoji-invoker dialog__footer-btn dialog__footer-btn--smile"
-              slot="emoji-invoker"
-              slot-scope="{ events: { click: clickEvent } }"
-              @click.stop="clickEvent"
+            class="emoji-invoker dialog__footer-btn dialog__footer-btn--smile"
+            slot="emoji-invoker"
+            slot-scope="{ events: { click: clickEvent } }"
+            @click.stop="clickEvent"
           >
           </button>
           <div slot="emoji-picker" slot-scope="{ emojis, insert, display }">
@@ -42,12 +41,12 @@
                 <div v-for="(emojiGroup, category) in emojis" :key="category">
                   <h5>{{ category }}</h5>
                   <div class="emojis">
-                <span
-                    v-for="(emoji, emojiName) in emojiGroup"
-                    :key="emojiName"
-                    @click="insert(emoji)"
-                    :title="emojiName"
-                >{{ emoji }}</span>
+                    <span
+                      v-for="(emoji, emojiName) in emojiGroup"
+                      :key="emojiName"
+                      @click="insert(emoji)"
+                      :title="emojiName"
+                    >{{ emoji }}</span>
                   </div>
                 </div>
               </div>
@@ -96,7 +95,7 @@ export default {
       'CREATE_DIALOG_BETWEEN_USERS',
       'GET_USER_FROM_DB',
       'GET_ME',
-      'GET_MESSAGES'
+      'GET_MESSAGES',
     ]),
     append(emoji) {
       this.msg += emoji
@@ -125,6 +124,7 @@ export default {
           text: this.msg
         })
         message.status === 200 ? this.msg = '' : console.error('Что-то пошло не так!', message)
+
         this.$refs.area.style.height = '30px'
       } else {
         // Логика для записи данных в бд в новый диалог
@@ -141,7 +141,7 @@ export default {
           dialogsId: dialog.data.id,
           text: this.msg
         })
-        if (message.status === 200) {
+        if(message.status === 200) {
           this.$socket.emit('dialogCreate', {
             to: Number(this.$route.params.id),
             from: this.ME.userId,
@@ -159,14 +159,22 @@ export default {
       this.$refs.area.style.height = '30px';
       this.$refs.area.style.height = (this.$refs.area.scrollHeight) + 'px';
     },
-    __mounted(id) {
-      this.GET_USER_FROM_DB(id)
-      this.IS_DIALOG_EXIST({ assigneeId: id }).then(() => { this.GET_MESSAGES({ id: this.DIALOG_ID }) })
-      this.GET_ME()
+    updateMessages() {
+      this.sockets.subscribe('get-message', () => {
+        console.log('get-message');
+        this.GET_MESSAGES({ id: this.DIALOG_ID })
+      })
+    },
+    async __mounted(id) {
+      await this.GET_USER_FROM_DB(id)
+      await this.IS_DIALOG_EXIST({ assigneeId: id })
+      await this.GET_MESSAGES({ id: this.DIALOG_ID })
+      await this.GET_ME()
     }
   },
-  mounted() {
-    this.__mounted(this.$route.params.id)
+  async mounted() {
+    await this.__mounted(this.$route.params.id)
+    this.updateMessages()
   },
   computed: {
     ...mapGetters([
