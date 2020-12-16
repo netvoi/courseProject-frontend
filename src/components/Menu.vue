@@ -1,5 +1,10 @@
 <template>
   <div class="menu">
+    <a
+      class="menu__link menu__link--users modal-trigger"
+      href="#modal6"
+    ></a>
+
     <router-link
       class="menu__link menu__link--list"
       to="/"

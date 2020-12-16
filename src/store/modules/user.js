@@ -2,12 +2,21 @@ import UsersDataService from '@/services/UsersDataService'
 
 export default {
   state: {
+    allUsers: [],
     user: {},
     me: {},
     someUsers: [],
     root: 'http://localhost:8081/static/uploads/'
   },
   actions: {
+    async GET_ALL_USERS({commit}) {
+      const res = await  UsersDataService.getAll()
+        .then(response => response)
+        .catch(error => console.error(error))
+
+      commit('SET_ALL_USERS', res.data.users)
+      return res
+    },
     async GET_USER_FROM_DB({commit}, id) {
       const user = await UsersDataService.get(id)
         .then(response => response)
@@ -41,6 +50,9 @@ export default {
     }
   },
   mutations: {
+    SET_ALL_USERS: (state, users) => {
+      state.allUsers = users
+    },
     SET_USER: (state, user) => {
       state.user = user
     },
@@ -53,6 +65,9 @@ export default {
     }
   },
   getters: {
+    ALL_USERS(state) {
+      return state.allUsers
+    },
     USER(state) {
       return state.user
     },

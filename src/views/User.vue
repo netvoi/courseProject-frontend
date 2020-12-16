@@ -163,15 +163,19 @@ export default {
         await this.myFriends()
       })
 
-      this.sockets.subscribe('update-series', async () => {
+      this.sockets.subscribe('update-series', () => {
         console.log('update-series');
-        await this.GET_INFO_USER_SERIALS(id)
+        setTimeout(async () => {
+          await this.GET_INFO_USER_SERIALS(id)
+        }, 500)
       })
 
-      this.sockets.subscribe('update-user-info', async (data) => {
+      this.sockets.subscribe('update-user-info', (data) => {
         if(Number(this.$route.params.id) === data.id) {
           console.log('id', this.$route.params.id);
-          await this.GET_USER_FROM_DB(id)
+          setTimeout(async () => {
+            await this.GET_USER_FROM_DB(id)
+          }, 500)
         }
       })
     }

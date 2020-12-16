@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 import Message from '@/components/Dialog/Message.vue'
 import DialogHeader from '@/components/Dialog/DialogHeader'
@@ -88,6 +88,9 @@ export default {
     },
   },
   methods: {
+    ...mapMutations([
+        'SET_MESSAGE'
+    ]),
     ...mapActions([
       'IS_DIALOG_EXIST',
       'CREATE_DIALOG',
@@ -111,8 +114,11 @@ export default {
         to: Number(this.$route.params.id),
         from: this.ME.userId,
         created: new Date()
-      }, cb => {
-        if(cb) console.log('Успешно!')
+      }, data => {
+        if(data) {
+          this.SET_MESSAGE(data)
+          console.log('Успешно!')
+        }
         else console.error('Что-то пошло не так!')
       })
 
@@ -160,7 +166,7 @@ export default {
       this.$refs.area.style.height = '30px';
       this.$refs.area.style.height = (this.$refs.area.scrollHeight) + 'px';
     },
-    updateMessages() {
+    /*updateMessages() {
       this.sockets.subscribe('get-message', () => {
         console.log('get-message');
 
@@ -169,7 +175,7 @@ export default {
         }, 500)
 
       })
-    },
+    },*/
     async __mounted(id) {
       await this.GET_USER_FROM_DB(id)
       await this.IS_DIALOG_EXIST({ assigneeId: id })
@@ -179,7 +185,7 @@ export default {
   },
   async mounted() {
     await this.__mounted(this.$route.params.id)
-    this.updateMessages()
+    // this.updateMessages()
   },
   computed: {
     ...mapGetters([

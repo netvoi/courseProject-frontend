@@ -3,9 +3,9 @@
     <div class="dialog__user">
       <div class="dialog__user-img image">
         <img
-            v-if="user.avatar !== null"
-            :src="root + user.avatar"
-            alt="avatar"
+          v-if="user.avatar !== null"
+          :src="root + user.avatar"
+          alt="avatar"
         >
       </div>
       <router-link

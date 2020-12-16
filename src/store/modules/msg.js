@@ -1,4 +1,6 @@
 import MsgDataService from '@/services/MsgDataService'
+import route from '../../router'
+import user from './user'
 
 export default {
   state: {
@@ -32,11 +34,20 @@ export default {
 
       commit('SET_MESSAGES', messages)
       return res
+    },
+    SOCKET_getMessage({commit}, data) {
+      if(data.from === Number(route.currentRoute.params.id)) {
+        commit('SET_MESSAGE', data)
+      }
     }
   },
   mutations: {
     SET_MESSAGES: (state, messages) => {
       state.messages = messages
+    },
+    SET_MESSAGE: (state, data) => {
+      console.log('ВЫЗВАЛСЯ МЕТОД SET_MESSAGE');
+      state.messages.push(data)
     }
   },
   getters: {

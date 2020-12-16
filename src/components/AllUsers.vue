@@ -1,11 +1,11 @@
 <template>
   <div
-    id="modalDialogs"
+    id="modal6"
     class="modal modal-dialog"
-    ref="modalDialogs"
+    ref="modalUsers"
   >
     <div class="modal-dialog__header">
-      <h3 class="title--h3">Выберите собеседника</h3>
+      <h3 class="title--h3">Все пользователи</h3>
     </div>
 
     <router-link
@@ -13,7 +13,7 @@
       tag="a"
       v-for="user in users"
       :key="user.id"
-      :to="`/inbox/im${user.id}`"
+      :to="`/user/${user.id}`"
     >
       <div class="modal-dialog__item-left">
         <div class="modal-dialog__item-img image">
@@ -32,7 +32,7 @@
 
 <script>
 export default {
-  name: 'ModalDialogs',
+  name: 'AllUsers',
   props: {
     users: {
       type: Array,
@@ -46,10 +46,11 @@ export default {
     }
   },
   mounted() {
-    M.Modal.init(this.$refs.modalDialogs)
+    M.Modal.init(this.$refs.modalUsers)
   }
-}
+};
 </script>
 
-<style lang="scss">
+<style scoped>
+
 </style>

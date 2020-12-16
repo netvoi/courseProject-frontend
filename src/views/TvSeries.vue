@@ -114,9 +114,10 @@ export default {
 
     this.sockets.subscribe('update-series', async () => {
       console.log('update-series');
-
-      await this.GET_MARK_FIELDS({ serials_id: this.$route.params.id  })
-      await this.GET_USER_BY_SERIES(this.$route.params.id)
+      setTimeout(async () => {
+        await this.GET_MARK_FIELDS({ serials_id: this.$route.params.id  })
+        await this.GET_USER_BY_SERIES(this.$route.params.id)
+      }, 500)
     })
   },
   computed: {

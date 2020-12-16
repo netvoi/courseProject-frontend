@@ -5,7 +5,7 @@
         <input type="search" placeholder="Поиск">
       </div>
       <div class="sidebar__btn">
-        <button data-target="modalDialogs" class="modal-trigger"></button>
+        <a class="modal-trigger" href="#modalDialogs"></a>
       </div>
     </div>
 

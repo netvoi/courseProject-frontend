@@ -1,5 +1,5 @@
 .menu {
-	width: 170px;
+	width: 200px;
 	margin-left: auto;
 
 	display: flex;
@@ -25,6 +25,10 @@
 
 	transition: background .2s linear;
 
+	&--users {
+		mask-image: url('../img/users.svg');
+	}
+
 	&--list {
 		mask-image: url('../img/list-icon.svg');
 	}
@@ -33,6 +37,7 @@
 		mask-image: url('../img/chat-icon.svg');
 	}
 
+	&--users,
 	&--list,
 	&--chat {
 		&:hover {

@@ -27,6 +27,11 @@
       :root="ROOT"
     />
 
+    <AllUsers
+      :users="ALL_USERS"
+      :root="ROOT"
+    />
+
     <About />
 
     <router-view />
@@ -36,6 +41,7 @@
 <script>
 import Header from '@/components/Header.vue'
 import About from '@/components/About.vue'
+import AllUsers from '@/components/AllUsers.vue'
 import Settings from '@/components/Settings/Settings.vue'
 import Search from '@/components/Search.vue'
 
@@ -50,16 +56,19 @@ export default {
   components: {
     Header,
     About,
+    AllUsers,
     Settings,
     Search,
   },
   methods: {
     ...mapActions([
+      'GET_ALL_USERS',
       'GET_ALL_SERIES',
       'GET_FOUND_SERIES',
       'GET_ME',
       'UPDATE_USER_DATA',
       'UPDATE_USER_PASSWORD',
+
     ]),
     searchStatus(status, search) {
       if(status) {
@@ -88,6 +97,7 @@ export default {
     }
   },
   async mounted() {
+    await this.GET_ALL_USERS()
     await this.GET_ALL_SERIES()
     await this.GET_ME()
 
@@ -95,6 +105,7 @@ export default {
   },
   computed: {
     ...mapGetters([
+      'ALL_USERS',
       'FOUND_SERIES',
       'ME',
       'ROOT'
