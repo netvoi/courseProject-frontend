@@ -1,6 +1,5 @@
 import MsgDataService from '@/services/MsgDataService'
 import route from '../../router'
-import user from './user'
 
 export default {
   state: {

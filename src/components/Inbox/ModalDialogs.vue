@@ -1,25 +1,25 @@
 <template>
   <div
-    id="modalDialogs"
-    class="modal modal-dialog"
-    ref="modalDialogs"
+      id="modalDialogs"
+      class="modal modal-dialog"
+      ref="modalDialogs"
   >
     <div class="modal-dialog__header">
       <h3 class="title--h3">Выберите собеседника</h3>
     </div>
 
     <router-link
-      class="modal-dialog__item modal-close"
-      tag="a"
-      v-for="user in users"
-      :key="user.id"
-      :to="`/inbox/im${user.id}`"
+        class="modal-dialog__item modal-close"
+        tag="a"
+        v-for="user in users"
+        :key="user.id"
+        :to="`/inbox/im${user.id}`"
     >
       <div class="modal-dialog__item-left">
         <div class="modal-dialog__item-img image">
           <img
-            :src="root + user.avatar"
-            alt="avatar"
+              :src="root + user.avatar"
+              alt="avatar"
           >
         </div>
       </div>
@@ -37,7 +37,7 @@ export default {
     users: {
       type: Array,
       default() {
-        return []
+        return [];
       }
     },
     root: {
@@ -46,9 +46,9 @@ export default {
     }
   },
   mounted() {
-    M.Modal.init(this.$refs.modalDialogs)
+    M.Modal.init(this.$refs.modalDialogs);
   }
-}
+};
 </script>
 
 <style lang="scss">

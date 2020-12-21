@@ -2,25 +2,25 @@
   <div>
     <div id="my-review">
       <MyReview
-        class="my-review scroll"
+          class="my-review scroll"
 
-        @changeFavouriteStatus="changeFavouriteStatus"
-        @changeRecommendationStatus="changeRecommendationStatus"
-        @setRating="setRating"
-        @setReviewAndDate="setReviewAndDate"
-        :isFavourite="isFavourite"
-        :isRecommendation="isRecommendation"
-        :rating="rating"
-        :review="review"
-        :date="date"
+          @changeFavouriteStatus="changeFavouriteStatus"
+          @changeRecommendationStatus="changeRecommendationStatus"
+          @setRating="setRating"
+          @setReviewAndDate="setReviewAndDate"
+          :isFavourite="isFavourite"
+          :isRecommendation="isRecommendation"
+          :rating="rating"
+          :review="review"
+          :date="date"
       />
     </div>
     <div id="other-review">
       <OtherReview
-        class="other-review scroll"
+          class="other-review scroll"
 
-       :userSeries="userSeries"
-       :friendsList="friendsList"
+          :userSeries="userSeries"
+          :friendsList="friendsList"
       />
     </div>
 
@@ -69,29 +69,32 @@ export default {
     userSeries: {
       type: Array,
       default() {
-        return []
+        return [];
       }
     },
     friendsList: {
       type: Array,
       default() {
-        return []
+        return [];
       }
     }
   },
-  components: { MyReview, OtherReview },
+  components: {
+    MyReview,
+    OtherReview
+  },
   methods: {
     changeFavouriteStatus(isFavourite) {
-      this.$emit('changeFavouriteStatus', isFavourite)
+      this.$emit('changeFavouriteStatus', isFavourite);
     },
     changeRecommendationStatus(isRecommendation) {
-      this.$emit('changeRecommendationStatus', isRecommendation)
+      this.$emit('changeRecommendationStatus', isRecommendation);
     },
     setRating(rating) {
-      this.$emit('setRating', rating)
+      this.$emit('setRating', rating);
     },
     setReviewAndDate(review, date) {
-      this.$emit('setReviewAndDate', review, date)
+      this.$emit('setReviewAndDate', review, date);
     },
   },
   mounted() {
@@ -103,13 +106,13 @@ export default {
 </script>
 
 <style lang="scss">
-  .my-review,
-  .other-review {
-    max-height: 38vh;
-    overflow: auto;
-  }
+.my-review,
+.other-review {
+  max-height: 38vh;
+  overflow: auto;
+}
 
-  .my-review {
-    overflow: unset;
-  }
+.my-review {
+  overflow: unset;
+}
 </style>

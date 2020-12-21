@@ -1,39 +1,39 @@
 <template>
   <div>
     <div
-      class="friends__item"
-      v-for="item in list"
-      :key="item.id"
+        class="friends__item"
+        v-for="item in list"
+        :key="item.id"
     >
       <div class="friends__image">
-        <img :src="`http://localhost:8081/static/uploads/${item.avatar}`" alt="avatar">
+        <img :src="`${root}${item.avatar}`" alt="avatar">
       </div>
       <router-link
-        class="friends__link modal-close"
-        tag="a"
-        :to="{ name: 'user', params: { id: item.id }}"
+          class="friends__link modal-close"
+          tag="a"
+          :to="{ name: 'user', params: { id: item.id }}"
       >
         {{ item.first_name }} {{ item.last_name }}
       </router-link>
       <button
-        class="friends__btn"
-        @click.prevent="onDialog(item.id)"
-        v-if="status === 0"
+          class="friends__btn"
+          @click.prevent="onDialog(item.id)"
+          v-if="status === 0"
       ></button>
       <div class="ml-auto" v-if="status === 1">
         <button
-          class="friends__btn friends__btn--confirm mr-2"
-          @click.prevent="confirm(item.id)"
+            class="friends__btn friends__btn--confirm mr-2"
+            @click.prevent="confirm(item.id)"
         ></button>
         <button
-          class="friends__btn friends__btn--cancel ml-2"
-          @click.prevent="cancel(item.id)"
+            class="friends__btn friends__btn--cancel ml-2"
+            @click.prevent="cancel(item.id)"
         ></button>
       </div>
       <button
-        class="friends__btn friends__btn--cancel"
-        v-if="status === 2"
-        @click.prevent="cancel(item.id)"
+          class="friends__btn friends__btn--cancel"
+          v-if="status === 2"
+          @click.prevent="cancel(item.id)"
       ></button>
     </div>
   </div>
@@ -50,20 +50,24 @@ export default {
     status: {
       type: Number,
       default: null
+    },
+    root: {
+      type: String,
+      default: ''
     }
   },
   methods: {
     confirm(id) {
-      this.$emit('confirm', id)
+      this.$emit('confirm', id);
     },
     cancel(id) {
-      this.$emit('cancel', id)
+      this.$emit('cancel', id);
     },
     onDialog(id) {
-      this.$router.push(`/inbox/im${id}`)
+      this.$router.push(`/inbox/im${id}`);
     }
   },
-}
+};
 </script>
 
 <style lang="scss">

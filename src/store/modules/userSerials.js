@@ -18,8 +18,8 @@ export default {
         .then(response => response)
         .catch(error => error.response)
 
-      res.data.series.sort((a, b) => a.created < b.created ? 1 : -1)
-      commit('SET_FIELDS', res.data.series)
+      const series = res.data.series.sort((a, b) => a.created < b.created ? 1 : -1)
+      commit('SET_FIELDS', series)
 
       const statistic = {
         countSeries: 0,
@@ -45,7 +45,7 @@ export default {
         })
           .then(resposne => resposne)
           .catch(error => error.response)
-        
+
         commit('EXIST', res.data.isExist)
         return res
       } else {
@@ -69,7 +69,7 @@ export default {
       })
         .then(response => response)
         .catch(error => error.response)
-      
+
       commit('SET_FAVOURITE', res.data.isFavourite)
       return res
     },
@@ -97,7 +97,7 @@ export default {
       })
         .then(response => response)
         .catch(error => error.response)
-      
+
       commit('SET_RATING', res.data.rating)
       return res
     },
@@ -118,7 +118,7 @@ export default {
     async CHANGED_DATE({commit}, params) {
       const seriesId = params.seriesId
       const date = params.date
-      
+
       const res = await UsersSerialsDataService.updateDateField({
         serials_id: seriesId,
         date: date
@@ -133,7 +133,7 @@ export default {
       const res = await UsersSerialsDataService.getMarkFields(keys)
         .then(response => response)
         .catch(error => error.response)
-        
+
       commit('SET_MARK_FIELDS', res.data)
       return res
     },

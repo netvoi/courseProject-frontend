@@ -6,65 +6,66 @@
       <div class="form__item">
         <label class="form__label" for="emailLogin">Эл. почта</label>
         <input
-          id="emailLogin"
-          name="emailLogin"
-          type="text"
-          v-model.trim="userLogin.email"
-          :class="{ invalid: ($v.userLogin.email.$dirty && !$v.userLogin.email.required) || ($v.userLogin.email.$dirty && !$v.userLogin.email.email)}"
+            id="emailLogin"
+            name="emailLogin"
+            type="text"
+            v-model.trim="userLogin.email"
+            :class="{ invalid: ($v.userLogin.email.$dirty && !$v.userLogin.email.required) || ($v.userLogin.email.$dirty && !$v.userLogin.email.email)}"
         >
         <small
-          class="form__invalid"
-          v-if="$v.userLogin.email.$dirty && !$v.userLogin.email.required"
+            class="form__invalid"
+            v-if="$v.userLogin.email.$dirty && !$v.userLogin.email.required"
         >Вы не можете оставить это поле пустым</small>
         <small
-          class="form__invalid"
-          v-else-if="$v.userLogin.email.$dirty && !$v.userLogin.email.email"
+            class="form__invalid"
+            v-else-if="$v.userLogin.email.$dirty && !$v.userLogin.email.email"
         >Введен некорректный email</small>
-        <small 
-          class="form__invalid"
-          v-else-if="isIncorrectData"
+        <small
+            class="form__invalid"
+            v-else-if="isIncorrectData"
         >Неправильный email или password. Повторите попытку.</small>
-        <small 
-          class="form__invalid"
-          v-else-if="error"
+        <small
+            class="form__invalid"
+            v-else-if="error"
         >Что-то пошло не так</small>
       </div>
       <div class="form__item">
         <label class="form__label" for="passwordLogin">Пароль</label>
         <input
-          id="passwordLogin"
-          name="passwordLogin"
-          type="password"
-          v-model.trim="userLogin.password"
-          :class="{ invalid: ($v.userLogin.password.$dirty && !$v.userLogin.password.required) || ($v.userLogin.password.$dirty && !$v.userLogin.password.minLength)}"
+            id="passwordLogin"
+            name="passwordLogin"
+            type="password"
+            v-model.trim="userLogin.password"
+            :class="{ invalid: ($v.userLogin.password.$dirty && !$v.userLogin.password.required) || ($v.userLogin.password.$dirty && !$v.userLogin.password.minLength)}"
         >
         <small
-          class="form__invalid"
-          v-if="$v.userLogin.password.$dirty && !$v.userLogin.password.required"
+            class="form__invalid"
+            v-if="$v.userLogin.password.$dirty && !$v.userLogin.password.required"
         >Вы не можете оставить это поле пустым</small>
-        <small 
-          class="form__invalid"
-          v-else-if="$v.userLogin.password.$dirty && !$v.userLogin.password.minLength"
+        <small
+            class="form__invalid"
+            v-else-if="$v.userLogin.password.$dirty && !$v.userLogin.password.minLength"
         >Минимальная длина пароля 8 символов</small>
       </div>
       <button
-        class="btn btn--auth"
-        type="submit"
-      >Войти</button>
+          class="btn btn--auth"
+          type="submit"
+      >Войти
+      </button>
     </form>
     <div class="auth__footer">
       <span>Не участник?</span>
       <a
-        class="form__link" 
-        href="#register"
-        @click="setActive('register')"
+          class="form__link"
+          href="#register"
+          @click="setActive('register')"
       >Зарегистрироваться</a>
     </div>
   </div>
 </template>
 
 <script>
-import { required, minLength, email } from 'vuelidate/lib/validators'
+import { required, minLength, email } from 'vuelidate/lib/validators';
 
 export default {
   name: 'login',
@@ -92,12 +93,12 @@ export default {
   },
   methods: {
     eventLogin() {
-      if(this.$v.$invalid) {
-        this.$v.$touch()
-        return
+      if (this.$v.$invalid) {
+        this.$v.$touch();
+        return;
       }
 
-      this.$emit('eventLogin', this.userLogin)
+      this.$emit('eventLogin', this.userLogin);
     },
   },
   validations: {
@@ -112,15 +113,15 @@ export default {
       }
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
-  .show {
-    display: block;
-  }
+.show {
+  display: block;
+}
 
-  .active {
-    display: block;
-  }
-</style> 
+.active {
+  display: block;
+}
+</style>

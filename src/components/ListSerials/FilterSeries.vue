@@ -4,12 +4,12 @@
 
     <form class="filter-series__form" @click.stop="">
       <SelectorField
-        @selectedOption="selectedOption"
-        v-for="(field, name, index) in filterFields"
-        :key="index"
-        :field="field"
-        :nameKey="name"
-        :nameOption="selected[name]"
+          @selectedOption="selectedOption"
+          v-for="(field, name, index) in filterFields"
+          :key="index"
+          :field="field"
+          :nameKey="name"
+          :nameOption="selected[name]"
       />
 
       <div class="filter-series__buttons">
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import SelectorField from '@/components/ListSerials/SelectorField.vue'
+import SelectorField from '@/components/ListSerials/SelectorField.vue';
 
 export default {
   name: 'filter-series',
@@ -39,7 +39,7 @@ export default {
     filterFields: {
       type: Object,
       default() {
-        return {}
+        return {};
       }
     }
   },
@@ -48,22 +48,22 @@ export default {
   },
   methods: {
     selectedOption(item, nameKey) {
-      this.selected[nameKey] = item
-      this.filter[nameKey] = item
+      this.selected[nameKey] = item;
+      this.filter[nameKey] = item;
     },
     findWithFilter() {
-      this.$emit('findWithFilter', this.filter)
+      this.$emit('findWithFilter', this.filter);
     },
     dropFilters() {
-      this.$emit('dropFilters')
+      this.$emit('dropFilters');
 
-      this.selected.genre = 'Жанр'
-      this.selected.year = 'Год'
-      this.selected.country = 'Страна'
-      this.selected.rating = 'Рейтинг'
+      this.selected.genre = 'Жанр';
+      this.selected.year = 'Год';
+      this.selected.country = 'Страна';
+      this.selected.rating = 'Рейтинг';
     }
   },
-}
+};
 </script>
 
 <style lang="scss">

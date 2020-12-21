@@ -10,17 +10,17 @@
     </div>
 
     <router-link
-      class="sidebar__item"
-      v-for="(dialog, index) in dialogs"
-      :key="index"
-      tag="a"
-      :to="`/inbox/im${dialog.id}`"
+        class="sidebar__item"
+        v-for="(dialog, index) in dialogs"
+        :key="index"
+        tag="a"
+        :to="`/inbox/im${dialog.id}`"
     >
       <div class="sidebar__item-left">
         <div class="sidebar__item-img">
           <img
-            :src="root + dialog.avatar"
-            alt="avatar"
+              :src="root + dialog.avatar"
+              alt="avatar"
           >
         </div>
       </div>
@@ -40,7 +40,7 @@ export default {
     dialogs: {
       type: Array,
       default() {
-        return []
+        return [];
       }
     },
     root: {
@@ -48,7 +48,7 @@ export default {
       default: ''
     }
   },
-}
+};
 </script>
 
 <style lang="scss">

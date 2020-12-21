@@ -3,10 +3,10 @@
     <div></div>
     <div class="messages">
       <div
-        v-for="(message, index) in messages"
-        :key="index"
-        :class="{ 'messages__item--owner': owner === message.from }"
-        class="messages__item"
+          v-for="(message, index) in messages"
+          :key="index"
+          :class="{ 'messages__item--owner': owner === message.from }"
+          class="messages__item"
       >
         <p>{{ message.message }}</p>
       </div>
@@ -21,7 +21,7 @@ export default {
     messages: {
       type: Array,
       default() {
-        return []
+        return [];
       }
     },
     owner: {
@@ -29,13 +29,13 @@ export default {
       default: null
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
-  .pt {
-    & + & {
-      margin-top: 3rem;
-    }
+.pt {
+  & + & {
+    margin-top: 3rem;
   }
-</style> 
+}
+</style>

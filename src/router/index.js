@@ -43,7 +43,6 @@ const routes = [
     name: 'listSerials',
     meta: { layout: 'main' },
     component: () => import('../views/ListSerials.vue'),
-
   }
 ];
 

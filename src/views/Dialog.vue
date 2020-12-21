@@ -166,16 +166,7 @@ export default {
       this.$refs.area.style.height = '30px';
       this.$refs.area.style.height = (this.$refs.area.scrollHeight) + 'px';
     },
-    /*updateMessages() {
-      this.sockets.subscribe('get-message', () => {
-        console.log('get-message');
 
-        setTimeout(() => {
-          this.GET_MESSAGES({ id: this.DIALOG_ID })
-        }, 500)
-
-      })
-    },*/
     async __mounted(id) {
       await this.GET_USER_FROM_DB(id)
       await this.IS_DIALOG_EXIST({ assigneeId: id })
@@ -185,7 +176,6 @@ export default {
   },
   async mounted() {
     await this.__mounted(this.$route.params.id)
-    // this.updateMessages()
   },
   computed: {
     ...mapGetters([

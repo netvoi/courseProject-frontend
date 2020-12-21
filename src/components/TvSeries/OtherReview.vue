@@ -2,16 +2,18 @@
   <div class="otherReview">
     <div v-if="userSeries.length !== 0">
       <div
-        class="otherReview__item"
-        v-for="user in userSeries"
-        :key="user.id"
+          class="otherReview__item"
+          v-for="user in userSeries"
+          :key="user.id"
       >
         <div v-if="friendsList.includes(user.users_id)" :flag="flag=true">
           <div class="otherReview__rating">
-            <h2 class="otherReview__title title--h2"><span>{{ user.user.first_name }} {{ user.user.last_name }}</span> уже посмотрел этот сериал</h2>
+            <h2 class="otherReview__title title--h2"><span>{{ user.user.first_name }} {{ user.user.last_name }}</span>
+              уже посмотрел этот сериал</h2>
             <div
-              v-if="!user.is_recommendation && !user.is_favourite && !user.rating && !user.rating && !user.review"
-            >Но пока не успел оценить его</div>
+                v-if="!user.is_recommendation && !user.is_favourite && !user.rating && !user.rating && !user.review"
+            >Но пока не успел оценить его
+            </div>
 
             <div class="rating" v-else>
               <div class="rating__item rating__item--rec" v-if="user.is_recommendation">
@@ -30,15 +32,15 @@
 
               <div>
                 <star-rating
-                  :rating="user.rating"
-                  :read-only="true"
-                  :increment="0.5"
-                  :star-size="30"
-                  :padding="5"
-                  :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"
-                  :rounded-corners="true"
-                  :glow="5"
-                  :show-rating="false"
+                    :rating="user.rating"
+                    :read-only="true"
+                    :increment="0.5"
+                    :star-size="30"
+                    :padding="5"
+                    :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"
+                    :rounded-corners="true"
+                    :glow="5"
+                    :show-rating="false"
                 ></star-rating>
               </div>
             </div>
@@ -61,9 +63,9 @@
     </div>
 
     <div
-      class="otherReview"
-      v-else
-      :flag="flag = false"
+        class="otherReview"
+        v-else
+        :flag="flag = false"
     >
       <p>Никто не посмотрел данный сериал, станьте первым, кто оценит его!</p>
     </div>
@@ -71,7 +73,7 @@
 </template>
 
 <script>
-import StarRating from 'vue-star-rating'
+import StarRating from 'vue-star-rating';
 
 export default {
   name: 'otherReview',
@@ -83,13 +85,13 @@ export default {
     userSeries: {
       type: Array,
       default() {
-        return []
+        return [];
       }
     },
     friendsList: {
       type: Array,
       default() {
-        return []
+        return [];
       }
     }
   },

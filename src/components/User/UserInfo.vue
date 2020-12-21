@@ -3,12 +3,12 @@
     <div class="row align-items-center mb-0">
       <div class="col-4">
         <div
-          class="user__photo ml-auto mr-auto"
-          v-if="user.id"
+            class="user__photo ml-auto mr-auto"
+            v-if="user.id"
         >
           <img
-            :src="root + user.avatar"
-            alt="avatar"
+              :src="root + user.avatar"
+              alt="avatar"
           >
         </div>
       </div>
@@ -22,13 +22,13 @@
           </div>
           <div class="user__links">
             <a href="#modal1" class="user__link modal-trigger">
-                Друзей: <span id="friendCount">{{ countFriends }}</span>
+              Друзей: <span id="friendCount">{{ countFriends }}</span>
             </a>
             <a
-              href="#serials"
-              class="user__link"
-              @mouseover="isActive = true"
-              @mouseleave="isActive = false"
+                href="#serials"
+                class="user__link"
+                @mouseover="isActive = true"
+                @mouseleave="isActive = false"
             >
               Сериалов просмотренно: <span>{{ statistic.countSeries }}</span>
               <div class="series-statisctic" :class="{ showTtip: isActive }">
@@ -39,37 +39,38 @@
           </div>
           <div class="user__buttons" v-if="myId !== userId">
             <button
-              class="btn btn--delete"
-              v-if="myFriendList.includes(user.id)"
-              @click.prevent="cancel(user.id)"
+                class="btn btn--delete"
+                v-if="myFriendList.includes(user.id)"
+                @click.prevent="cancel(user.id)"
             >Удалить<span></span></button>
             <div
-              class="btn__block"
-              v-else-if="requestToMeList.includes(user.id)"
+                class="btn__block"
+                v-else-if="requestToMeList.includes(user.id)"
             >
               <button
-                class="btn btn--add"
-                @click.prevent="confirm(user.id)"
+                  class="btn btn--add"
+                  @click.prevent="confirm(user.id)"
               >Принять<span></span></button>
               <button
-                class="btn btn--delete"
-                @click.prevent="cancel(user.id)"
+                  class="btn btn--delete"
+                  @click.prevent="cancel(user.id)"
               >Отклонить<span></span></button>
             </div>
             <button
-              class="btn btn--delete"
-              v-else-if="requestFromMeList.includes(user.id)"
-              @click.prevent="cancel(user.id)"
+                class="btn btn--delete"
+                v-else-if="requestFromMeList.includes(user.id)"
+                @click.prevent="cancel(user.id)"
             >Отменить заявку<span></span></button>
             <button
-              class="btn btn--add"
-              v-else
-              @click.prevent="request(user.id)"
+                class="btn btn--add"
+                v-else
+                @click.prevent="request(user.id)"
             >Добавить<span></span></button>
             <button
-              class="btn btn--message"
-              @click="() => { this.$router.push(`/inbox/im${user.id}`) }"
-            >Отправить сообщение</button>
+                class="btn btn--message"
+                @click="() => { this.$router.push(`/inbox/im${user.id}`) }"
+            >Отправить сообщение
+            </button>
           </div>
         </div>
       </div>
@@ -78,7 +79,7 @@
 </template>
 
 <script>
-import r from '@/utils/root'
+import r from '@/utils/root';
 
 export default {
   name: 'UserInfo',
@@ -89,13 +90,13 @@ export default {
     user: {
       type: Object,
       default() {
-        return {}
+        return {};
       },
     },
     statistic: {
       type: Object,
       default() {
-        return {}
+        return {};
       },
     },
     myId: {
@@ -114,19 +115,19 @@ export default {
     myFriendList: {
       type: Array,
       default() {
-        return []
+        return [];
       }
     },
     requestFromMeList: {
       type: Array,
       default() {
-        return []
+        return [];
       }
     },
     requestToMeList: {
       type: Array,
       default() {
-        return []
+        return [];
       }
     },
     root: {
@@ -136,19 +137,19 @@ export default {
   },
   methods: {
     confirm(id) {
-      this.$emit('confirm', id)
+      this.$emit('confirm', id);
     },
     cancel(id) {
-      this.$emit('cancel', id)
+      this.$emit('cancel', id);
     },
     request(id) {
-      this.$emit('request', id)
+      this.$emit('request', id);
     },
     favourite() {
-      this.$emit('favourite')
+      this.$emit('favourite');
     },
     mouseOver() {
-      this.isActive = !this.isActive
+      this.isActive = !this.isActive;
     }
   },
 };

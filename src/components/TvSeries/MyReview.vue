@@ -3,56 +3,57 @@
     <h3 class="myReview__title title--h2">Моя оценка сериалу</h3>
 
     <Rating
-      @changeFavouriteStatus="changeFavouriteStatus"
-      @changeRecommendationStatus="changeRecommendationStatus"
-      @setRating="setRating"
-      :isFavourite="isFavourite"
-      :isRecommendation="isRecommendation"
-      :rating="rating"
+        @changeFavouriteStatus="changeFavouriteStatus"
+        @changeRecommendationStatus="changeRecommendationStatus"
+        @setRating="setRating"
+        :isFavourite="isFavourite"
+        :isRecommendation="isRecommendation"
+        :rating="rating"
     />
 
     <div class="myReview__options">
       <label for="review" class="review-form__label">Моё мнение</label>
       <span v-if="review">
         <button
-          class="myReview__options-item myReview__options-item--edit"
-          type="button"
-          @click.prevent="change()"
+            class="myReview__options-item myReview__options-item--edit"
+            type="button"
+            @click.prevent="change()"
         ></button>
         <button
-          class="myReview__options-item myReview__options-item--delete"
-          type="button"
-          @click.prevent="setReview('')"
+            class="myReview__options-item myReview__options-item--delete"
+            type="button"
+            @click.prevent="setReview('')"
         ></button>
       </span>
     </div>
 
 
     <form
-      class="review-form"
-      action="#"
-      v-if="review === ''"
+        class="review-form"
+        action="#"
+        v-if="review === ''"
     >
       <div class="review-form__item">
         <textarea
-          class="review-form__textarea"
-          name="review"
-          id="review"
-          placeholder="Поделиться мнением"
-          v-model="textReview"
+            class="review-form__textarea"
+            name="review"
+            id="review"
+            placeholder="Поделиться мнением"
+            v-model="textReview"
         ></textarea>
       </div>
       <button
-        class="review-form__btn btn btn--form"
-        type="submit"
-        @click.prevent="setReview(textReview)"
-      >Отправить</button>
+          class="review-form__btn btn btn--form"
+          type="submit"
+          @click.prevent="setReview(textReview)"
+      >Отправить
+      </button>
     </form>
 
     <div v-else>
       <div
-        class="myReview__item"
-        v-if="changedTextReview === null"
+          class="myReview__item"
+          v-if="changedTextReview === null"
       >
         <div class="myReview__text">
           <div class="myReview__text-wrapper scroll"><p>{{ review }}</p></div>
@@ -61,14 +62,14 @@
       </div>
       <div v-else>
         <textarea
-          class="review-form__textarea"
-          placeholder="Поделиться мнением"
-          v-model="changedTextReview"
+            class="review-form__textarea"
+            placeholder="Поделиться мнением"
+            v-model="changedTextReview"
         ></textarea>
         <span>
           <button
-            class="review-form__btn btn btn--form"
-            @click.prevent="setReview(changedTextReview)"
+              class="review-form__btn btn btn--form"
+              @click.prevent="setReview(changedTextReview)"
           >Редактировать</button>
         </span>
       </div>
@@ -110,44 +111,44 @@ export default {
   components: { Rating },
   methods: {
     changeFavouriteStatus(isFavourite) {
-      this.$emit('changeFavouriteStatus', isFavourite)
+      this.$emit('changeFavouriteStatus', isFavourite);
     },
     changeRecommendationStatus(isRecommendation) {
-      this.$emit('changeRecommendationStatus', isRecommendation)
+      this.$emit('changeRecommendationStatus', isRecommendation);
     },
     setRating(rating) {
-      this.$emit('setRating', rating)
+      this.$emit('setRating', rating);
     },
     setReview(review) {
-      this.dateTime = this.getDateTime()
+      this.dateTime = this.getDateTime();
 
-      this.$emit('setReviewAndDate', review, this.dateTime)
+      this.$emit('setReviewAndDate', review, this.dateTime);
 
-      this.changedTextReview = null
-      this.textReview = ''
+      this.changedTextReview = null;
+      this.textReview = '';
     },
     change() {
-      this.changedTextReview = this.review
+      this.changedTextReview = this.review;
     },
     getDateTime() {
       function zero_first_format(value) {
-        if (value < 10) value = '0' + value
+        if (value < 10) value = '0' + value;
         return value;
       }
 
-      const current_datetime = new Date()
-      const day = zero_first_format(current_datetime.getDate())
-      const month = zero_first_format(current_datetime.getMonth() + 1)
-      const year = current_datetime.getFullYear()
-      const hours = zero_first_format(current_datetime.getHours())
-      const minutes = zero_first_format(current_datetime.getMinutes())
-      const seconds = zero_first_format(current_datetime.getSeconds())
+      const current_datetime = new Date();
+      const day = zero_first_format(current_datetime.getDate());
+      const month = zero_first_format(current_datetime.getMonth() + 1);
+      const year = current_datetime.getFullYear();
+      const hours = zero_first_format(current_datetime.getHours());
+      const minutes = zero_first_format(current_datetime.getMinutes());
+      const seconds = zero_first_format(current_datetime.getSeconds());
 
-      const date = day + "." + month + "." + year + " " + hours + ":" + minutes + ":" + seconds
-      return date
+      const date = day + '.' + month + '.' + year + ' ' + hours + ':' + minutes + ':' + seconds;
+      return date;
     }
   },
-}
+};
 </script>
 
 <style lang="scss">
