@@ -102,6 +102,9 @@ export default {
     await this.GET_ME()
 
     this.$socket.emit('userJoin', { id: this.ME.userId })
+    this.sockets.subscribe('new-user', () => {
+      this.GET_ALL_USERS()
+    })
   },
   computed: {
     ...mapGetters([

@@ -43,8 +43,12 @@ const routes = [
     name: 'listSerials',
     meta: { layout: 'main' },
     component: () => import('../views/ListSerials.vue'),
+  },
+  {
+    path: '*',
+    component: () => import('../views/Error.vue'),
   }
-];
+]
 
 const router = new VueRouter({
   mode: 'history',

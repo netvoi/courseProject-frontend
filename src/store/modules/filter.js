@@ -6,16 +6,16 @@ export default {
     GET_SERIES_FILTERED({commit}, params) {
       let series = []
 
-      function sortByFilter(array, filter) {
-        array.sort((a, b) => a[filter] < b[filter] ? 1 : -1)
-      }
-
       if(params.filter === 'is_favourite' || params.filter === 'is_recommendation') {
         series = params.info.filter(s => s[params.filter] === true)
         commit('SET_SERIES_FILTERED', series)
+      } else if(params.filter === 'created') {
+        series = params.info
+        series.sort((a, b) => a[params.filter] < b[params.filter] ? 1 : -1)
+        commit('UNSET_SERIES_FILTERED')
       } else {
         series = params.info
-        sortByFilter(series, params.filter)
+        series.sort((a, b) => a[params.filter] < b[params.filter] ? 1 : -1)
         commit('UNSET_SERIES_FILTERED')
       }
     }

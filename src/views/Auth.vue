@@ -4,9 +4,9 @@
       <transition name="fade-title">
         <h1 v-if="showTitle" class="auth__title">Привет!</h1>
       </transition>
-    
+
       <transition name="fade-subtitle">
-        <h2 v-if="showTitle" class="auth__subtitle">Добро пожаловать в Libertad</h2>  
+        <h2 v-if="showTitle" class="auth__subtitle">Добро пожаловать в Libertad</h2>
       </transition>
     </div>
 
@@ -76,6 +76,8 @@ export default {
       this.REGISTER(user)
         .then(response => {
           if(response.status === 200) {
+            this.$socket.emit('newUser')
+
             this.isExist = false
             this.$router.push('/')
           } else if(response.status === 403) {
@@ -104,4 +106,4 @@ export default {
 </script>
 
 <style lang="scss">
-</style> 
+</style>
